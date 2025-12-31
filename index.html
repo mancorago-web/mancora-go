@@ -126,7 +126,7 @@
     <h2 style="margin:20px 0 10px 5px;">🍽 Restaurantes</h2>
 
     <div class="card">
-      <a class="restaurant-card" onclick="openMenu()">
+      <a class="restaurant-card" href="#menu" onclick="openMenu(event)">"openMenu(event)">
         <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=800&auto=format&fit=crop" alt="La Ola Burger">
         <div class="card-content">
           <div class="restaurant-name">🍔 La Ola Burger</div>
@@ -167,10 +167,19 @@
 
     
 
-    div class="card">
-      <h2>Haz tu pedido</h2>
-      <p>Toca el botón y pide fácil por WhatsApp 👇</p>
-      <a class="btn" href="https://wa.me/51978742157?text=Hola%20quiero%20hacer%20un%20pedido%20por%20Máncora%20Go!" targment.getElementById('menu').offsetTop, behavior: 'smooth' });
+    
+
+    
+
+    <div class="footer">
+      © 2025 Máncora Go! · Delivery local
+    </div>
+
+  </dfunction openMenu(event) {
+      event.preventDefault();ction openMenu(event) {
+      event.preventDefault();
+      document.getElementById('menu').classList.remove('hidden');
+      window.scrollTo({ top: document.getElementById('menu').offsetTop, behavior: 'smooth' });
     }
   </script>
 
