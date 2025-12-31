@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Máncora Go! – Delivery local</title>
-  <meta name="description" content="Máncora Go! Delivery local rápido en Máncora. Restaurantes, minimarkets y farmacias por WhatsApp." />
+  <meta name="description" content="Máncora Go! Delivery local de restaurantes en Máncora. Pide comida por WhatsApp y recibe en tu puerta." />
   <style>
     body {
       margin: 0;
@@ -58,7 +58,8 @@
       margin: 8px 0 4px 0;
     }
     .btn {
-      display: inline-block;
+      display: block;
+      margin: 12px auto 0 auto;
       background: #25D366;
       color: white;
       text-decoration: none;
@@ -66,6 +67,7 @@
       border-radius: 12px;
       font-size: 1rem;
       font-weight: bold;
+      text-align: center;
     }
     .menu-item {
       display: flex;
@@ -94,10 +96,34 @@
 
   <header>
     <h1>🛵 Máncora Go!</h1>
-    <p>Todo Máncora, en delivery</p>
+    <p>Restaurantes de Máncora, en tu puerta</p>
   </header>
 
   <div class="container">
+
+    <div class="card">
+      <div class="card-content">
+        <h2>¿Qué es Máncora Go?</h2>
+        <p>
+          Somos un delivery local en Máncora que conecta
+          <strong>restaurantes locales</strong>, <strong>moto taxis</strong>
+          y <strong>clientes</strong> de forma rápida y simple.
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <h2>¿Cómo funciona?</h2>
+        <ul>
+          <li>📲 Pides por WhatsApp</li>
+          <li>🛵 Un moto taxi entrega</li>
+          <li>💵 Pagas al recibir (Efectivo / Yape)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 style="margin:20px 0 10px 5px;">🍽 Restaurantes</h2>
 
     <div class="card">
       <a class="restaurant-card" onclick="openMenu()">
@@ -137,51 +163,14 @@
       </div>
     </div>
 
-    <div class="card">
-      <h2>¿Qué es Máncora Go?</h2>
-      <p>
-        Somos un delivery local en Máncora que conecta
-        <strong>negocios locales</strong>, <strong>moto taxis</strong>
-        y <strong>clientes</strong> de forma rápida y simple.
-      </p>
-    </div>
+    
 
-    <div class="card">
-      <h2>¿Qué puedes pedir?</h2>
-      <ul>
-        <li>🍔 Restaurantes</li>
-        <li>🛒 Minimarkets</li>
-        <li>💊 Farmacias</li>
-      </ul>
-    </div>
+    
 
-    <div class="card">
-      <h2>¿Cómo funciona?</h2>
-      <ul>
-        <li>📲 Pides por WhatsApp</li>
-        <li>🛵 Un moto taxi entrega</li>
-        <li>💵 Pagas al recibir (efectivo / Yape / Plin)</li>
-      </ul>
-    </div>
-
-    <div class="card">
+    div class="card">
       <h2>Haz tu pedido</h2>
       <p>Toca el botón y pide fácil por WhatsApp 👇</p>
-      <a class="btn" href="https://wa.me/51978742157?text=Hola%20quiero%20hacer%20un%20pedido%20por%20Máncora%20Go!" target="_blank">
-        Pedir por WhatsApp
-      </a>
-    </div>
-
-    <div class="footer">
-      © 2025 Máncora Go! · Delivery local
-    </div>
-
-  </div>
-
-<script>
-    function openMenu() {
-      document.getElementById('menu').classList.remove('hidden');
-      window.scrollTo({ top: document.getElementById('menu').offsetTop, behavior: 'smooth' });
+      <a class="btn" href="https://wa.me/51978742157?text=Hola%20quiero%20hacer%20un%20pedido%20por%20Máncora%20Go!" targment.getElementById('menu').offsetTop, behavior: 'smooth' });
     }
   </script>
 
