@@ -19,94 +19,25 @@
       color: white;
       position: relative;
     }
-
     header::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.45);
+      background: rgba(0,0,0,0.45);
     }
-
-    header * {
-      position: relative;
-    }
-    header h1 {
-      font-size: 2.2rem;
-      margin: 0 0 10px 0;
-    }
-    header p {
-      font-size: 1.1rem;
-      margin: 0;
-    }
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    .card {
-      background: white;
-      border-radius: 16px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-      overflow: hidden;
-    }
-    .card-content {
-      padding: 16px 20px 20px 20px;
-    }
-    .restaurant-card {
-      cursor: pointer;
-      display: block;
-    }
-    .restaurant-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-    .restaurant-name {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin: 8px 0 4px 0;
-    }
-    .menu-item {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 16px;
-      align-items: center;
-    }
-    .menu-item img {
-      width: 90px;
-      height: 90px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-    .menu-item h4 {
-      margin: 0 0 4px 0;
-    }
-    .price {
-      font-weight: bold;
-      margin-top: 4px;
-    }
-    .btn {
-      display: block;
-      margin: 20px auto 0 auto;
-      background: #25D366;
-      color: white;
-      text-decoration: none;
-      padding: 12px 20px;
-      border-radius: 12px;
-      font-size: 1rem;
-      font-weight: bold;
-      text-align: center;
-    }
-    .hidden {
-      display: none;
-    }
-    .footer {
-      text-align: center;
-      font-size: 0.85rem;
-      color: #666;
-      margin: 30px 0 10px 0;
-    }
+    header * { position: relative; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    .card { background: white; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); overflow: hidden; }
+    .card-content { padding: 16px 20px 20px; }
+    .restaurant-card { cursor: pointer; }
+    .restaurant-card img { width: 100%; height: 180px; object-fit: cover; }
+    .restaurant-name { font-size: 1.2rem; font-weight: bold; margin: 8px 0 4px; }
+    .menu-item { display: flex; gap: 12px; margin-bottom: 16px; align-items: center; }
+    .menu-item img { width: 90px; height: 90px; object-fit: cover; border-radius: 10px; }
+    .price { font-weight: bold; }
+    .btn { display: block; margin: 20px auto 0; background: #25D366; color: white; text-decoration: none; padding: 12px 20px; border-radius: 12px; font-weight: bold; text-align: center; }
+    .hidden { display: none; }
+    .footer { text-align: center; font-size: 0.85rem; color: #666; margin: 30px 0 10px; }
   </style>
 </head>
 <body>
@@ -118,104 +49,49 @@
 
 <div class="container">
 
-  <div class="card">
-    <div class="card-content">
-      <h2>¿Qué es Máncora Go?</h2>
-      <p>
-        Somos un delivery local en Máncora que conecta
-        <strong>restaurantes locales</strong>, <strong>moto taxis</strong>
-        y <strong>clientes</strong> de forma rápida y simple.
-      </p>
-    </div>
-  </div>
+  <div class="card"><div class="card-content"><h2>¿Qué es Máncora Go?</h2><p>Delivery local que conecta restaurantes, moto taxis y clientes.</p></div></div>
+  <div class="card"><div class="card-content"><h2>¿Cómo funciona?</h2><ul><li>📲 Pides por WhatsApp</li><li>🛵 Un moto taxi entrega</li><li>💵 Pagas al recibir (Efectivo / Yape)</li></ul></div></div>
 
-  <div class="card">
-    <div class="card-content">
-      <h2>¿Cómo funciona?</h2>
-      <ul>
-        <li>📲 Pides por WhatsApp</li>
-        <li>🛵 Un moto taxi entrega</li>
-        <li>💵 Pagas al recibir (Efectivo / Yape)</li>
-      </ul>
-    </div>
-  </div>
+  <h2><span id="restaurantes">🍽 Restaurantes</span></h2>
 
-  <h2 style="margin:20px 0 10px 5px;">🍽 Restaurantes</h2>
+  <!-- Restaurante 1 -->
+  <div class="card"><div class="restaurant-card" onclick="openMenu('menu-burger')">
+    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=800&auto=format&fit=crop">
+    <div class="card-content"><div class="restaurant-name">🍔 La Ola Burger</div><p>Hamburguesas artesanales</p><p style="color:#0ea5e9;font-weight:600;">Ver menú →</p></div>
+  </div></div>
 
-  <div class="card">
-    <div class="restaurant-card" onclick="openMenu()">
-      <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=800&auto=format&fit=crop" alt="La Ola Burger">
-      <div class="card-content">
-        <div class="restaurant-name">🍔 La Ola Burger</div>
-        <p>Hamburguesas artesanales – Máncora</p>
-        <p><strong>Horario:</strong> 6:00 pm – 11:00 pm</p>
-        <p style="color:#0ea5e9; font-weight:600;">Ver menú →</p>
-      </div>
-    </div>
-  </div>
+  <!-- Restaurante 2 -->
+  <div class="card"><div class="restaurant-card" onclick="openMenu('menu-ice')">
+    <img src="https://images.unsplash.com/photo-1497051788611-2c64812349b4?q=80&w=800&auto=format&fit=crop">
+    <div class="card-content"><div class="restaurant-name">🍦 Heladería Polar</div><p>Helados artesanales</p><p style="color:#0ea5e9;font-weight:600;">Ver menú →</p></div>
+  </div></div>
 
-  <div class="card hidden" id="menu">
-    <div class="card-content">
-      <h2>Menú – La Ola Burger</h2>
+  <!-- Menú Burger -->
+  <div class="card hidden" id="menu-burger"><div class="card-content"><a href="#restaurantes" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">← Volver a restaurantes</a>
+        <h2>Menú – La Ola Burger</h2>
+    <div class="menu-item"><img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=400&auto=format&fit=crop"><div><strong>Clásica</strong><p>Carne y queso</p><div class="price">S/ 15</div></div></div>
+    <div class="menu-item"><img src="https://images.unsplash.com/photo-1550317138-10000687a72b?q=80&w=400&auto=format&fit=crop"><div><strong>Doble</strong><p>Doble carne</p><div class="price">S/ 20</div></div></div>
+    <a class="btn" href="https://wa.me/51978742157" target="_blank">Pedir por WhatsApp</a>
+  </div></div>
 
-      <div class="menu-item">
-        <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=400&auto=format&fit=crop" alt="Hamburguesa clásica">
-        <div>
-          <h4>Hamburguesa Clásica</h4>
-          <p>Carne, queso, lechuga y tomate</p>
-          <div class="price">S/ 15</div>
-        </div>
-      </div>
+  <!-- Menú Heladería -->
+  <div class="card hidden" id="menu-ice"><div class="card-content"><a href="#restaurantes" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">← Volver a restaurantes</a>
+        <h2>Menú – Heladería Polar</h2>
+    <div class="menu-item"><img src="https://images.unsplash.com/photo-1505253758473-96b7015fcd40?q=80&w=400&auto=format&fit=crop"><div><strong>Cono simple</strong><p>Vainilla / Chocolate</p><div class="price">S/ 5</div></div></div>
+    <div class="menu-item"><img src="https://images.unsplash.com/photo-1514517220017-8ce97a34a7b6?q=80&w=400&auto=format&fit=crop"><div><strong>Cono doble</strong><p>2 sabores</p><div class="price">S/ 8</div></div></div>
+    <div class="menu-item"><img src="https://images.unsplash.com/photo-1562059390-a761a084768e?q=80&w=400&auto=format&fit=crop"><div><strong>Copa</strong><p>3 sabores</p><div class="price">S/ 12</div></div></div>
+    <div class="menu-item"><img src="https://images.unsplash.com/photo-1589712235274-6735f78c70bd?q=80&w=400&auto=format&fit=crop"><div><strong>Milkshake</strong><p>Fresa / Oreo</p><div class="price">S/ 14</div></div></div>
+    <div class="menu-item"><img src="https://images.unsplash.com/photo-1527515637462-daf87e60b96a?q=80&w=400&auto=format&fit=crop"><div><strong>Paleta artesanal</strong><p>Mango / Maracuyá</p><div class="price">S/ 6</div></div></div>
+    <a class="btn" href="https://wa.me/51978742157" target="_blank">Pedir por WhatsApp</a>
+  </div></div>
 
-      <div class="menu-item">
-        <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?q=80&w=400&auto=format&fit=crop" alt="Hamburguesa doble">
-        <div>
-          <h4>Hamburguesa Doble</h4>
-          <p>Doble carne y doble queso</p>
-          <div class="price">S/ 20</div>
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=400&auto=format&fit=crop" alt="Papas fritas">
-        <div>
-          <h4>Papas Fritas</h4>
-          <p>Crujientes y doradas</p>
-          <div class="price">S/ 8</div>
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <img src="https://images.unsplash.com/photo-1622484211148-8bca5efb2d78?q=80&w=400&auto=format&fit=crop" alt="Coca Cola">
-        <div>
-          <h4>Coca-Cola</h4>
-          <p>500 ml</p>
-          <div class="price">S/ 5</div>
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <img src="https://images.unsplash.com/photo-1600275669439-14e40452d20b?q=80&w=400&auto=format&fit=crop" alt="Inca Kola">
-        <div>
-          <h4>Inca Kola</h4>
-          <p>500 ml</p>
-          <div class="price">S/ 5</div>
-        </div>
-      </div>
-
-      <a class="btn" href="https://wa.me/51978742157?text=Hola%20quiero%20hacer%20un%20pedido%20en%20La%20Ola%20Burger%20por%20Máncora%20Go!" target="_blank">Pedir por WhatsApp</a>
-    </div>
-  </div>
-
-  <div class="footer">
-    © 2025 Máncora Go! · Delivery local
-  </div>
-
+  <div class="footer">© 2025 Máncora Go!</div>
 </div>
 
 <script>
-  function openMenu() {
-    const menu = document.getElementById('menu');
+  function openMenu(id) {
+    document.querySelectorAll('.card.hidden').forEach(m => m.classList.add('hidden'));
+    const menu = document.getElementById(id);
     menu.classList.remove('hidden');
     menu.scrollIntoView({ behavior: 'smooth' });
   }
@@ -223,4 +99,3 @@
 
 </body>
 </html>
-
