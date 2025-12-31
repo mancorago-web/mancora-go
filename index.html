@@ -33,7 +33,6 @@
     .card {
       background: white;
       border-radius: 16px;
-      padding: 0;
       margin-bottom: 20px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.08);
       overflow: hidden;
@@ -43,8 +42,6 @@
     }
     .restaurant-card {
       cursor: pointer;
-      text-decoration: none;
-      color: inherit;
       display: block;
     }
     .restaurant-card img {
@@ -57,22 +54,11 @@
       font-weight: bold;
       margin: 8px 0 4px 0;
     }
-    .btn {
-      display: block;
-      margin: 12px auto 0 auto;
-      background: #25D366;
-      color: white;
-      text-decoration: none;
-      padding: 12px 20px;
-      border-radius: 12px;
-      font-size: 1rem;
-      font-weight: bold;
-      text-align: center;
-    }
     .menu-item {
       display: flex;
       gap: 12px;
       margin-bottom: 16px;
+      align-items: center;
     }
     .menu-item img {
       width: 90px;
@@ -83,7 +69,25 @@
     .menu-item h4 {
       margin: 0 0 4px 0;
     }
-    .hidden { display: none; }
+    .price {
+      font-weight: bold;
+      margin-top: 4px;
+    }
+    .btn {
+      display: block;
+      margin: 20px auto 0 auto;
+      background: #25D366;
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+      text-align: center;
+    }
+    .hidden {
+      display: none;
+    }
     .footer {
       text-align: center;
       font-size: 0.85rem;
@@ -94,95 +98,115 @@
 </head>
 <body>
 
-  <header>
-    <h1>🛵 Máncora Go!</h1>
-    <p>Restaurantes de Máncora, en tu puerta</p>
-  </header>
+<header>
+  <h1>🛵 Máncora Go!</h1>
+  <p>Restaurantes de Máncora, en tu puerta</p>
+</header>
 
-  <div class="container">
+<div class="container">
 
-    <div class="card">
+  <div class="card">
+    <div class="card-content">
+      <h2>¿Qué es Máncora Go?</h2>
+      <p>
+        Somos un delivery local en Máncora que conecta
+        <strong>restaurantes locales</strong>, <strong>moto taxis</strong>
+        y <strong>clientes</strong> de forma rápida y simple.
+      </p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-content">
+      <h2>¿Cómo funciona?</h2>
+      <ul>
+        <li>📲 Pides por WhatsApp</li>
+        <li>🛵 Un moto taxi entrega</li>
+        <li>💵 Pagas al recibir (Efectivo / Yape)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 style="margin:20px 0 10px 5px;">🍽 Restaurantes</h2>
+
+  <div class="card">
+    <div class="restaurant-card" onclick="openMenu()">
+      <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=800&auto=format&fit=crop" alt="La Ola Burger">
       <div class="card-content">
-        <h2>¿Qué es Máncora Go?</h2>
-        <p>
-          Somos un delivery local en Máncora que conecta
-          <strong>restaurantes locales</strong>, <strong>moto taxis</strong>
-          y <strong>clientes</strong> de forma rápida y simple.
-        </p>
+        <div class="restaurant-name">🍔 La Ola Burger</div>
+        <p>Hamburguesas artesanales – Máncora</p>
+        <p><strong>Horario:</strong> 6:00 pm – 11:00 pm</p>
+        <p style="color:#0ea5e9; font-weight:600;">Ver menú →</p>
       </div>
     </div>
+  </div>
 
-    <div class="card">
-      <div class="card-content">
-        <h2>¿Cómo funciona?</h2>
-        <ul>
-          <li>📲 Pides por WhatsApp</li>
-          <li>🛵 Un moto taxi entrega</li>
-          <li>💵 Pagas al recibir (Efectivo / Yape)</li>
-        </ul>
-      </div>
-    </div>
+  <div class="card hidden" id="menu">
+    <div class="card-content">
+      <h2>Menú – La Ola Burger</h2>
 
-    <h2 style="margin:20px 0 10px 5px;">🍽 Restaurantes</h2>
-
-    <div class="card">
-      <a class="restaurant-card" href="#menu" onclick="openMenu(event)">"openMenu(event)">
-        <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=800&auto=format&fit=crop" alt="La Ola Burger">
-        <div class="card-content">
-          <div class="restaurant-name">🍔 La Ola Burger</div>
-          <p>Hamburguesas artesanales – Máncora</p>
-          <p><strong>Horario:</strong> 6:00 pm – 11:00 pm</p>
-          <p style="color:#0ea5e9; font-weight:600;">Ver menú →</p>
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=400&auto=format&fit=crop" alt="Hamburguesa clásica">
+        <div>
+          <h4>Hamburguesa Clásica</h4>
+          <p>Carne, queso, lechuga y tomate</p>
+          <div class="price">S/ 15</div>
         </div>
-      </a>
-    </div>
-
-    <div class="card hidden" id="menu">
-      <div class="card-content">
-        <h2>Menú – La Ola Burger</h2>
-
-        <div class="menu-item">
-          <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=400&auto=format&fit=crop" />
-          <div>
-            <h4>Hamburguesa clásica</h4>
-            <p>Carne, queso, lechuga y tomate</p>
-            <strong>S/ 15</strong>
-          </div>
-        </div>
-
-        <div class="menu-item">
-          <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?q=80&w=400&auto=format&fit=crop" />
-          <div>
-            <h4>Hamburguesa doble</h4>
-            <p>Doble carne y queso</p>
-            <strong>S/ 20</strong>
-          </div>
-        </
-
-        <a class="btn" href="https://wa.me/51978742157?text=Hola%20quiero%20hacer%20un%20pedido%20en%20La%20Ola%20Burger%20por%20Máncora%20Go!" target="_blank">Pedir por WhatsApp</a>
       </div>
+
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?q=80&w=400&auto=format&fit=crop" alt="Hamburguesa doble">
+        <div>
+          <h4>Hamburguesa Doble</h4>
+          <p>Doble carne y doble queso</p>
+          <div class="price">S/ 20</div>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=400&auto=format&fit=crop" alt="Papas fritas">
+        <div>
+          <h4>Papas Fritas</h4>
+          <p>Crujientes y doradas</p>
+          <div class="price">S/ 8</div>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1622484211148-8bca5efb2d78?q=80&w=400&auto=format&fit=crop" alt="Coca Cola">
+        <div>
+          <h4>Coca-Cola</h4>
+          <p>500 ml</p>
+          <div class="price">S/ 5</div>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1600275669439-14e40452d20b?q=80&w=400&auto=format&fit=crop" alt="Inca Kola">
+        <div>
+          <h4>Inca Kola</h4>
+          <p>500 ml</p>
+          <div class="price">S/ 5</div>
+        </div>
+      </div>
+
+      <a class="btn" href="https://wa.me/51978742157?text=Hola%20quiero%20hacer%20un%20pedido%20en%20La%20Ola%20Burger%20por%20Máncora%20Go!" target="_blank">Pedir por WhatsApp</a>
     </div>
+  </div>
 
-    
+  <div class="footer">
+    © 2025 Máncora Go! · Delivery local
+  </div>
 
-    
+</div>
 
-    
-
-    
-
-    <div class="footer">
-      © 2025 Máncora Go! · Delivery local
-    </div>
-
-  </dfunction openMenu(event) {
-      event.preventDefault();ction openMenu(event) {
-      event.preventDefault();
-      document.getElementById('menu').classList.remove('hidden');
-      window.scrollTo({ top: document.getElementById('menu').offsetTop, behavior: 'smooth' });
-    }
-  </script>
+<script>
+  function openMenu() {
+    const menu = document.getElementById('menu');
+    menu.classList.remove('hidden');
+    menu.scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
 
 </body>
 </html>
-
