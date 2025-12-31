@@ -33,22 +33,32 @@
     .card {
       background: white;
       border-radius: 16px;
-      padding: 20px;
+      padding: 0;
       margin-bottom: 20px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      overflow: hidden;
     }
-    .card h2 {
-      margin-top: 0;
-      font-size: 1.3rem;
+    .card-content {
+      padding: 16px 20px 20px 20px;
     }
-    ul {
-      padding-left: 20px;
+    .restaurant-card {
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .restaurant-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .restaurant-name {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 8px 0 4px 0;
     }
     .btn {
       display: inline-block;
-      width: auto;
-      max-width: 100%;
-      text-align: center;
       background: #25D366;
       color: white;
       text-decoration: none;
@@ -57,6 +67,21 @@
       font-size: 1rem;
       font-weight: bold;
     }
+    .menu-item {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .menu-item img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .menu-item h4 {
+      margin: 0 0 4px 0;
+    }
+    .hidden { display: none; }
     .footer {
       text-align: center;
       font-size: 0.85rem;
@@ -75,17 +100,41 @@
   <div class="container">
 
     <div class="card">
-      <h2>🍔 Restaurante aliado</h2>
-      <p><strong>La Ola Burger</strong></p>
-      <p>Hamburguesas artesanales – Máncora</p>
-      <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=800&auto=format&fit=crop" alt="Hamburguesa artesanal" style="width:100%; border-radius:12px; margin-bottom:12px;">
-      <ul>
-        <li>🍔 Hamburguesa clásica – S/15</li>
-        <li>🍔 Hamburguesa doble – S/20</li>
-        <li>🍟 Papas fritas – S/8</li>
-        <li>🥤 Gaseosa – S/5</li>
-      </ul>
-      <p><strong>Horario:</strong> 6:00 pm – 11:00 pm</p>
+      <a class="restaurant-card" onclick="openMenu()">
+        <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=800&auto=format&fit=crop" alt="La Ola Burger">
+        <div class="card-content">
+          <div class="restaurant-name">🍔 La Ola Burger</div>
+          <p>Hamburguesas artesanales – Máncora</p>
+          <p><strong>Horario:</strong> 6:00 pm – 11:00 pm</p>
+          <p style="color:#0ea5e9; font-weight:600;">Ver menú →</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="card hidden" id="menu">
+      <div class="card-content">
+        <h2>Menú – La Ola Burger</h2>
+
+        <div class="menu-item">
+          <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=400&auto=format&fit=crop" />
+          <div>
+            <h4>Hamburguesa clásica</h4>
+            <p>Carne, queso, lechuga y tomate</p>
+            <strong>S/ 15</strong>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?q=80&w=400&auto=format&fit=crop" />
+          <div>
+            <h4>Hamburguesa doble</h4>
+            <p>Doble carne y queso</p>
+            <strong>S/ 20</strong>
+          </div>
+        </
+
+        <a class="btn" href="https://wa.me/51978742157?text=Hola%20quiero%20hacer%20un%20pedido%20en%20La%20Ola%20Burger%20por%20Máncora%20Go!" target="_blank">Pedir por WhatsApp</a>
+      </div>
     </div>
 
     <div class="card">
@@ -129,5 +178,13 @@
 
   </div>
 
+<script>
+    function openMenu() {
+      document.getElementById('menu').classList.remove('hidden');
+      window.scrollTo({ top: document.getElementById('menu').offsetTop, behavior: 'smooth' });
+    }
+  </script>
+
 </body>
 </html>
+
