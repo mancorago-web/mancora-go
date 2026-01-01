@@ -225,9 +225,9 @@
     </div>
 
     <!-- Botón WhatsApp -->
-    <a class="btn" href="https://wa.me/51978742157" target="_blank">
-      Pedir por WhatsApp
-    </a>
+    <a class="btn" href="#" onclick="pedirWhatsApp('Barrio Burguer')">
+  Pedir por WhatsApp
+</a>
 
   </div>
 </div>
@@ -258,6 +258,15 @@
     function closeMenus() {
       document.querySelectorAll('.menu-section').forEach(m => m.classList.add('hidden'));
     }
+
+  <script>
+  function pedirWhatsApp(nombreRestaurante) {
+    const telefono = "51978742157";
+    const mensaje = `Hola, quiero hacer un pedido del restaurante "${nombreRestaurante}".`;
+    const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, "_blank");
+  }
+</script>
   </script>
 
 </body>
