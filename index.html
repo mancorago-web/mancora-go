@@ -4,12 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Máncora Go! – Delivery local</title>
-
+  <meta name="description" content="Máncora Go! Delivery local de restaurantes en Máncora. Pide comida por WhatsApp y recibe en tu puerta." />
   <style>
     body {
       margin: 0;
-      font-family: system-ui, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: #f9f9f9;
+      color: #222;
     }
     header {
       background: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop") center/cover no-repeat;
@@ -25,217 +26,229 @@
       background: rgba(0,0,0,0.45);
     }
     header * { position: relative; }
-
-    .go-yellow { color: #facc15; }
-
     .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-    .card {
-      background: white;
-      border-radius: 16px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-      overflow: hidden;
-    }
-    .card-content { padding: 16px 20px; }
+    .card { background: white; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); overflow: hidden; }
+    .card-content { padding: 16px 20px 20px; }
     .restaurant-card { cursor: pointer; }
     .restaurant-card img { width: 100%; height: 180px; object-fit: cover; }
-
-    .menu-item {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 15px;
-      align-items: center;
-    }
-    .menu-item img {
-      width: 90px;
-      height: 90px;
-      border-radius: 10px;
-      object-fit: cover;
-    }
-
-    .price { font-weight: bold; margin-bottom: 6px; }
-
-    button {
-      padding: 6px 10px;
-      margin-right: 5px;
-      border-radius: 8px;
-      border: none;
-      background: #0ea5e9;
-      color: white;
-      cursor: pointer;
-      font-size: 13px;
-    }
-
-    .btn {
-      display: block;
-      background: #25D366;
-      color: white;
-      padding: 14px;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 14px;
-      font-weight: bold;
-      margin-top: 15px;
-    }
-
+    .restaurant-name { font-size: 1.2rem; font-weight: bold; margin: 8px 0 4px; }
+    .menu-item { display: flex; gap: 12px; margin-bottom: 16px; align-items: center; }
+    .menu-item img { width: 90px; height: 90px; object-fit: cover; border-radius: 10px; }
+    .price { font-weight: bold; }
+    .btn { display: block; margin: 20px auto 0; background: #25D366; color: white; text-decoration: none; padding: 12px 20px; border-radius: 12px; font-weight: bold; text-align: center; }
     .hidden { display: none; }
-
-    #pedidoBox {
-      background: #f1f5f9;
-      padding: 12px;
-      border-radius: 12px;
-      margin: 15px 0;
-      font-size: 14px;
-    }
-
-    footer {
-      text-align: center;
-      font-size: 13px;
-      color: #666;
-      margin: 30px 0;
-    }
+    .footer { text-align: center; font-size: 0.85rem; color: #666; margin: 30px 0 10px; }
   </style>
 </head>
-
 <body>
 
 <header>
-  <h1>🛵 Máncora <span class="go-yellow">Go!</span></h1>
-  <p>Del Restaurante, a tu Puerta</p>
+  <h1> 🛵 Máncora <span class="go-yellow">Go!</span></h1>
+  <p>Del Restaurante, a tu Puerta.</p>
 </header>
 
 <div class="container">
 
-  <!-- RESTAURANTE -->
+  <div class="card"><div class="card-content"><h2>¿Qué es Máncora Go?</h2><p>Delivery local que conecta restaurantes, moto taxis y clientes.</p></div></div>
   <div class="card">
-    <div class="restaurant-card" onclick="openMenu()">
-      <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=800&auto=format&fit=crop">
-      <div class="card-content">
-        <h2>🍔 Barrio Burguer</h2>
-        <p>Hamburguesas artesanales</p>
-        <p style="color:#0ea5e9;font-weight:bold;">Ver menú →</p>
-      </div>
-    </div>
+  <div class="card-content">
+    <h2>¿Cómo funciona?</h2>
+    <ul>
+      <li>📲 Pides por WhatsApp.</li>
+      <li>💚 Pagas tu pedido por Yape.</li>
+      <li>🧾 Subes tu comprobante de pago.</li>
+      <li>🍳 El restaurante prepara tu pedido.</li>
+      <li>🛵 Una moto lo entrega en tu puerta.</li>
+    </ul>
   </div>
+</div>
 
-  <!-- MENU -->
-  <div class="card hidden" id="menu">
+  <h2><span id="restaurantes"> 🔥Restaurantes Destacados🔥 </span></h2>
+
+  <!-- Restaurante 1 -->
+<div class="card">
+  <div class="restaurant-card" onclick="openMenu('menu-burger')">
+    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=800&auto=format&fit=crop">
     <div class="card-content">
-
-      <a href="#" onclick="closeMenu()">← Volver</a>
-      <h2>Menú – Barrio Burguer</h2>
-
-      <div style="background:#f8fafc;padding:10px;border-left:4px solid #0ea5e9;margin-bottom:15px;">
-        <strong>📌 Importante</strong><br>
-        Todas las hamburguesas vienen solas.<br>
-        Simple = 1 carne | Doble = 2 carnes.
-      </div>
-
-      <!-- PEDIDO -->
-      <div id="pedidoBox">
-        <h3>🧾 Tu pedido</h3>
-        <ul id="pedidoLista"></ul>
-        <strong>Total: S/ <span id="pedidoTotal">0</span></strong>
-      </div>
-
-      <!-- HAMBURGUESAS -->
-      <div class="menu-item">
-        <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=400">
-        <div>
-          <strong>Americana</strong>
-          <p class="price">Simple S/18 | Doble S/23</p>
-          <button onclick="addItem('Hamburguesa Americana - Simple',18)">+ Simple</button>
-          <button onclick="addItem('Hamburguesa Americana - Doble',23)">+ Doble</button>
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?q=80&w=400">
-        <div>
-          <strong>Bacon</strong>
-          <p class="price">Simple S/19 | Doble S/24</p>
-          <button onclick="addItem('Hamburguesa Bacon - Simple',19)">+ Simple</button>
-          <button onclick="addItem('Hamburguesa Bacon - Doble',24)">+ Doble</button>
-        </div>
-      </div>
-
-      <h3>🥤 Complementos</h3>
-
-      <div class="menu-item">
-        <img src="images/menus/combo1.jpg">
-        <div>
-          <strong>Combo 1</strong>
-          <p class="price">S/10</p>
-          <button onclick="addItem('Combo 1 (Papas + Gaseosa)',10)">+ Agregar</button>
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <img src="images/menus/gaseosas.jpg">
-        <div>
-          <strong>Gaseosa</strong>
-          <p class="price">S/6</p>
-          <button onclick="addItem('Gaseosa',6)">+ Agregar</button>
-        </div>
-      </div>
-
-      <a class="btn" href="javascript:void(0)" onclick="sendWhatsApp()">Hacer pedido por WhatsApp</a>
-
+      <div class="restaurant-name">🍔 Barrio Burguer</div>
+      <p>Hamburguesas artesanales</p>
+      <p style="font-size:14px;color:#16a34a;">🕒 7:00 p.m. – 10:30 p.m.</p>
+      <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
     </div>
   </div>
+</div>
 
-  <footer>© 2025 Máncora Go!</footer>
+  <!-- Restaurante 2 -->
+  <div class="card"><div class="restaurant-card" onclick="openMenu('menu-ice')">
+    <img src="images\restaurantes\test.jpg">
+    <div class="card-content"><div class="restaurant-name">🍦 Heladería Polar</div><p>Helados artesanales</p><p style="color:#0ea5e9;font-weight:600;">Ver menú →</p></div>
+  </div></div>
 
+  <!-- Menú Burger -->
+<div class="card hidden menu-section" id="menu-burger">
+  <div class="card-content">
+
+    <a href="#restaurantes" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
+      ← Volver a restaurantes
+    </a>
+
+    <h2>Menú – Barrio Burguer</h2>
+
+    <!-- Aclaratoria -->
+    <div style="background:#f8fafc;border-left:4px solid #0ea5e9;padding:10px;margin-bottom:15px;font-size:14px;">
+      <strong>📌 Importante:</strong><br>
+      • Todas las hamburguesas vienen <strong>solas</strong>.<br>
+      • Los complementos y combos se piden <strong>por separado</strong>.<br>
+      • <strong>Simple</strong> = 1 carne &nbsp;|&nbsp; <strong>Doble</strong> = 2 carnes.
+    </div>
+
+    <!-- Hamburguesas -->
+    <div class="menu-item">
+      <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=400&auto=format&fit=crop">
+      <div>
+        <strong>Americana</strong>
+        <p>Carne de res, lechuga, tomate, pepinillos, cebolla, queso cheddar, salsa de la casa.</p>
+        <div class="price">Simple: S/18. – Doble: S/23.</div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?q=80&w=400&auto=format&fit=crop">
+      <div>
+        <strong>Bacon</strong>
+        <p>Carne de res, tocino ahumado, queso cheddar, salsa de la casa.</p>
+        <div class="price">Simple: S/19. – Doble: S/24.</div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=400&auto=format&fit=crop">
+      <div>
+        <strong>Barrio Crispy</strong>
+        <p>Carne de res, cebolla crispy, mermelada de tocino, queso cheddar, salsa de la casa.</p>
+        <div class="price">Simple: S/21. – Doble: S/26.</div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=400&auto=format&fit=crop">
+      <div>
+        <strong>Oklahoma</strong>
+        <p>Carne de res, cebolla grilled, queso cheddar, salsa de la casa.</p>
+        <div class="price">Simple: S/18. – Doble: S/23.</div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=400&auto=format&fit=crop">
+      <div>
+        <strong>Barrio Burguer</strong>
+        <p>Carne de res, tocino ahumado, cebolla caramelizada, queso cheddar, salsa de la casa.</p>
+        <div class="price">Simple: S/21. – Doble: S/26.</div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=400&auto=format&fit=crop">
+      <div>
+        <strong>Triple "B"</strong>
+        <p>Triple carne de res, triple queso cheddar, salsa de la casa.</p>
+        <div class="price">Triple: S/27.</div>
+      </div>
+    </div>
+
+    <!-- Complementos -->
+    <h3 style="margin-top:25px;">🥤 Complementos</h3>
+
+     <div class="menu-item">
+      <img src=images\menus\papasfritas.jpg>
+      <div>
+        <strong>Papas Fritas</strong>
+        <p>200 Gr de papas fritas con cremas.</p>
+        <div class="price">Porción: S/7.</div>
+      </div>
+    </div>
+
+      <div class="menu-item">
+      <img src=images\menus\aroscebolla.jpg>
+      <div>
+        <strong>Aros de Cebolla crispy</strong>
+        <p>4 aros de cebolla al panko con cremas.</p>
+        <div class="price">Porción: S/7.</div>
+      </div>
+    </div>
+
+     <div class="menu-item">
+      <img src=images\menus\gaseosas.jpg>
+      <div>
+        <strong>Gaseosas</strong>
+        <p>Coca cola,Inka cola,Sprite.</p>
+        <div class="price">Unidad: S/6.</div>
+      </div>
+    </div>
+
+     <div class="menu-item">
+      <img src=images\menus\combo1.jpg>
+      <div>
+        <strong>Combo 1</strong>
+        <p>Papas fritas + Gaseosa.</p>
+        <div class="price">Combo: S/10.</div>
+      </div>
+    </div>
+
+     <div class="menu-item">
+      <img src=images\menus\combo2.jpg>
+      <div>
+        <strong>Combo 2</strong>
+        <p>Aros de Cebolla + Cerveza.</p>
+        <div class="price">Combo: S/12.</div>
+      </div>
+    </div>
+
+     <div class="menu-item">
+      <img src=images\menus\cervezas.jpg>
+      <div>
+        <strong>Cervezas</strong>
+        <p>Pilsen,Cusqueña trigo.</p>
+        <div class="price">Unidad: S/10.</div>
+      </div>
+    </div>
+
+    <!-- Botón WhatsApp -->
+    <a class="btn" href="https://wa.me/51978742157" target="_blank">
+      Pedir por WhatsApp
+    </a>
+
+  </div>
+</div>
+
+  <!-- Menú Heladería -->
+  <div class="card hidden menu-section" id="menu-ice"><div class="card-content"><a href="#restaurantes" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">← Volver a restaurantes</a>
+        <h2>Menú – Heladería Polar</h2>
+    <div class="menu-item"><img src="images/menus/conosimple.jpg"><div><strong>Cono simple</strong><p>Vainilla / Chocolate</p><div class="price">S/ 5</div></div></div>
+    <div class="menu-item"><img src="images/menus/conodoble.jpg"><div><strong>Cono doble</strong><p>2 sabores</p><div class="price">S/ 8</div></div></div>
+    <div class="menu-item"><img src="images/menus/copa.jpg"><div><strong>Copa</strong><p>3 sabores</p><div class="price">S/ 12</div></div></div>
+    <div class="menu-item"><img src="images/menus/milkshake.jpg"><div><strong>Milkshake</strong><p>Fresa / Oreo</p><div class="price">S/ 14</div></div></div>
+    <div class="menu-item"><img src="images/menus/paleta.jpg"><div><strong>Paleta artesanal</strong><p>Mango / Maracuyá</p><div class="price">S/ 6</div></div></div>
+    <a class="btn" href="https://wa.me/51978742157" target="_blank">Pedir por WhatsApp</a>
+  </div></div>
+
+  <div class="footer">© 2025 Máncora Go! - Delivery Local</div>
 </div>
 
 <script>
-  let pedido = {};
-  let total = 0;
-
-  function addItem(nombre, precio) {
-    if (!pedido[nombre]) {
-      pedido[nombre] = { qty: 1, price: precio };
-    } else {
-      pedido[nombre].qty++;
-    }
-    total += precio;
-    renderPedido();
-  }
-
-  function renderPedido() {
-    const lista = document.getElementById("pedidoLista");
-    const totalSpan = document.getElementById("pedidoTotal");
-    lista.innerHTML = "";
-
-    for (let item in pedido) {
-      const li = document.createElement("li");
-      li.textContent = `${pedido[item].qty} x ${item} = S/ ${pedido[item].qty * pedido[item].price}`;
-      lista.appendChild(li);
-    }
-    totalSpan.textContent = total;
-  }
-
-  function sendWhatsApp() {
-    let msg = "Hola buenas noches, quiero hacer un pedido para *Barrio Burguer*.%0A%0AQuiero pedir:%0A";
-
-    for (let item in pedido) {
-      msg += `${pedido[item].qty} x ${item} = S/ ${pedido[item].qty * pedido[item].price}%0A`;
+    function openMenu(menuId) {
+      // ocultar todos los menus
+      document.querySelectorAll('.menu-section').forEach(m => m.classList.add('hidden'));
+      const menu = document.getElementById(menuId);
+      menu.classList.remove('hidden');
+      menu.scrollIntoView({ behavior: 'smooth' });
     }
 
-    msg += `%0ATotal a pagar: S/ ${total}%0A%0APermíteme el código QR para hacer el pago por YAPE.`;
-
-    window.open("https://wa.me/51978742157?text=" + msg, "_blank");
-  }
-
-  function openMenu() {
-    document.getElementById("menu").classList.remove("hidden");
-    document.getElementById("menu").scrollIntoView({ behavior: "smooth" });
-  }
-
-  function closeMenu() {
-    document.getElementById("menu").classList.add("hidden");
-  }
-</script>
+    function closeMenus() {
+      document.querySelectorAll('.menu-section').forEach(m => m.classList.add('hidden'));
+    }
+  </script>
 
 </body>
 </html>
