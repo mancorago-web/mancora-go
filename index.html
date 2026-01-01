@@ -48,38 +48,6 @@
     .btn { display: block; margin: 20px auto 0; background: #25D366; color: white; text-decoration: none; padding: 12px 20px; border-radius: 12px; font-weight: bold; text-align: center; }
     .hidden { display: none; }
     .footer { text-align: center; font-size: 0.85rem; color: #666; margin: 30px 0 10px; }
-
-    .cart-box {
-  position: sticky;
-  bottom: 0;
-  background: #ffffff;
-  border-top: 2px solid #e5e7eb;
-  padding: 12px;
-  margin-top: 20px;
-  border-radius: 12px;
-  box-shadow: 0 -4px 10px rgba(0,0,0,0.08);
-}
-
-.cart-item {
-  font-size: 14px;
-  margin-bottom: 6px;
-}
-
-.cart-total {
-  font-weight: bold;
-  font-size: 16px;
-  margin-top: 10px;
-}
-.add-btn {
-  margin-top: 6px;
-  background: #0ea5e9;
-  color: white;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 13px;
-}
   </style>
 </head>
 <body>
@@ -145,15 +113,14 @@
     </div>
 
     <!-- Hamburguesas -->
-   <div class="menu-item">
-  <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=400&auto=format&fit=crop">
-  <div>
-    <strong>Americana – Simple</strong>
-    <p>Carne de res, lechuga, tomate, pepinillos, cebolla, queso cheddar.</p>
-    <div class="price">S/18</div>
-    <button class="add-btn" onclick="addToCart('Americana simple', 18)">➕ Agregar</button>
-  </div>
-</div>
+    <div class="menu-item">
+      <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=400&auto=format&fit=crop">
+      <div>
+        <strong>Americana</strong>
+        <p>Carne de res, lechuga, tomate, pepinillos, cebolla, queso cheddar, salsa de la casa.</p>
+        <div class="price">Simple: S/18. – Doble: S/23.</div>
+      </div>
+    </div>
 
     <div class="menu-item">
       <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?q=80&w=400&auto=format&fit=crop">
@@ -256,16 +223,6 @@
         <div class="price">Unidad: S/10.</div>
       </div>
     </div>
-
-    <div class="cart-box">
-  <strong>🛒 Tu pedido:</strong>
-  <div id="cart-items"></div>
-  <div class="cart-total">Total: S/<span id="cart-total">0</span></div>
-
-  <a class="btn" id="whatsapp-btn" target="_blank">
-    Hacer pedido por WhatsApp
-  </a>
-</div>
 
     <!-- Botón WhatsApp -->
     <a class="btn" href="https://wa.me/51978742157" target="_blank">
