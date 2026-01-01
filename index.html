@@ -54,24 +54,6 @@
   font-size: 1.5rem; /* mismo tamaño que h2 */
   font-weight: 700;
   text-align: left;
-
-      .destacado {
-  border: 2px solid #facc15; /* dorado suave */
-  box-shadow: 0 6px 14px rgba(250, 204, 21, 0.25);
-  position: relative;
-}
-
-.destacado::before {
-  content: "⭐ DESTACADO";
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: #facc15;
-  color: #000;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 4px 8px;
-  border-radius: 999px;
       
   </style>
 </head>
@@ -101,7 +83,8 @@
   <h2><span id="restaurantes"> 🔥Restaurantes Destacados🔥 </span></h2>
 
   <!-- Restaurante 1 -->
-  <div class="card destacado" onclick="openMenu('menu-burger')">
+<div class="card">
+  <div class="restaurant-card" onclick="openMenu('menu-burger')">
     <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=800&auto=format&fit=crop">
     <div class="card-content">
       <div class="restaurant-name">🍔 Barrio Burguer</div>
