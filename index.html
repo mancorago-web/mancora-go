@@ -54,6 +54,25 @@
   font-size: 1.5rem; /* mismo tamaño que h2 */
   font-weight: 700;
   text-align: left;
+
+      /* ===== RESTAURANTES DESTACADOS ===== */
+.featured-card {
+  border: 3px solid #facc15; /* amarillo suave */
+  position: relative;
+}
+
+.featured-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #facc15;
+  color: #000;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
       
   </style>
 </head>
@@ -83,8 +102,9 @@
   <h2><span id="restaurantes"> 🔥Restaurantes Destacados🔥 </span></h2>
 
   <!-- Restaurante 1 -->
-<div class="card">
+<div class="card featured-card">
   <div class="restaurant-card" onclick="openMenu('menu-burger')">
+    <div class="featured-badge">⭐ DESTACADO</div>
     <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=800&auto=format&fit=crop">
     <div class="card-content">
       <div class="restaurant-name">🍔 Barrio Burguer</div>
