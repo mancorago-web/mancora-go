@@ -55,6 +55,23 @@
   font-weight: 700;
   text-align: left;
 }
+
+    /* === Restaurante Destacado === */
+.featured-card {
+  background: linear-gradient(135deg, #fffbea, #ffffff);
+  border: 2px solid #fde68a;
+}
+
+.featured-badge {
+  display: inline-block;
+  background: #facc15;
+  color: #1f2937;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 6px;
+}
     
   </style>
 </head>
@@ -94,10 +111,11 @@
   <h2><span id="restaurantes"> 🔥Restaurantes Destacados🔥 </span></h2>
 
   <!-- Restaurante 1 -->
-<div class="card">
+<div class="card featured-card">
   <div class="restaurant-card" onclick="openMenu('menu-burger')">
     <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=800&auto=format&fit=crop">
     <div class="card-content">
+      <div class="featured-badge">⭐ DESTACADO</div>
       <div class="restaurant-name">🍔 Barrio Burguer</div>
       <p>Hamburguesas artesanales</p>
       <p style="font-size:14px;color:#16a34a;">🕒 7:00 p.m. – 10:30 p.m.</p>
