@@ -94,6 +94,31 @@
   flex-wrap: wrap;
 }
 
+    /* === Lightbox imágenes menú === */
+#lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+#lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 16px;
+}
+
+#lightbox.hidden {
+  display: none;
+}
+
+.menu-item img {
+  cursor: pointer;
+}
+
   </style>
 </head>
 <body>
@@ -208,7 +233,8 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/crispyburguer1.jpg">
+      <img src="images/menus/crispyburguer1.jpg"
+     onclick="openLightbox(this.src)">
       <div>
         <strong>Barrio Crispy</strong>
         <p>Carne de res, cebolla crispy, mermelada de tocino, queso cheddar, salsa de la casa.</p>
@@ -492,7 +518,25 @@
     const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
     window.open(url, "_blank");
   }
+
+  <script>
+  function openLightbox(src) {
+    const lightbox = document.getElementById("lightbox");
+    const img = document.getElementById("lightbox-img");
+    img.src = src;
+    lightbox.classList.remove("hidden");
+  }
+
+  function closeLightbox() {
+    document.getElementById("lightbox").classList.add("hidden");
+  }
+</script>
   </script>
+  
+<!-- Lightbox para imágenes -->
+<div id="lightbox" class="hidden" onclick="closeLightbox()">
+  <img id="lightbox-img">
+</div>
 
 </body>
 </html>
