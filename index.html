@@ -12,13 +12,14 @@
       background: #f9f9f9;
       color: #222;
     }
-    header {
-      background: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop") center/cover no-repeat;
-      padding: 70px 20px;
-      text-align: center;
-      color: white;
-      position: relative;
-    }
+    .hero {
+  background: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop")
+    center / cover no-repeat;
+  padding: 60px 20px 70px;
+  text-align: center;
+  color: white;
+  position: relative;
+}
     header::before {
       content: "";
       position: absolute;
@@ -93,7 +94,19 @@
   margin-top: 6px;
   flex-wrap: wrap;
 }
+.logo-hero {
+  width: 220px;
+  max-width: 70%;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.45));
+}
 
+.hero-tagline {
+  font-size: 1.1rem;
+  font-weight: 500;
+  opacity: 0.95;
+}
+    
   </style>
 </head>
 <body>
