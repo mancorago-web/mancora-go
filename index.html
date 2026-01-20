@@ -611,6 +611,29 @@
   }
   </script>
 <script>
+function isCafeBarrioOpen() {
+  const now = new Date();
+  const day = now.getDay(); // 0 = domingo, 3 = miércoles
+  const minutes = now.getHours() * 60 + now.getMinutes();
+
+  // ❌ Miércoles cerrado todo el día
+  if (day === 3) return false;
+
+  // Horarios
+  const morningOpen = 9 * 60;          // 09:00
+  const morningClose = 12 * 60 + 30;   // 12:30
+
+  const eveningOpen = 18 * 60;         // 18:00
+  const eveningClose = 22 * 60 + 30;   // 22:30
+
+  return (
+    (minutes >= morningOpen && minutes < morningClose) ||
+    (minutes >= eveningOpen && minutes < eveningClose)
+  );
+}
+</script>
+  
+<script>
 function checkRestaurantHours() {
   const now = new Date();
   const currentHour = now.getHours() + now.getMinutes() / 60;
