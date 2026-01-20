@@ -211,7 +211,7 @@
 
     <!-- Restaurante 3 -->
 <div class="card">
-  <div class="restaurant-card" onclick="openMenu('menu-cafe')">
+  <div class="restaurant-card" id="cafe-barrio" onclick="openMenu('menu-cafe')">
     <img src="images/cafedebarriologofinal.jpg">
     <div class="card-content">
       <span class="badge-new">🆕 Nuevo en Máncora Go</span>
@@ -219,6 +219,9 @@
       <p>Cafetería de especialidad</p>
       <p style="font-size:14px;color:#16a34a;">🕒 9:00 a.m. – 12:30 p.m.</p>
       <p style="font-size:14px;color:#16a34a;">🕒 6:00 p.m. – 10:30 p.m.</p>
+      <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">
+  ⛔ Cerrado ahora
+</p>
       <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
     </div>
   </div>
@@ -615,6 +618,49 @@ checkRestaurantHours();
 
 // revisar cada minuto
 setInterval(checkRestaurantHours, 60000);
+</script>
+  <script>
+function isCafeBarrioOpen() {
+  const now = new Date();
+  const minutes = now.getHours() * 60 + now.getMinutes();
+
+  // Horarios en minutos
+  const morningOpen = 9 * 60;          // 09:00
+  const morningClose = 12 * 60 + 30;   // 12:30
+
+  const eveningOpen = 18 * 60;         // 18:00
+  const eveningClose = 22 * 60 + 30;   // 22:30
+
+  return (
+    (minutes >= morningOpen && minutes < morningClose) ||
+    (minutes >= eveningOpen && minutes < eveningClose)
+  );
+}
+
+function updateCafeBarrioStatus() {
+  const cafe = document.getElementById("cafe-barrio");
+  if (!cafe) return;
+
+  const closedLabel = cafe.querySelector('.closed-label');
+
+  if (isCafeBarrioOpen()) {
+    // 🟢 ABIERTO
+    cafe.style.pointerEvents = "auto";
+    cafe.style.opacity = "1";
+    if (closedLabel) closedLabel.classList.add("hidden");
+  } else {
+    // 🔴 CERRADO
+    cafe.style.pointerEvents = "none";
+    cafe.style.opacity = "0.55";
+    if (closedLabel) closedLabel.classList.remove("hidden");
+  }
+}
+
+// ejecutar al cargar
+updateCafeBarrioStatus();
+
+// revisar cada minuto
+setInterval(updateCafeBarrioStatus, 60000);
 </script>
   
 </body>
