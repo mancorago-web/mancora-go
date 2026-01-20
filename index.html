@@ -166,13 +166,22 @@
 
   <!-- Restaurante 1 -->
 <div class="card featured-card">
-  <div class="restaurant-card" onclick="openMenu('menu-burger')">
+  <div 
+  class="restaurant-card"
+  data-open="17"
+  data-close="22.5"
+  onclick="openMenu('menu-burger')"
+>
     <img src="images/barrioburguerlogofinal.jpg">
     <div class="card-content">
       
       <div class="featured-badge">⭐ DESTACADO</div>  <span class="badge-new">🆕 Nuevo en Máncora Go</span>
       
       <div class="restaurant-name">🍔 Barrio Burguer</div>
+
+      <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">
+  ⛔ Cerrado ahora
+</p>
       
       <p>Hamburguesas artesanales</p>
       <p style="font-size:14px;color:#16a34a;">🕒 5:00 p.m. – 10:30 p.m.</p>
@@ -577,6 +586,36 @@
     window.open(url, "_blank");
   }
   </script>
+<script>
+function checkRestaurantHours() {
+  const now = new Date();
+  const currentHour = now.getHours() + now.getMinutes() / 60;
 
+  document.querySelectorAll('.restaurant-card[data-open]').forEach(card => {
+    const open = parseFloat(card.dataset.open);
+    const close = parseFloat(card.dataset.close);
+    const closedLabel = card.querySelector('.closed-label');
+
+    if (currentHour < open || currentHour >= close) {
+      // 🔴 CERRADO
+      card.style.pointerEvents = "none";
+      card.style.opacity = "0.55";
+      if (closedLabel) closedLabel.classList.remove('hidden');
+    } else {
+      // 🟢 ABIERTO
+      card.style.pointerEvents = "auto";
+      card.style.opacity = "1";
+      if (closedLabel) closedLabel.classList.add('hidden');
+    }
+  });
+}
+
+// ejecutar al cargar
+checkRestaurantHours();
+
+// revisar cada minuto
+setInterval(checkRestaurantHours, 60000);
+</script>
+  
 </body>
 </html>
