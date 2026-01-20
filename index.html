@@ -225,7 +225,12 @@
 
     <!-- Restaurante 3 -->
 <div class="card">
-  <div class="restaurant-card" id="cafe-barrio" onclick="openMenu('menu-cafe')">
+  <div 
+  class="restaurant-card"
+  id="cafe-barrio"
+  data-special="cafe-barrio"
+  onclick="openMenu('menu-cafe')"
+>
     <img src="images/cafedebarriologofinal.jpg">
     <div class="card-content">
       <span class="badge-new">🆕 Nuevo en Máncora Go</span>
@@ -610,18 +615,29 @@ function checkRestaurantHours() {
   const now = new Date();
   const currentHour = now.getHours() + now.getMinutes() / 60;
 
-  document.querySelectorAll('.restaurant-card[data-open]').forEach(card => {
-    const open = parseFloat(card.dataset.open);
-    const close = parseFloat(card.dataset.close);
+  document.querySelectorAll('.restaurant-card').forEach(card => {
     const closedLabel = card.querySelector('.closed-label');
 
-    if (currentHour < open || currentHour >= close) {
-      // 🔴 CERRADO
+    let isOpen = true;
+
+    // 🟡 CAFÉ DE BARRIO (horario especial)
+    if (card.dataset.special === "cafe-barrio") {
+      isOpen = isCafeBarrioOpen();
+    }
+
+    // 🟢 RESTAURANTES NORMALES (data-open / data-close)
+    else if (card.dataset.open && card.dataset.close) {
+      const open = parseFloat(card.dataset.open);
+      const close = parseFloat(card.dataset.close);
+      isOpen = !(currentHour < open || currentHour >= close);
+    }
+
+    // 🎯 Aplicar estado visual
+    if (!isOpen) {
       card.style.pointerEvents = "none";
       card.style.opacity = "0.55";
       if (closedLabel) closedLabel.classList.remove('hidden');
     } else {
-      // 🟢 ABIERTO
       card.style.pointerEvents = "auto";
       card.style.opacity = "1";
       if (closedLabel) closedLabel.classList.add('hidden');
@@ -635,30 +651,7 @@ checkRestaurantHours();
 // revisar cada minuto
 setInterval(checkRestaurantHours, 60000);
 </script>
-  <script>
-function isCafeBarrioOpen() {
-  const now = new Date();
-
-  const day = now.getDay(); // 0 = domingo, 3 = miércoles
-  const minutes = now.getHours() * 60 + now.getMinutes();
-
-  // ❌ Día de descanso: miércoles
-  if (day === 3) {
-    return false;
-  }
-
-  // Horarios en minutos
-  const morningOpen = 9 * 60;          // 09:00
-  const morningClose = 12 * 60 + 30;   // 12:30
-
-  const eveningOpen = 18 * 60;         // 18:00
-  const eveningClose = 22 * 60 + 30;   // 22:30
-
-  return (
-    (minutes >= morningOpen && minutes < morningClose) ||
-    (minutes >= eveningOpen && minutes < eveningClose)
-  );
-}
+  
 </script>
   
 </body>
