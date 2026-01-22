@@ -745,10 +745,17 @@ function checkRestaurantHours() {
 
     // 🟢 RESTAURANTES NORMALES (data-open / data-close)
     else if (card.dataset.open && card.dataset.close) {
-      const open = parseFloat(card.dataset.open);
-      const close = parseFloat(card.dataset.close);
-      isOpen = !(currentHour < open || currentHour >= close);
-    }
+  const open = parseFloat(card.dataset.open);
+  const close = parseFloat(card.dataset.close);
+
+  if (open < close) {
+    // horario normal (ej: 11 a 21)
+    isOpen = currentHour >= open && currentHour < close;
+  } else {
+    // horario nocturno (ej: 23 a 5)
+    isOpen = currentHour >= open || currentHour < close;
+  }
+}
 
     // 🎯 Aplicar estado visual
     if (!isOpen) {
