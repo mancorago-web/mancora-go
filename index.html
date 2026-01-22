@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -199,9 +200,6 @@
        <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">
   ⛔ Cerrado ahora
 </p>
-      <p class="open-label hidden" style="color:#16a34a;font-weight:700;margin-top:6px;">
-  ✅ Abierto ahora
-</p>
       <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
     </div>
   </div>
@@ -227,9 +225,6 @@
       <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">
         ⛔ Cerrado ahora
       </p>
-      <p class="open-label hidden" style="color:#16a34a;font-weight:700;margin-top:6px;">
-  ✅ Abierto ahora
-</p>
 
       <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
     </div>
@@ -253,9 +248,6 @@
       <p style="font-size:14px;color:#16a34a;">🕒 6:00 p.m. – 10:30 p.m.</p>
       <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">
   ⛔ Cerrado ahora
-</p>
-      <p class="open-label hidden" style="color:#16a34a;font-weight:700;margin-top:6px;">
-  ✅ Abierto ahora
 </p>
       <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
     </div>
@@ -731,7 +723,6 @@ function checkRestaurantHours() {
 
   document.querySelectorAll('.restaurant-card').forEach(card => {
     const closedLabel = card.querySelector('.closed-label');
-const openLabel = card.querySelector('.open-label');
 
     let isOpen = true;
 
@@ -761,19 +752,16 @@ const openLabel = card.querySelector('.open-label');
 }
 
     // 🎯 Aplicar estado visual
-   if (!isOpen) {
-  card.style.pointerEvents = "none";
-  card.style.opacity = "0.55";
-
-  if (closedLabel) closedLabel.classList.remove('hidden');
-  if (openLabel) openLabel.classList.add('hidden');
-
-} else {
-  card.style.pointerEvents = "auto";
-  card.style.opacity = "1";
-
-  if (closedLabel) closedLabel.classList.add('hidden');
-  if (openLabel) openLabel.classList.remove('hidden');
+    if (!isOpen) {
+      card.style.pointerEvents = "none";
+      card.style.opacity = "0.55";
+      if (closedLabel) closedLabel.classList.remove('hidden');
+    } else {
+      card.style.pointerEvents = "auto";
+      card.style.opacity = "1";
+      if (closedLabel) closedLabel.classList.add('hidden');
+    }
+  });
 }
 
 // ejecutar al cargar
@@ -786,3 +774,4 @@ setInterval(checkRestaurantHours, 60000);
   
 </body>
 </html>
+
