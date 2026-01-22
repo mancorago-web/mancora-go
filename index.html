@@ -206,24 +206,31 @@
 
   <h2 class="section-title">🍽️ Restaurantes</h2>
 
- <!-- Restaurante Próximamente -->
+<!-- Restaurante 2 Empanadas -->
 <div class="card">
-  <div class="restaurant-card">
-    <img src="images/tribalacailogo.jpg">
+  <div 
+    class="restaurant-card"
+    data-open="11"
+    data-close="21"
+    onclick="openMenu('menu-empanadas')"
+  >
+    <img src="images/3empanadaslogofinal.jpg">
     <div class="card-content">
-      
-      <div class="restaurant-name">🥣 Tribal Açai</div>
-      <p>Açai bowls & opciones saludables</p>
+      <span class="badge-new">🆕 Nuevo en Máncora Go</span>
+      <div class="restaurant-name">🥟 3 Empanadas</div>
+      <p>Empanadas argentinas artesanales</p>
+      <p style="font-size:14px;color:#16a34a;">🕒 9:00 a.m. – 6:00 p.m.</p>
 
-      <p style="margin-top:10px; font-size:15px; font-weight:600; color:#f59e0b;">
-        🚀 Próximamente en Máncora Go!
+      <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">
+        ⛔ Cerrado ahora
       </p>
 
+      <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
     </div>
   </div>
 </div>
 
-    <!-- Restaurante 3 -->
+   <!-- Restaurante 3 -->
 <div class="card">
   <div 
   class="restaurant-card"
@@ -245,6 +252,25 @@
     </div>
   </div>
 </div>
+  
+  <!-- Restaurante Próximamente 4 -->
+<div class="card">
+  <div class="restaurant-card">
+    <img src="images/tribalacailogo.jpg">
+    <div class="card-content">
+      
+      <div class="restaurant-name">🥣 Tribal Açai</div>
+      <p>Açai bowls & opciones saludables</p>
+
+      <p style="margin-top:10px; font-size:15px; font-weight:600; color:#f59e0b;">
+        🚀 Próximamente en Máncora Go!
+      </p>
+
+    </div>
+  </div>
+</div>
+
+   
 
   <!-- Menú Burger -->
 <div class="card hidden menu-section" id="menu-burger">
@@ -570,6 +596,8 @@
       </div>
     </div>
 
+    
+
      <a href="#restaurantes" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
       ← Volver a restaurantes
     </a>
@@ -581,6 +609,59 @@
 
   </div>
 </div>
+
+  <!-- Menú 3 Empanadas -->
+<div class="card hidden menu-section" id="menu-empanadas">
+  <div class="card-content">
+
+    <a href="#restaurantes" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
+      ← Volver a restaurantes
+    </a>
+
+    <h2>Menú – 3 Empanadas</h2>
+
+    <!-- Categoría -->
+    <h3 class="menu-category">🥟 Empanadas</h3>
+
+    <div class="menu-item">
+      <img src="images/menus/empanadas3.jpg">
+      <div>
+        <strong>3 Empanadas</strong>
+        <p>3 sabrosas empanadas de carne, pollo o vegetarianas, al horno.</p>
+        <div class="price">S/15.</div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img src="images/menus/empanadas6.jpg">
+      <div>
+        <strong>6 Empanadas</strong>
+        <p>6 sabrosas empanadas de carne, pollo o vegetarianas, al horno.</p>
+        <div class="price">S/25.</div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img src="images/menus/empanadas12.jpg">
+      <div>
+        <strong>12 Empanadas</strong>
+        <p>12 sabrosas empanadas de carne, pollo o vegetarianas, al horno.</p>
+        <div class="price">S/45.</div>
+      </div>
+    </div>
+
+    <a href="#restaurantes" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
+      ← Volver a restaurantes
+    </a>
+
+    <!-- Botón WhatsApp -->
+    <a class="btn" href="#" onclick="pedirWhatsApp('3 Empanadas')">
+      Pedir por WhatsApp
+    </a>
+
+  </div>
+</div>
+  
 <div style="display:none;">
   Delivery en Máncora, comida a domicilio en Máncora, restaurantes en Máncora con delivery,
   pedir comida por WhatsApp en Máncora, hamburguesas en Máncora delivery,
