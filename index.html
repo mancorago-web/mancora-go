@@ -998,7 +998,7 @@ function isCafeBarrioStatus() {
   <script>
 function isCafeCoralStatus() {
   const now = new Date();
-  const day = now.getDay(); // 0 = domingo, 1 = lunes
+  const day = now.getDay(); // 0 = domingo, 1 = lunes, ..., 5 = viernes
   const minutes = now.getHours() * 60 + now.getMinutes();
 
   // ❌ Martes cerrado todo el día
@@ -1009,7 +1009,7 @@ function isCafeCoralStatus() {
     };
   }
 
-  // 🟡 Lunes a Jueves (excepto martes)
+  // 🟡 Lunes a Jueves
   if (day >= 1 && day <= 4) {
     const open = 13 * 60;  // 1:00 p.m.
     const close = 22 * 60; // 10:00 p.m.
@@ -1021,7 +1021,19 @@ function isCafeCoralStatus() {
     };
   }
 
-  // 🟢 Viernes a Domingo
+  // 🔵 Viernes
+  if (day === 5) {
+    const open = 13 * 60;  // 1:00 p.m.
+    const close = 23 * 60; // 11:00 p.m.
+    const isOpen = minutes >= open && minutes < close;
+
+    return {
+      status: isOpen ? "open" : "closed-now",
+      schedule: "🕒 1:00 p.m. – 11:00 p.m."
+    };
+  }
+
+  // 🟢 Sábado y Domingo
   const open = 10 * 60;  // 10:00 a.m.
   const close = 23 * 60; // 11:00 p.m.
   const isOpen = minutes >= open && minutes < close;
