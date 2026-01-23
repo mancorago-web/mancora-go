@@ -229,6 +229,7 @@
   <div 
   class="restaurant-card"
   data-special="cafe-coral"
+  onclick="openMenu('menu-cafe-coral')"
 >
     <img src="images/cafecorallogofinal.png">
     <div class="card-content">
@@ -242,6 +243,8 @@
 <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">
   ⛔ Cerrado ahora
 </p>
+
+      <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
       
     </div>
   </div>
@@ -755,6 +758,184 @@
 
     <!-- Botón WhatsApp -->
     <a class="btn" href="#" onclick="pedirWhatsApp('3 Empanadas')">
+      Pedir por WhatsApp
+    </a>
+
+  </div>
+</div>
+
+  <!-- Menú Café Coral -->
+<div class="card hidden menu-section" id="menu-cafe-coral">
+  <div class="card-content">
+
+    <a href="#restaurantes" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
+      ← Volver a restaurantes
+    </a>
+
+    <h2>Menú – Café Coral</h2>
+
+    <!-- POSTRES -->
+    <h3 class="menu-category">🍰 Postres</h3>
+
+    <!-- 1 -->
+    <div class="menu-item">
+      <img src="images/menus/tiramisu1.jpg">
+      <div>
+        <strong>Tiramisu Cake</strong>
+        <p>Descubre el equilibrio perfecto entre la intensidad de nuestro café de especialidad y la sedosidad del auténtico queso mascarpone.</p>
+        <div class="price">S/ 16.</div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="menu-item">
+      <img src="images/menus/tortachocolate2.jpg">
+      <div>
+        <strong>Torta de Chocolate Trufada</strong>
+        <p>Cake de chocolate húmedo, relleno de trufa de chocolate y manjar blanco, envuelto en fudge y con un baño de trufa de chocolate.</p>
+        <div class="price">S/ 14.</div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="menu-item">
+      <img src="images/menus/tortazanahoria3.jpg">
+      <div>
+        <strong>Torta de Zanahoria</strong>
+        <p>Cake de zanahoria húmedo con pecanas y arándanos rojos, rellena de manjar blanco.</p>
+        <div class="price">S/ 14.</div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="menu-item">
+      <img src="images/menus/cheesecakefresa4.jpg">
+      <div>
+        <strong>Cheesecake de Fresa</strong>
+        <p>La tarta de queso definitiva: base de galleta crocante, relleno ultra cremoso y una generosa capa de fresas naturales en almíbar ligero.</p>
+        <div class="price">S/ 13.</div>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="menu-item">
+      <img src="images/menus/cheesecakemaracuya5.jpg">
+      <div>
+        <strong>Cheesecake de Maracuya</strong>
+        <p>Tarta de queso cremosa con cobertura de maracuyá natural.</p>
+        <div class="price">S/ 13.</div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="menu-item">
+      <img src="images/menus/piedelimon6.jpg">
+      <div>
+        <strong>Pie de Limón</strong>
+        <p>El balance ideal entre la acidez vibrante del limón recién exprimido y el dulzor del merengue suizo flameado.</p>
+        <div class="price">S/ 13.</div>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="menu-item">
+      <img src="images/menus/browniehelado7.jpg">
+      <div>
+        <strong>Brownie con Helado</strong>
+        <p>Disfruta de nuestro brownie de chocolate al 70%, con una bola de helado de vainilla.</p>
+        <div class="price">S/ 18.</div>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="menu-item">
+      <img src="images/menus/croissantdulce8.jpg">
+      <div>
+        <strong>Croissant Dulce</strong>
+        <p>Croissant relleno de helado de vainilla, fresas y salsa de chocolate.</p>
+        <div class="price">S/ 20</div>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="menu-item">
+      <img src="images/menus/brofle9.jpg">
+      <div>
+        <strong>Brofle</strong>
+        <p>Waffle con helado de vainilla, trozos de brownie y salsa de chocolate.</p>
+        <div class="price">S/ 30.</div>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="menu-item">
+      <img src="images/menus/wafflefrutas10.jpg">
+      <div>
+        <strong>Waffle con Frutas</strong>
+        <p>Waffle con fresas, plátano y miel de maple.</p>
+        <div class="price">S/ 28</div>
+      </div>
+    </div>
+
+    <!-- HAMBURGUESAS -->
+    <h3 class="menu-category">🍔 Hamburguesas</h3>
+
+    <!-- 11 -->
+    <div class="menu-item">
+      <img src="images/menus/hamburguesaclasica11.jpg">
+      <div>
+        <strong>Hamburguesa Clásica</strong>
+        <p>Pan brioche artesanal, carne, lechuga, tomate, queso cheddar y mayonesa de la casa, acompañado de papas fritas.</p>
+        <div class="price">S/ 28.</div>
+      </div>
+    </div>
+
+    <!-- 12 -->
+    <div class="menu-item">
+      <img src="images/menus/hamburguesaroyal12.jpg">
+      <div>
+        <strong>Hamburguesa Royal</strong>
+        <p>Pan brioche artesanal, carne, doble queso cheddar, huevo, lechuga, tomate y mayonesa de la casa, acompañado de papas fritas.</p>
+        <div class="price">S/ 32.</div>
+      </div>
+    </div>
+
+    <!-- 13 -->
+    <div class="menu-item">
+      <img src="images/menus/hamburguesacontocino13.jpg">
+      <div>
+        <strong>Hamburguesa con Tocino</strong>
+        <p>Pan brioche artesanal, carne, lechuga, tomate, queso cheddar, tocino, cebolla caramelizada y mayonesa de la casa, acompañado de papas fritas.</p>
+        <div class="price">S/ 32.</div>
+      </div>
+    </div>
+
+    <!-- 14 -->
+    <div class="menu-item">
+      <img src="images/menus/hamburguesaargenta14.jpg">
+      <div>
+        <strong>Hamburguesa Argenta</strong>
+        <p>Pan brioche artesanal, carne, chorizo campestre, chimichurri, lechuga, tomate y mayonesa de la casa acompañado de papas fritas.</p>
+        <div class="price">S/ 41.</div>
+      </div>
+    </div>
+
+    <!-- 15 -->
+    <div class="menu-item">
+      <img src="images/menus/clubsandwich15.jpg">
+      <div>
+        <strong>Club Sandwich</strong>
+        <p>Tres capas de pan de miga, lechuga, tomate, pollo a la plancha, tocino, huevo, jamón, queso edam y mayonesa de la casa acompañado de papas fritas.</p>
+        <div class="price">S/ 39.</div>
+      </div>
+    </div>
+
+    <a href="#restaurantes" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
+      ← Volver a restaurantes
+    </a>
+
+    <!-- Botón WhatsApp -->
+    <a class="btn" href="#" onclick="pedirWhatsApp('Café Coral')">
       Pedir por WhatsApp
     </a>
 
