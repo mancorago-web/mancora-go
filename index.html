@@ -226,12 +226,22 @@
   
   <!-- Restaurante Próximamente 2 -->
 <div class="card">
-  <div class="restaurant-card">
+  <div 
+  class="restaurant-card"
+  data-special="cafe-coral"
+>
     <img src="images/cafecorallogofinal.png">
     <div class="card-content">
       
       <div class="restaurant-name">🍰 Café Coral</div>
       <p>Cafetería & Pastelería </p>
+      <p class="schedule-label" style="font-size:14px;color:#16a34a;">
+  🕒 —
+</p>
+
+<p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">
+  ⛔ Cerrado ahora
+</p>
 
       <p style="margin-top:10px; font-size:15px; font-weight:600; color:#f59e0b;">
         🚀 Próximamente en Máncora Go!
@@ -807,6 +817,44 @@ function isCafeBarrioStatus() {
   return isOpen ? "open" : "closed-now";
 }
 </script>
+
+  <script>
+function isCafeCoralStatus() {
+  const now = new Date();
+  const day = now.getDay(); // 0 = domingo, 1 = lunes
+  const minutes = now.getHours() * 60 + now.getMinutes();
+
+  // ❌ Martes cerrado todo el día
+  if (day === 2) {
+    return {
+      status: "closed-today",
+      schedule: "🚫 Cerrado hoy"
+    };
+  }
+
+  // 🟡 Lunes a Jueves (excepto martes)
+  if (day >= 1 && day <= 4) {
+    const open = 13 * 60;  // 1:00 p.m.
+    const close = 22 * 60; // 10:00 p.m.
+    const isOpen = minutes >= open && minutes < close;
+
+    return {
+      status: isOpen ? "open" : "closed-now",
+      schedule: "🕒 1:00 p.m. – 10:00 p.m."
+    };
+  }
+
+  // 🟢 Viernes a Domingo
+  const open = 10 * 60;  // 10:00 a.m.
+  const close = 23 * 60; // 11:00 p.m.
+  const isOpen = minutes >= open && minutes < close;
+
+  return {
+    status: isOpen ? "open" : "closed-now",
+    schedule: "🕒 10:00 a.m. – 11:00 p.m."
+  };
+}
+</script>
   
 <script>
 function checkRestaurantHours() {
@@ -833,6 +881,26 @@ function checkRestaurantHours() {
   else {
     isOpen = false;
     closedLabel.textContent = "⛔ Cerrado ahora";
+  }
+}
+
+     if (card.dataset.special === "cafe-coral") {
+  const scheduleLabel = card.querySelector(".schedule-label");
+  const status = isCafeCoralStatus();
+
+  if (scheduleLabel) {
+    scheduleLabel.textContent = status.schedule;
+  }
+
+  if (status.status === "open") {
+    isOpen = true;
+  } 
+  else {
+    isOpen = false;
+    closedLabel.textContent =
+      status.status === "closed-today"
+        ? "🚫 Cerrado hoy"
+        : "⛔ Cerrado ahora";
   }
 }
 
