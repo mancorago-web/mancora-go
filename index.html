@@ -1089,15 +1089,24 @@ function checkRestaurantHours() {
 }
 
     // 🎯 Aplicar estado visual
-    if (!isOpen) {
-      card.style.pointerEvents = "none";
-      card.style.opacity = "0.55";
-      if (closedLabel) closedLabel.classList.remove('hidden');
-    } else {
-      card.style.pointerEvents = "auto";
-      card.style.opacity = "1";
-      if (closedLabel) closedLabel.classList.add('hidden');
-    }
+   if (!isOpen) {
+
+  // 👇 permitir abrir menú SOLO para Café Coral
+  if (card.dataset.special === "cafe-coral") {
+    card.style.pointerEvents = "auto";
+    card.style.opacity = "1";
+  } else {
+    card.style.pointerEvents = "none";
+    card.style.opacity = "0.55";
+  }
+
+  if (closedLabel) closedLabel.classList.remove('hidden');
+
+} else {
+  card.style.pointerEvents = "auto";
+  card.style.opacity = "1";
+  if (closedLabel) closedLabel.classList.add('hidden');
+}
   });
 }
 
