@@ -201,8 +201,7 @@
 <div class="card featured-card">
   <div 
   class="restaurant-card"
-  data-open="17"
-  data-close="22.5"
+  data-special="barrio-burguer"
   data-featured="true"
   onclick="openMenu('menu-burger')"
 >
@@ -1036,6 +1035,37 @@ function isCafeCoralStatus() {
   };
 }
 </script>
+
+<script>
+function isBarrioBurguerStatus() {
+  const now = new Date();
+  const day = now.getDay(); // 0=Dom, 1=Lun, 2=Mar...
+  const minutes = now.getHours() * 60 + now.getMinutes();
+
+  // ❌ Martes cerrado todo el día
+  if (day === 2) {
+    return {
+      status: "closed-today",
+      message: "🚫 Cerrado por descanso"
+    };
+  }
+
+  // Horarios base
+  const open = 17 * 60; // 5:00 p.m.
+
+  // 🟢 Sábado hasta 11:59 p.m.
+  const close = day === 6
+    ? (23 * 60 + 59)
+    : (23 * 60); // resto hasta 11:00 p.m.
+
+  const isOpen = minutes >= open && minutes < close;
+
+  return {
+    status: isOpen ? "open" : "closed-now",
+    message: isOpen ? "" : "⛔ Cerrado ahora"
+  };
+}
+</script>
   
 <script>
 function checkRestaurantHours() {
@@ -1053,6 +1083,16 @@ function checkRestaurantHours() {
   .forEach(card => {
     const closedLabel = card.querySelector('.closed-label');
     let isOpen = true;
+
+    // 🍔 BARRIO BURGUER
+if (card.dataset.special === "barrio-burguer") {
+  const status = isBarrioBurguerStatus();
+  isOpen = status.status === "open";
+
+  if (!isOpen && closedLabel) {
+    closedLabel.textContent = status.message;
+  }
+}
 
     // 🟡 CAFÉ DE BARRIO
     if (card.dataset.special === "cafe-barrio") {
