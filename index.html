@@ -207,24 +207,9 @@
 
   <h2 class="section-title">🍽️ Restaurantes</h2>
 
-   <!-- Restaurante Próximamente 1 -->
-<div class="card">
-  <div class="restaurant-card">
-    <img src="images/barbarologofinal.jpg">
-    <div class="card-content">
-      
-      <div class="restaurant-name">🌮 Bárbaro</div>
-      <p>Tacos, burritos & parillas </p>
+  <div id="restaurants-list">
 
-      <p style="margin-top:10px; font-size:15px; font-weight:600; color:#f59e0b;">
-        🚀 Próximamente en Máncora Go!
-      </p>
-
-    </div>
-  </div>
-</div>
-  
-  <!-- Restaurante Próximamente 2 -->
+     <!-- Restaurante Cafe Coral -->
 <div class="card">
   <div 
   class="restaurant-card"
@@ -249,32 +234,8 @@
     </div>
   </div>
 </div>
-  
-  <!-- Restaurante 3 Empanadas -->
-<div class="card">
-  <div 
-    class="restaurant-card"
-    data-open="9"
-    data-close="18"
-    onclick="openMenu('menu-empanadas')"
-  >
-    <img src="images/3empanadaslogofinal.jpg">
-    <div class="card-content">
-      <span class="badge-new">🆕 Nuevo en Máncora Go</span>
-      <div class="restaurant-name">🥟 3 Empanadas</div>
-      <p>Empanadas argentinas artesanales</p>
-      <p style="font-size:14px;color:#16a34a;">🕒 9:00 a.m. – 6:00 p.m.</p>
 
-      <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">
-        ⛔ Cerrado ahora
-      </p>
-
-      <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
-    </div>
-  </div>
-</div>
-
-   <!-- Restaurante 4 -->
+     <!-- Restaurante Cafe de Barrio -->
 <div class="card">
   <div 
   class="restaurant-card"
@@ -297,7 +258,33 @@
   </div>
 </div>
   
-  <!-- Restaurante Próximamente 5 -->
+  <!-- Restaurante Empanadas -->
+<div class="card">
+  <div 
+    class="restaurant-card"
+    data-open="9"
+    data-close="18"
+    onclick="openMenu('menu-empanadas')"
+  >
+    <img src="images/3empanadaslogofinal.jpg">
+    <div class="card-content">
+      <span class="badge-new">🆕 Nuevo en Máncora Go</span>
+      <div class="restaurant-name">🥟 3 Empanadas</div>
+      <p>Empanadas argentinas artesanales</p>
+      <p style="font-size:14px;color:#16a34a;">🕒 9:00 a.m. – 6:00 p.m.</p>
+
+      <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">
+        ⛔ Cerrado ahora
+      </p>
+
+      <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
+    </div>
+  </div>
+</div>
+    
+</div>
+    
+  <!-- Restaurante Próximamente 1 -->
 <div class="card">
   <div class="restaurant-card">
     <img src="images/tribalacailogo.jpg">
@@ -305,6 +292,23 @@
       
       <div class="restaurant-name">🥣 Tribal Açai</div>
       <p>Açai bowls & opciones saludables</p>
+
+      <p style="margin-top:10px; font-size:15px; font-weight:600; color:#f59e0b;">
+        🚀 Próximamente en Máncora Go!
+      </p>
+
+    </div>
+  </div>
+</div>
+
+   <!-- Restaurante Próximamente 2 -->
+<div class="card">
+  <div class="restaurant-card">
+    <img src="images/barbarologofinal.jpg">
+    <div class="card-content">
+      
+      <div class="restaurant-name">🌮 Bárbaro</div>
+      <p>Tacos, burritos & parillas </p>
 
       <p style="margin-top:10px; font-size:15px; font-weight:600; color:#f59e0b;">
         🚀 Próximamente en Máncora Go!
@@ -1021,76 +1025,69 @@ function checkRestaurantHours() {
   const now = new Date();
   const currentHour = now.getHours() + now.getMinutes() / 60;
 
-  document.querySelectorAll('.restaurant-card').forEach(card => {
-    const closedLabel = card.querySelector('.closed-label');
+  const container = document.getElementById("restaurants-list");
+  if (!container) return;
 
+  const openRestaurants = [];
+  const closedRestaurants = [];
+
+  document.querySelectorAll('#restaurants-list .restaurant-card').forEach(card => {
+    const closedLabel = card.querySelector('.closed-label');
     let isOpen = true;
 
-    // 🟡 CAFÉ DE BARRIO (horario especial)
-   if (card.dataset.special === "cafe-barrio") {
-  const status = isCafeBarrioStatus();
+    // 🟡 CAFÉ DE BARRIO
+    if (card.dataset.special === "cafe-barrio") {
+      const status = isCafeBarrioStatus();
+      isOpen = status === "open";
+      if (!isOpen && closedLabel) {
+        closedLabel.textContent =
+          status === "closed-today" ? "🚫 Cerrado hoy" : "⛔ Cerrado ahora";
+      }
+    }
 
-  if (status === "open") {
-    isOpen = true;
-    closedLabel.textContent = "⛔ Cerrado ahora";
-  } 
-  else if (status === "closed-today") {
-    isOpen = false;
-    closedLabel.textContent = "🚫 Cerrado hoy";
-  } 
-  else {
-    isOpen = false;
-    closedLabel.textContent = "⛔ Cerrado ahora";
-  }
-}
+    // 🟡 CAFÉ CORAL
+    else if (card.dataset.special === "cafe-coral") {
+      const scheduleLabel = card.querySelector(".schedule-label");
+      const status = isCafeCoralStatus();
+      if (scheduleLabel) scheduleLabel.textContent = status.schedule;
+      isOpen = status.status === "open";
+      if (!isOpen && closedLabel) {
+        closedLabel.textContent =
+          status.status === "closed-today" ? "🚫 Cerrado hoy" : "⛔ Cerrado ahora";
+      }
+    }
 
-     if (card.dataset.special === "cafe-coral") {
-  const scheduleLabel = card.querySelector(".schedule-label");
-  const status = isCafeCoralStatus();
+    // 🟢 RESTAURANTES NORMALES
+    else if (card.dataset.open && card.dataset.close) {
+      const open = parseFloat(card.dataset.open);
+      const close = parseFloat(card.dataset.close);
+      isOpen = !(currentHour < open || currentHour >= close);
+    }
 
-  if (scheduleLabel) {
-    scheduleLabel.textContent = status.schedule;
-  }
-
-  if (status.status === "open") {
-    isOpen = true;
-  } 
-  else {
-    isOpen = false;
-    closedLabel.textContent =
-      status.status === "closed-today"
-        ? "🚫 Cerrado hoy"
-        : "⛔ Cerrado ahora";
-  }
-}
-
-    // 🟢 RESTAURANTES NORMALES (data-open / data-close)
-   else if (card.dataset.open && card.dataset.close) {
-  const open = parseFloat(card.dataset.open);
-  const close = parseFloat(card.dataset.close);
-  isOpen = !(currentHour < open || currentHour >= close);
-}
-
-    // 🎯 Aplicar estado visual
-   if (!isOpen) {
-  card.style.pointerEvents = "none";
-  card.style.opacity = "0.55";
-  if (closedLabel) closedLabel.classList.remove('hidden');
-} else {
-  card.style.pointerEvents = "auto";
-  card.style.opacity = "1";
-  if (closedLabel) closedLabel.classList.add('hidden');
-}
+    // 🎯 ESTADO VISUAL
+    if (!isOpen) {
+      card.style.pointerEvents = "none";
+      card.style.opacity = "0.55";
+      if (closedLabel) closedLabel.classList.remove("hidden");
+      closedRestaurants.push(card.closest(".card"));
+    } else {
+      card.style.pointerEvents = "auto";
+      card.style.opacity = "1";
+      if (closedLabel) closedLabel.classList.add("hidden");
+      openRestaurants.push(card.closest(".card"));
+    }
   });
+
+  // 🔁 Reordenar DOM
+  container.innerHTML = "";
+  openRestaurants.forEach(card => container.appendChild(card));
+  closedRestaurants.forEach(card => container.appendChild(card));
 }
 
-// ejecutar al cargar
+// Ejecutar
 checkRestaurantHours();
-
-// revisar cada minuto
 setInterval(checkRestaurantHours, 60000);
-
-  </script>
+</script>
   
 </body>
 </html>
