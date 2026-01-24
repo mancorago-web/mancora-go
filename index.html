@@ -1084,7 +1084,7 @@ function checkRestaurantHours() {
     const closedLabel = card.querySelector('.closed-label');
     let isOpen = true;
 
-    // 🍔 BARRIO BURGUER
+   // 🍔 BARRIO BURGUER
 if (card.dataset.special === "barrio-burguer") {
   const status = isBarrioBurguerStatus();
   isOpen = status.status === "open";
@@ -1094,34 +1094,37 @@ if (card.dataset.special === "barrio-burguer") {
   }
 }
 
-    // 🟡 CAFÉ DE BARRIO
-    if (card.dataset.special === "cafe-barrio") {
-      const status = isCafeBarrioStatus();
-      isOpen = status === "open";
-      if (!isOpen && closedLabel) {
-        closedLabel.textContent =
-          status === "closed-today" ? "🚫 Cerrado hoy" : "⛔ Cerrado ahora";
-      }
-    }
+// ☕ CAFÉ DE BARRIO
+else if (card.dataset.special === "cafe-barrio") {
+  const status = isCafeBarrioStatus();
+  isOpen = status === "open";
 
-    // 🟡 CAFÉ CORAL
-    else if (card.dataset.special === "cafe-coral") {
-      const scheduleLabel = card.querySelector(".schedule-label");
-      const status = isCafeCoralStatus();
-      if (scheduleLabel) scheduleLabel.textContent = status.schedule;
-      isOpen = status.status === "open";
-      if (!isOpen && closedLabel) {
-        closedLabel.textContent =
-          status.status === "closed-today" ? "🚫 Cerrado hoy" : "⛔ Cerrado ahora";
-      }
-    }
+  if (!isOpen && closedLabel) {
+    closedLabel.textContent =
+      status === "closed-today" ? "🚫 Cerrado hoy" : "⛔ Cerrado ahora";
+  }
+}
 
-    // 🟢 RESTAURANTES NORMALES
-    else if (card.dataset.open && card.dataset.close) {
-      const open = parseFloat(card.dataset.open);
-      const close = parseFloat(card.dataset.close);
-      isOpen = !(currentHour < open || currentHour >= close);
-    }
+// 🍰 CAFÉ CORAL
+else if (card.dataset.special === "cafe-coral") {
+  const scheduleLabel = card.querySelector(".schedule-label");
+  const status = isCafeCoralStatus();
+
+  if (scheduleLabel) scheduleLabel.textContent = status.schedule;
+  isOpen = status.status === "open";
+
+  if (!isOpen && closedLabel) {
+    closedLabel.textContent =
+      status.status === "closed-today" ? "🚫 Cerrado hoy" : "⛔ Cerrado ahora";
+  }
+}
+
+// 🟢 RESTAURANTES NORMALES
+else if (card.dataset.open && card.dataset.close) {
+  const open = parseFloat(card.dataset.open);
+  const close = parseFloat(card.dataset.close);
+  isOpen = !(currentHour < open || currentHour >= close);
+}
 
     // 🎯 ESTADO VISUAL
     const cardWrapper = card.closest(".card");
