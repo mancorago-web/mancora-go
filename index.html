@@ -137,6 +137,23 @@
   text-align: center;        /* 👈 CENTRADO */
   letter-spacing: 0.3px;
 }
+    /* === Próximos lanzamientos === */
+.upcoming-card {
+  background: #fff7ed;
+  border: 2px dashed #fbbf24;
+}
+
+.restaurant-card.upcoming {
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+.upcoming-label {
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #d97706;
+}
     
   </style>
 </head>
@@ -284,42 +301,41 @@
 </div>
     
 </div>
-    
+
+  <h2 class="section-title">🚀 Próximos lanzamientos</h2>
+
+<div id="upcoming-list">
+
   <!-- Restaurante Próximamente 1 -->
-<div class="card">
-  <div class="restaurant-card">
-    <img src="images/tribalacailogo.jpg">
-    <div class="card-content">
-      
-      <div class="restaurant-name">🥣 Tribal Açai</div>
-      <p>Açai bowls & opciones saludables</p>
-
-      <p style="margin-top:10px; font-size:15px; font-weight:600; color:#f59e0b;">
-        🚀 Próximamente en Máncora Go!
-      </p>
-
+  <div class="card upcoming-card">
+    <div class="restaurant-card upcoming">
+      <img src="images/tribalacailogo.jpg">
+      <div class="card-content">
+        <div class="restaurant-name">🥣 Tribal Açai</div>
+        <p>Açai bowls & opciones saludables</p>
+        <p class="upcoming-label">
+          🚀 Próximamente en Máncora Go
+        </p>
+      </div>
     </div>
   </div>
-</div>
 
-   <!-- Restaurante Próximamente 2 -->
-<div class="card">
-  <div class="restaurant-card">
-    <img src="images/barbarologofinal.jpg">
-    <div class="card-content">
-      
-      <div class="restaurant-name">🌮 Bárbaro</div>
-      <p>Tacos, burritos & parillas </p>
-
-      <p style="margin-top:10px; font-size:15px; font-weight:600; color:#f59e0b;">
-        🚀 Próximamente en Máncora Go!
-      </p>
-
+  <!-- Restaurante Próximamente 2 -->
+  <div class="card upcoming-card">
+    <div class="restaurant-card upcoming">
+      <img src="images/barbarologofinal.jpg">
+      <div class="card-content">
+        <div class="restaurant-name">🌮 Bárbaro</div>
+        <p>Tacos, burritos & parrillas</p>
+        <p class="upcoming-label">
+          🚀 Próximamente en Máncora Go
+        </p>
+      </div>
     </div>
   </div>
+
 </div>
 
-   
 
   <!-- Menú Burger -->
 <div class="card hidden menu-section" id="menu-burger">
@@ -1032,7 +1048,9 @@ function checkRestaurantHours() {
   const openRestaurants = [];
   const closedRestaurants = [];
 
-  document.querySelectorAll('.restaurant-card').forEach(card => {
+  document
+  .querySelectorAll('#restaurants-list .restaurant-card')
+  .forEach(card => {
     const closedLabel = card.querySelector('.closed-label');
     let isOpen = true;
 
