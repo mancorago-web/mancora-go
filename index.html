@@ -208,6 +208,40 @@
     transparent
   );
 }
+
+/* === Micro Shine Top 1 === */
+.badge-top-1 {
+  position: relative;
+  overflow: hidden;
+}
+
+.badge-top-1::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.5),
+    transparent
+  );
+  animation: shine 5s ease-in-out infinite;
+}
+
+@keyframes shine {
+  0% {
+    left: -75%;
+  }
+  60% {
+    left: -75%;
+  }
+  100% {
+    left: 125%;
+  }
+}
     
   </style>
 </head>
