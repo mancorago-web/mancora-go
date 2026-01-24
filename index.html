@@ -326,7 +326,9 @@
       <div class="restaurant-name">🍔 Barrio Burguer</div>
       
       <p>Hamburguesas artesanales</p>
-      <p style="font-size:14px;color:#16a34a;">🕒 5:00 p.m. – 10:30 p.m.</p>
+      <p class="schedule-label" style="font-size:14px;color:#16a34a;">
+  🕒 —
+</p>
        <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">
   ⛔ Cerrado ahora
 </p>
@@ -1169,29 +1171,32 @@ function isCafeCoralStatus() {
 <script>
 function isBarrioBurguerStatus() {
   const now = new Date();
-  const day = now.getDay(); // 0=Dom, 1=Lun, 2=Mar...
+  const day = now.getDay(); // 0=Dom, 1=Lun...
   const minutes = now.getHours() * 60 + now.getMinutes();
 
-  // ❌ Martes cerrado todo el día
+  // ❌ Martes cerrado
   if (day === 2) {
     return {
       status: "closed-today",
+      schedule: "🚫 Cerrado hoy",
       message: "🚫 Cerrado por descanso"
     };
   }
 
-  // Horarios base
   const open = 17 * 60; // 5:00 p.m.
 
   // 🟢 Sábado hasta 11:59 p.m.
-  const close = day === 6
-    ? (23 * 60 + 59)
-    : (23 * 60); // resto hasta 11:00 p.m.
+  const close =
+    day === 6 ? (23 * 60 + 59) : (23 * 60);
 
   const isOpen = minutes >= open && minutes < close;
 
   return {
     status: isOpen ? "open" : "closed-now",
+    schedule:
+      day === 6
+        ? "🕒 5:00 p.m. – 11:59 p.m."
+        : "🕒 5:00 p.m. – 11:00 p.m.",
     message: isOpen ? "" : "⛔ Cerrado ahora"
   };
 }
@@ -1216,7 +1221,10 @@ function checkRestaurantHours() {
 
    // 🍔 BARRIO BURGUER
 if (card.dataset.special === "barrio-burguer") {
+  const scheduleLabel = card.querySelector(".schedule-label");
   const status = isBarrioBurguerStatus();
+
+  if (scheduleLabel) scheduleLabel.textContent = status.schedule;
   isOpen = status.status === "open";
 
   if (!isOpen && closedLabel) {
