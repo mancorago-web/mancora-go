@@ -1031,7 +1031,7 @@ function checkRestaurantHours() {
   const openRestaurants = [];
   const closedRestaurants = [];
 
-  document.querySelectorAll('#restaurants-list .restaurant-card').forEach(card => {
+  document.querySelectorAll('.restaurant-card').forEach(card => {
     const closedLabel = card.querySelector('.closed-label');
     let isOpen = true;
 
