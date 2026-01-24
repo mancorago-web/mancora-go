@@ -186,6 +186,7 @@
   class="restaurant-card"
   data-open="17"
   data-close="22.5"
+  data-featured="true"
   onclick="openMenu('menu-burger')"
 >
     <img src="images/barrioburguerlogofinal.jpg">
@@ -1031,7 +1032,7 @@ function checkRestaurantHours() {
   const openRestaurants = [];
   const closedRestaurants = [];
 
-  document.querySelectorAll('#restaurants-list .restaurant-card').forEach(card => {
+  document.querySelectorAll('.restaurant-card').forEach(card => {
     const closedLabel = card.querySelector('.closed-label');
     let isOpen = true;
 
@@ -1065,17 +1066,28 @@ function checkRestaurantHours() {
     }
 
     // 🎯 ESTADO VISUAL
-    if (!isOpen) {
-      card.style.pointerEvents = "none";
-      card.style.opacity = "0.55";
-      if (closedLabel) closedLabel.classList.remove("hidden");
-      closedRestaurants.push(card.closest(".card"));
-    } else {
-      card.style.pointerEvents = "auto";
-      card.style.opacity = "1";
-      if (closedLabel) closedLabel.classList.add("hidden");
-      openRestaurants.push(card.closest(".card"));
-    }
+    const cardWrapper = card.closest(".card");
+const isFeatured = card.dataset.featured === "true";
+
+// 🎯 ESTADO VISUAL (para TODOS)
+if (!isOpen) {
+  card.style.pointerEvents = "none";
+  card.style.opacity = "0.55";
+  if (closedLabel) closedLabel.classList.remove("hidden");
+} else {
+  card.style.pointerEvents = "auto";
+  card.style.opacity = "1";
+  if (closedLabel) closedLabel.classList.add("hidden");
+}
+
+// 🔁 SOLO reordenar si NO es destacado
+if (!isFeatured && container.contains(cardWrapper)) {
+  if (isOpen) {
+    openRestaurants.push(cardWrapper);
+  } else {
+    closedRestaurants.push(cardWrapper);
+  }
+}
   });
 
   // 🔁 Reordenar DOM
