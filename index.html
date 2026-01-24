@@ -1028,7 +1028,10 @@ function checkRestaurantHours() {
   const container = document.getElementById("restaurants-list");
   if (!container) return;
 
-  document.querySelectorAll('.restaurant-card').forEach(card => {
+  const openRestaurants = [];
+  const closedRestaurants = [];
+
+  document.querySelectorAll('#restaurants-list .restaurant-card').forEach(card => {
     const closedLabel = card.querySelector('.closed-label');
     let isOpen = true;
 
@@ -1074,12 +1077,20 @@ function checkRestaurantHours() {
       openRestaurants.push(card.closest(".card"));
     }
   });
+
+  // 🔁 Reordenar DOM
+  container.innerHTML = "";
+  openRestaurants.forEach(card => container.appendChild(card));
+  closedRestaurants.forEach(card => container.appendChild(card));
 }
 
 // Ejecutar
 checkRestaurantHours();
 setInterval(checkRestaurantHours, 60000);
 </script>
+  
+</body>
+</html>
   
 </body>
 </html>
