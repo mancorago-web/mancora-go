@@ -1626,7 +1626,19 @@ function enviarPedidoWhatsApp() {
 
   const url = `https://wa.me/${telefono}?text=${mensaje}`;
   window.open(url, "_blank");
+resetCart();
+
+function resetCart() {
+  cart = [];
+  updateFloatingCart();
+
+  document.getElementById("orderItems").innerHTML = "";
+  document.getElementById("orderTotal").textContent = "S/0";
+
+  document.getElementById("orderModal")
+    .classList.add("hidden");
 }
+    
 </script>
   
 </body>
