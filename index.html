@@ -351,6 +351,14 @@
   font-size: 18px;
 }
 
+    .delivery-note {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #6b7280;
+  text-align: center;
+}
+    
+
     
   </style>
 </head>
@@ -1631,6 +1639,38 @@ function enviarPedidoWhatsApp() {
   window.open(url, "_blank");
 }
 </script>
+
+  <script>
+function openCart() {
+  document.getElementById("cartModal").classList.remove("hidden");
+}
+
+function closeCart() {
+  document.getElementById("cartModal").classList.add("hidden");
+}
+</script>
+
+<!-- MODAL DEL CARRITO -->
+<div id="cartModal" class="modal hidden">
+  <div class="modal-content">
+
+    <h3 style="margin-top:0;">🛒 Tu pedido</h3>
+
+    <div id="cartItems"></div>
+
+    <div class="order-total">
+      Total: S/ <span id="cartTotal">0</span>
+    </div>
+
+    <!-- MENSAJE DELIVERY -->
+    <div class="delivery-note">
+      🚚 El costo de delivery se cobra aparte según tu ubicación 📍
+    </div>
+
+    <button class="btn" onclick="closeCart()">Cerrar</button>
+  </div>
+</div>
+
   
 </body>
 </html>
