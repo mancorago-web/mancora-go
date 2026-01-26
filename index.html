@@ -1416,16 +1416,35 @@ setInterval(checkRestaurantHours, 60000);
     
 </script>
 
-<!-- 🛒 Carrito flotante -->
-<div id="floating-cart" class="floating-cart hidden">
+  <!-- CARRITO FLOTANTE -->
+<div id="floatingCart" class="floating-cart hidden">
   <div class="cart-info">
-    <span id="cart-count">0 items</span>
-    <strong id="cart-total">S/0</strong>
+    <span id="cartItems">0 items</span>
+    <strong id="cartTotal">S/0</strong>
   </div>
-  <button class="cart-btn" onclick="openCart()">
+  <button class="cart-btn">
     Ver pedido
   </button>
 </div>
+
+  <script>
+  let cartCount = 0;
+  let cartTotal = 0;
+
+  function addToCart(price) {
+    cartCount++;
+    cartTotal += price;
+
+    document.getElementById("cartItems").textContent =
+      `${cartCount} item${cartCount > 1 ? "s" : ""}`;
+
+    document.getElementById("cartTotal").textContent =
+      `S/${cartTotal}`;
+
+    document.getElementById("floatingCart")
+      .classList.remove("hidden");
+  }
+</script>
   
 </body>
 </html>
