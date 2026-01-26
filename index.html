@@ -306,6 +306,18 @@
   cursor: pointer;
 }
     
+    .add-btn {
+  margin-top: 10px;
+  background: #22c55e;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+}
+    
   </style>
 </head>
 <body>
@@ -533,16 +545,21 @@
     <h3 class="menu-category">🍔 Hamburguesas</h3>
     
     <div class="menu-item">
-      <img src="images/menus/americanafinal.jpg">
-      <div>
-        <strong>Americana</strong>
-        <p>Carne de res, lechuga, tomate, pepinillos, cebolla, queso cheddar, salsa de la casa.</p>
-        <div class="price-row">
-  <span>Simple: S/18.</span>
-  <span>Doble: S/23.</span>
-</div>
-      </div>
+  <img src="images/menus/americanafinal.jpg">
+  <div>
+    <strong>Americana</strong>
+    <p>Carne de res, lechuga, tomate, pepinillos, cebolla, queso cheddar, salsa de la casa.</p>
+    <div class="price-row">
+      <span>Simple: S/18.</span>
+      <span>Doble: S/23.</span>
     </div>
+
+    <button class="add-btn" onclick="addToCart(18)">
+      ➕ Agregar (Simple)
+    </button>
+
+  </div>
+</div>
 
     <div class="menu-item">
       <img src="images/menus/baconfinal.jpg">
@@ -1372,6 +1389,26 @@ setInterval(checkRestaurantHours, 60000);
     document.getElementById("cart-count").textContent = "2 items";
     document.getElementById("cart-total").textContent = "S/32";
   }
+
+<script>
+  let cartCount = 0;
+  let cartTotal = 0;
+
+  function addToCart(price) {
+    cartCount++;
+    cartTotal += price;
+
+    document.getElementById("cart-count").textContent =
+      cartCount + " item" + (cartCount > 1 ? "s" : "");
+
+    document.getElementById("cart-total").textContent =
+      "S/" + cartTotal;
+
+    document.getElementById("floating-cart")
+      .classList.remove("hidden");
+  }
+ </script>
+    
 </script>
 
 <!-- 🛒 Carrito flotante -->
