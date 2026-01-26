@@ -1431,27 +1431,7 @@ setInterval(checkRestaurantHours, 60000);
     document.getElementById("floating-cart").classList.remove("hidden");
     document.getElementById("cart-count").textContent = "2 items";
     document.getElementById("cart-total").textContent = "S/32";
-  }
-
-<script>
-  let cartCount = 0;
-  let cartTotal = 0;
-
-  function addToCart(price) {
-    cartCount++;
-    cartTotal += price;
-
-    document.getElementById("cart-count").textContent =
-      cartCount + " item" + (cartCount > 1 ? "s" : "");
-
-    document.getElementById("cart-total").textContent =
-      "S/" + cartTotal;
-
-    document.getElementById("floating-cart")
-      .classList.remove("hidden");
-  }
- </script>
-    
+  }    
 </script>
 
   <!-- CARRITO FLOTANTE -->
@@ -1570,6 +1550,37 @@ function updateFloatingCart() {
 
   floatingCart.classList.remove("hidden");
 }
+
+function openOrderModal() {
+  const modal = document.getElementById("orderModal");
+  modal.classList.remove("hidden");
+
+  renderOrderItems();
+}
+    function renderOrderItems() {
+  const container = document.getElementById("orderItems");
+  const totalEl = document.getElementById("orderTotal");
+
+  container.innerHTML = "";
+
+  let total = 0;
+
+  cart.forEach(item => {
+    total += item.price * item.qty;
+
+    const div = document.createElement("div");
+    div.className = "order-item";
+    div.innerHTML = `
+      <span>${item.qty} × ${item.name}</span>
+      <strong>S/${item.price * item.qty}</strong>
+    `;
+
+    container.appendChild(div);
+  });
+
+  totalEl.textContent = `S/${total}`;
+}
+    
 </script>
 
 <!-- MODAL PEDIDO -->
@@ -1597,8 +1608,8 @@ function updateFloatingCart() {
     <strong id="cartTotal">S/ 0</strong>
   </div>
   <button class="cart-btn" onclick="openOrderModal()">
-    Ver pedido
-  </button>
+  Ver pedido
+</button>
 </div>
 
   <script>
