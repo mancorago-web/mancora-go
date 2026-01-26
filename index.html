@@ -920,10 +920,10 @@
         <p>Carne, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
         <div class="price">S/15.</div>
 
-<button class="add-btn" onclick="addToCart({
-  restaurant: '3 Empanadas',
+<button onclick="addToCart({
   name: '3 Empanadas de Carne',
-  price: 15
+  price: 15,
+  restaurant: '3 Empanadas'
 })">
   ➕ Agregar
 </button>
@@ -1434,6 +1434,29 @@ setInterval(checkRestaurantHours, 60000);
   }    
 </script>
 
+<!-- MODAL DEL PEDIDO -->
+<div id="orderModal" class="modal hidden">
+  <div class="modal-content">
+    
+    <h3>🛵 Tu pedido</h3>
+
+    <div id="orderItems"></div>
+
+    <div class="order-total">
+      💰 Total: <strong id="orderTotal">S/0</strong>
+    </div>
+
+    <button class="add-btn" onclick="sendOrderWhatsApp()">
+      CONTINUAR
+    </button>
+
+    <button class="add-btn" style="background:#e5e7eb;color:#111" onclick="closeOrderModal()">
+      Cerrar
+    </button>
+
+  </div>
+</div>
+  
   <!-- CARRITO FLOTANTE -->
 <div id="floatingCart" class="floating-cart hidden">
   <div class="cart-info">
@@ -1528,59 +1551,82 @@ function closeOrder() {
 let cart = [];
 
 function addToCart(product) {
-  cart.push(product);
+  const existing = cart.find(
+    i => i.name === product.name && i.restaurant === product.restaurant
+  );
+
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ ...product, qty: 1 });
+  }
+
   updateFloatingCart();
-  console.log("🛒 Carrito:", cart);
 }
 
 function updateFloatingCart() {
-  const floatingCart = document.getElementById("floatingCart");
-  const cartCount = document.getElementById("cartCount");
-  const cartTotal = document.getElementById("cartTotal");
+  const items = cart.reduce((s, i) => s + i.qty, 0);
+  const total = cart.reduce((s, i) => s + i.qty * i.price, 0);
 
-  if (cart.length === 0) {
-    floatingCart.classList.add("hidden");
-    return;
-  }
+  document.getElementById("cartItems").textContent =
+    `${items} item${items > 1 ? "s" : ""}`;
 
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
+  document.getElementById("cartTotal").textContent = `S/${total}`;
 
-  cartCount.textContent = `${cart.length} producto(s)`;
-  cartTotal.textContent = `S/ ${total}`;
-
-  floatingCart.classList.remove("hidden");
+  document.getElementById("floatingCart").classList.remove("hidden");
 }
 
 function openOrderModal() {
   const modal = document.getElementById("orderModal");
-  modal.classList.remove("hidden");
-
-  renderOrderItems();
-}
-    function renderOrderItems() {
   const container = document.getElementById("orderItems");
   const totalEl = document.getElementById("orderTotal");
 
   container.innerHTML = "";
-
   let total = 0;
 
   cart.forEach(item => {
-    total += item.price * item.qty;
+    const subtotal = item.qty * item.price;
+    total += subtotal;
 
     const div = document.createElement("div");
     div.className = "order-item";
     div.innerHTML = `
       <span>${item.qty} × ${item.name}</span>
-      <strong>S/${item.price * item.qty}</strong>
+      <strong>S/${subtotal}</strong>
     `;
 
     container.appendChild(div);
   });
 
   totalEl.textContent = `S/${total}`;
+  modal.classList.remove("hidden");
 }
-    
+
+function closeOrderModal() {
+  document.getElementById("orderModal").classList.add("hidden");
+}
+
+function sendOrderWhatsApp() {
+  let message = "🛵 Nuevo pedido - Máncora Go\n\n";
+  let total = 0;
+
+  cart.forEach(item => {
+    const subtotal = item.qty * item.price;
+    total += subtotal;
+    message += `• ${item.qty} x ${item.name} - S/${subtotal}\n`;
+  });
+
+  message += `\n💰 Total: S/${total}\n\n📍 Te enviaré mi ubicación ahora`;
+
+  const phone = "51978742157"; // TU NUMERO
+  const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  window.open(url, "_blank");
+
+  // Vaciar carrito
+  cart = [];
+  document.getElementById("floatingCart").classList.add("hidden");
+  closeOrderModal();
+}
 </script>
 
 <!-- MODAL PEDIDO -->
@@ -1601,15 +1647,39 @@ function openOrderModal() {
   </div>
 </div>
 
-  <!-- CARRITO FLOTANTE -->
+  <!-- MODAL DEL PEDIDO -->
+<div id="orderModal" class="modal hidden">
+  <div class="modal-content">
+
+    <h3>🛵 Tu pedido</h3>
+
+    <div id="orderItems"></div>
+
+    <div class="order-total">
+      💰 Total: <strong id="orderTotal">S/0</strong>
+    </div>
+
+    <button class="confirm-btn" onclick="sendOrderWhatsApp()">
+      CONTINUAR
+    </button>
+
+    <button class="close-btn" onclick="closeOrderModal()">
+      Cerrar
+    </button>
+
+  </div>
+</div>
+
+ <!-- CARRITO FLOTANTE -->
 <div id="floatingCart" class="floating-cart hidden">
   <div class="cart-info">
-    <span id="cartCount">0 productos</span>
-    <strong id="cartTotal">S/ 0</strong>
+    <span id="cartItems">0 items</span>
+    <strong id="cartTotal">S/0</strong>
   </div>
+
   <button class="cart-btn" onclick="openOrderModal()">
-  Ver pedido
-</button>
+    Ver pedido
+  </button>
 </div>
 
   <script>
