@@ -1615,10 +1615,11 @@ function enviarPedidoWhatsApp() {
   let total = 0;
 
   cart.forEach(item => {
-    const subtotal = item.price * (item.qty || 1);
-    total += subtotal;
-    mensaje += `• ${item.name} - S/${subtotal}%0A`;
-  });
+  for (let i = 0; i < (item.qty || 1); i++) {
+    mensaje += `• ${item.name} - S/${item.price}%0A`;
+    total += item.price;
+  }
+});
 
   mensaje += `%0A💰 *Total:* S/${total}%0A`;
   mensaje += `%0A📍 Te enviaré mi ubicación ahora`;
