@@ -1544,6 +1544,34 @@ function closeOrder() {
     
 </script>
 
+  <script>
+let cart = [];
+
+function addToCart(product) {
+  cart.push(product);
+  updateFloatingCart();
+  console.log("🛒 Carrito:", cart);
+}
+
+function updateFloatingCart() {
+  const floatingCart = document.getElementById("floatingCart");
+  const cartCount = document.getElementById("cartCount");
+  const cartTotal = document.getElementById("cartTotal");
+
+  if (cart.length === 0) {
+    floatingCart.classList.add("hidden");
+    return;
+  }
+
+  const total = cart.reduce((sum, item) => sum + item.price, 0);
+
+  cartCount.textContent = `${cart.length} producto(s)`;
+  cartTotal.textContent = `S/ ${total}`;
+
+  floatingCart.classList.remove("hidden");
+}
+</script>
+
 <!-- MODAL PEDIDO -->
 <div id="orderModal" class="modal hidden">
   <div class="modal-content">
@@ -1558,6 +1586,17 @@ function closeOrder() {
     <button class="confirm-btn">Continuar</button>
     <button class="close-btn" onclick="closeOrder()">Cerrar</button>
   </div>
+</div>
+
+  <!-- CARRITO FLOTANTE -->
+<div id="floatingCart" class="floating-cart hidden">
+  <div class="cart-info">
+    <span id="cartCount">0 productos</span>
+    <strong id="cartTotal">S/ 0</strong>
+  </div>
+  <button class="cart-btn" onclick="openOrderModal()">
+    Ver pedido
+  </button>
 </div>
   
 </body>
