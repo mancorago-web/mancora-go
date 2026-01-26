@@ -886,9 +886,13 @@
         <p>Carne, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
         <div class="price">S/15.</div>
 
-<button class="add-btn" onclick="addToCart(15)">
-      ➕ Agregar
-    </button>
+<button class="add-btn" onclick="addToCart({
+  restaurant: '3 Empanadas',
+  name: '3 Empanadas de Carne',
+  price: 15
+})">
+  ➕ Agregar
+</button>
         
       </div>
     </div>
@@ -1428,20 +1432,43 @@ setInterval(checkRestaurantHours, 60000);
 </div>
 
   <script>
-  let cartCount = 0;
-  let cartTotal = 0;
+  let cart = [];
 
-  function addToCart(price) {
-    cartCount++;
-    cartTotal += price;
+  function addToCart(product) {
+    const existing = cart.find(
+      item =>
+        item.name === product.name &&
+        item.restaurant === product.restaurant
+    );
+
+    if (existing) {
+      existing.qty++;
+    } else {
+      cart.push({
+        ...product,
+        qty: 1
+      });
+    }
+
+    updateFloatingCart();
+    console.log(cart); // 👈 para pruebas
+  }
+
+  function updateFloatingCart() {
+    const totalItems = cart.reduce((sum, i) => sum + i.qty, 0);
+    const totalPrice = cart.reduce(
+      (sum, i) => sum + i.price * i.qty,
+      0
+    );
 
     document.getElementById("cartItems").textContent =
-      `${cartCount} item${cartCount > 1 ? "s" : ""}`;
+      `${totalItems} item${totalItems > 1 ? "s" : ""}`;
 
     document.getElementById("cartTotal").textContent =
-      `S/${cartTotal}`;
+      `S/${totalPrice}`;
 
-    document.getElementById("floatingCart")
+    document
+      .getElementById("floatingCart")
       .classList.remove("hidden");
   }
 </script>
