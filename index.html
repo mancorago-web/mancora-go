@@ -1603,7 +1603,7 @@ function updateFloatingCart() {
 
   <script>
 function enviarPedidoWhatsApp() {
-  const telefono = "51978742157"; // TU número
+  const telefono = "51978742157"; // TU número real
 
   if (cart.length === 0) {
     alert("Tu carrito está vacío");
@@ -1612,12 +1612,16 @@ function enviarPedidoWhatsApp() {
 
   let mensaje = "🛵 *Nuevo pedido - Máncora Go*%0A%0A";
 
+  let total = 0;
+
   cart.forEach(item => {
-    mensaje += `• ${item.name} - S/${item.price}%0A`;
+    const subtotal = item.price * (item.qty || 1);
+    total += subtotal;
+    mensaje += `• ${item.name} - S/${subtotal}%0A`;
   });
 
-  mensaje += `%0A💰 *Total:* S/${cartTotal}%0A`;
-  mensaje += `%0A📍 Te enviaré mi ubicación luego`;
+  mensaje += `%0A💰 *Total:* S/${total}%0A`;
+  mensaje += `%0A📍 Te enviaré mi ubicación ahora`;
 
   const url = `https://wa.me/${telefono}?text=${mensaje}`;
   window.open(url, "_blank");
