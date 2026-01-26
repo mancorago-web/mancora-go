@@ -322,10 +322,14 @@
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.5);
-  display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
+  display: none;
+}
+
+.modal:not(.hidden) {
+  display: flex;
 }
 
 .modal-content {
