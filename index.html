@@ -310,11 +310,12 @@
 
   <!-- Restaurante 0 -->
 <div class="card featured-card">
-  <div 
+ <div 
   class="restaurant-card"
+  id="rest-barrio-burguer"
   data-special="barrio-burguer"
   data-featured="true"
-  onclick="openMenu('menu-burger')"
+  onclick="openMenu('menu-burger', 'rest-barrio-burguer')"
 >
     <img src="images/barrioburguerlogofinal.jpg">
     <div class="card-content">
@@ -345,6 +346,7 @@
 <div class="card">
   <div 
   class="restaurant-card"
+  id="rest-cafe-coral"
   data-special="cafe-coral"
   onclick="openMenu('menu-cafe-coral')"
 >
@@ -374,7 +376,7 @@
 <div class="card">
   <div 
   class="restaurant-card"
-  id="cafe-barrio"
+  id="rest-cafe-barrio"
   data-special="cafe-barrio"
   onclick="openMenu('menu-cafe')"
 >
@@ -400,6 +402,7 @@
 <div class="card">
   <div 
     class="restaurant-card"
+    id="rest-3empanadas"
     data-open="9"
     data-close="18"
     onclick="openMenu('menu-empanadas')"
@@ -1074,18 +1077,36 @@
   <div class="footer">© 2026 Máncora Go! - Delivery en Máncora</div>
 </div>
 
+  <script>
+  let lastRestaurantId = null;
+</script>
+
 <script>
-    function openMenu(menuId) {
-      // ocultar todos los menus
-      document.querySelectorAll('.menu-section').forEach(m => m.classList.add('hidden'));
-      const menu = document.getElementById(menuId);
-      menu.classList.remove('hidden');
-      menu.scrollIntoView({ behavior: 'smooth' });
-    }
+    function openMenu(menuId, restaurantId) {
+  // guardar el restaurante actual
+  lastRestaurantId = restaurantId;
+
+  // ocultar todos los menus
+  document.querySelectorAll('.menu-section')
+    .forEach(m => m.classList.add('hidden'));
+
+  const menu = document.getElementById(menuId);
+  menu.classList.remove('hidden');
+
+  menu.scrollIntoView({ behavior: 'smooth' });
+}
 
     function closeMenus() {
-      document.querySelectorAll('.menu-section').forEach(m => m.classList.add('hidden'));
+  document.querySelectorAll('.menu-section')
+    .forEach(m => m.classList.add('hidden'));
+
+  if (lastRestaurantId) {
+    const card = document.getElementById(lastRestaurantId);
+    if (card) {
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  }
+}
   
   function pedirWhatsApp(nombreRestaurante) {
     const telefono = "51978742157";
