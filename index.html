@@ -1650,6 +1650,20 @@ function closeCart() {
 }
 </script>
 
+<script>
+let cartTotal = 0;
+
+function addToCart(price) {
+  cartTotal += price;
+
+  document.getElementById("cart-total").textContent = cartTotal.toFixed(2);
+
+  const cart = document.getElementById("floating-cart");
+  cart.classList.remove("hidden");
+}
+</script>
+  
+
 <!-- MODAL DEL CARRITO -->
 <div id="cartModal" class="modal hidden">
   <div class="modal-content">
@@ -1671,6 +1685,18 @@ function closeCart() {
   </div>
 </div>
 
+  <!-- CARRITO FLOTANTE -->
+<div id="floating-cart" class="floating-cart hidden">
+  <div class="cart-info">
+    <strong>Total: S/ <span id="cart-total">0</span></strong>
+    <div class="delivery-note">
+      📍 Recuerda que el delivery se cobra aparte según tu ubicación
+    </div>
+  </div>
+  <button class="cart-btn" onclick="openCartModal()">
+    Continuar
+  </button>
+</div>
   
 </body>
 </html>
