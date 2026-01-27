@@ -1490,180 +1490,6 @@ setInterval(checkRestaurantHours, 60000);
 </script>
   
   <script>
-  let cart = [];
-
- function addToCart(product) {
-  const existing = cart.find(
-    item =>
-      item.id === product.id &&
-      item.restaurant === product.restaurant
-  );
-
-  if (existing) {
-    existing.qty++;
-  } else {
-    cart.push({
-      ...product,
-      qty: 1
-    });
-  }
-
-  updateQtyDisplay(product.id);
-  updateFloatingCart();
-}
-    updateFloatingCart();
-    console.log(cart); // 👈 para pruebas
-  }
-
-  function updateFloatingCart() {
-    const totalItems = cart.reduce((sum, i) => sum + i.qty, 0);
-    const totalPrice = cart.reduce(
-      (sum, i) => sum + i.price * i.qty,
-      0
-    );
-
-    document.getElementById("cartItemsCount").textContent =
-  `${totalItems} producto${totalItems > 1 ? "s" : ""}`;
-
-document.getElementById("cartTotal").textContent =
-  `Total: S/${totalPrice}`;
-
-    document
-      .getElementById("floatingCart")
-      .classList.remove("hidden");
-  }
-
-    document.querySelector(".cart-btn")
-  .addEventListener("click", openOrder);
-
-function openOrder() {
-  const orderItems = document.getElementById("orderItems");
-  orderItems.innerHTML = "";
-
-  let total = 0;
-
-  cart.forEach(item => {
-    total += item.price * item.qty;
-    orderItems.innerHTML += `
-      <div>${item.name} x${item.qty}</div>
-    `;
-  });
-
-  document.getElementById("orderTotal").textContent = `S/${total}`;
-  document.getElementById("orderModal").classList.remove("hidden");
-}
-function closeOrder() {
-  document
-    .getElementById("orderModal")
-    .classList.add("hidden");
-}
-    document.querySelector(".cart-btn")
-  .addEventListener("click", openOrder);
-    
-</script>
-
-  <script>
-let cart = [];
-
-function addToCart(product) {
-  cart.push(product);
-  updateFloatingCart();
-  console.log("🛒 Carrito:", cart);
-}
-
-function updateFloatingCart() {
-  const floatingCart = document.getElementById("floatingCart");
-  const cartCount = document.getElementById("cartCount");
-  const cartTotal = document.getElementById("cartTotal");
-
-  if (cart.length === 0) {
-    floatingCart.classList.add("hidden");
-    return;
-  }
-
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
-
-  cartCount.textContent = `${cart.length} producto(s)`;
-  cartTotal.textContent = `S/ ${total}`;
-
-  floatingCart.classList.remove("hidden");
-}
-</script>
-
-  
-
-  <script>
-let cart = {};
-
-function addToCart(item) {
-  if (!cart[item.id]) {
-    cart[item.id] = { ...item, qty: 1 };
-  } else {
-    cart[item.id].qty++;
-  }
-
-  updateQty(item.id);
-  updateFloatingCart();
-}
-
-    function removeFromCart(productId) {
-  const index = cart.findIndex(item => item.id === productId);
-
-  if (index === -1) return;
-
-  cart[index].qty--;
-
-  if (cart[index].qty <= 0) {
-    cart.splice(index, 1);
-  }
-
-  updateQtyDisplay(productId);
-  updateFloatingCart();
-}
-
-function removeFromCart(id) {
-  if (!cart[id]) return;
-
-  cart[id].qty--;
-
-  if (cart[id].qty <= 0) {
-    delete cart[id];
-  }
-
-  updateQty(id);
-  updateFloatingCart();
-}
-
-function updateQty(id) {
-  const el = document.getElementById(`qty-${id}`);
-  if (!el) return;
-
-  el.textContent = cart[id]?.qty || 0;
-}
-
-function updateFloatingCart() {
-  const cartEl = document.getElementById("floatingCart");
-  const countEl = document.getElementById("cartItemsCount");
-  const totalEl = document.getElementById("cartTotal");
-
-  const items = Object.values(cart);
-
-  if (items.length === 0) {
-    cartEl.classList.add("hidden");
-    return;
-  }
-
-  const totalQty = items.reduce((s, i) => s + i.qty, 0);
-  const totalPrice = items.reduce((s, i) => s + i.qty * i.price, 0);
-
-  countEl.textContent = `${totalQty} producto${totalQty > 1 ? 's' : ''}`;
-  totalEl.textContent = `Total: S/ ${totalPrice}`;
-
-  cartEl.classList.remove("hidden");
-}
-</script>
-  
-  <script>
 function enviarPedidoWhatsApp() {
   const telefono = "51978742157"; // TU número real
 
@@ -1700,166 +1526,7 @@ function closeCart() {
   document.getElementById("cartModal").classList.add("hidden");
 }
 </script>
-
-  <script>
-let cart = [];
-
-function addToCart(item) {
-  cart.push(item);
-  updateFloatingCart();
-}
-
-function updateFloatingCart() {
-  const cartEl = document.getElementById("floatingCart");
-  const countEl = document.getElementById("cartItemsCount");
-  const totalEl = document.getElementById("cartTotal");
-
-  if (cart.length === 0) {
-    cartEl.classList.add("hidden");
-    return;
-  }
-
-  const total = cart.reduce((sum, i) => sum + i.price, 0);
-
-  countEl.textContent = `${cart.length} producto${cart.length > 1 ? "s" : ""}`;
-  totalEl.textContent = `Total: S/ ${total}`;
-
-  cartEl.classList.remove("hidden");
-}
-</script>
-  
-  <script>
-function updateQtyDisplay(productId) {
-  const item = cart.find(i => i.id === productId);
-  const qtySpan = document.getElementById(`qty-${productId}`);
-
-  if (!qtySpan) return;
-
-  qtySpan.textContent = item ? item.qty : 0;
-}
-</script>
-
-  <script>
-/* === CARRITO === */
-let cart = {};
-
-function addToCart(item) {
-  if (!cart[item.id]) {
-    cart[item.id] = { ...item, qty: 1 };
-  } else {
-    cart[item.id].qty++;
-  }
-
-  updateQty(item.id);
-  updateFloatingCart();
-}
-
-function removeFromCart(id) {
-  if (!cart[id]) return;
-
-  cart[id].qty--;
-
-  if (cart[id].qty <= 0) {
-    delete cart[id];
-  }
-
-  updateQty(id);
-  updateFloatingCart();
-}
-
-function updateQty(id) {
-  const el = document.getElementById(`qty-${id}`);
-  if (!el) return;
-
-  el.textContent = cart[id]?.qty || 0;
-}
-
-function updateFloatingCart() {
-  const cartEl = document.getElementById("floatingCart");
-  const countEl = document.getElementById("cartItemsCount");
-  const totalEl = document.getElementById("cartTotal");
-
-  if (!cartEl) return;
-
-  const items = Object.values(cart);
-
-  if (items.length === 0) {
-    cartEl.classList.add("hidden");
-    return;
-  }
-
-  const totalQty = items.reduce((s, i) => s + i.qty, 0);
-  const totalPrice = items.reduce((s, i) => s + i.qty * i.price, 0);
-
-  countEl.textContent = `${totalQty} producto${totalQty > 1 ? 's' : ''}`;
-  totalEl.textContent = `Total: S/ ${totalPrice}`;
-
-  cartEl.classList.remove("hidden");
-}
-</script>
-  
-  <script>
-/* === CARRITO === */
-let cart = {};
-
-function addToCart(item) {
-  if (typeof item !== "object") {
-    console.error("addToCart espera un objeto", item);
-    return;
-  }
-
-  if (!cart[item.id]) {
-    cart[item.id] = { ...item, qty: 1 };
-  } else {
-    cart[item.id].qty++;
-  }
-
-  updateQty(item.id);
-  updateFloatingCart();
-}
-
-function removeFromCart(id) {
-  if (!cart[id]) return;
-
-  cart[id].qty--;
-
-  if (cart[id].qty <= 0) {
-    delete cart[id];
-  }
-
-  updateQty(id);
-  updateFloatingCart();
-}
-
-function updateQty(id) {
-  const el = document.getElementById(`qty-${id}`);
-  if (el) el.textContent = cart[id]?.qty || 0;
-}
-
-function updateFloatingCart() {
-  const cartEl = document.getElementById("floatingCart");
-  const countEl = document.getElementById("cartItemsCount");
-  const totalEl = document.getElementById("cartTotal");
-
-  if (!cartEl) return;
-
-  const items = Object.values(cart);
-
-  if (items.length === 0) {
-    cartEl.classList.add("hidden");
-    return;
-  }
-
-  const totalQty = items.reduce((s, i) => s + i.qty, 0);
-  const totalPrice = items.reduce((s, i) => s + i.qty * i.price, 0);
-
-  countEl.textContent = `${totalQty} producto${totalQty > 1 ? 's' : ''}`;
-  totalEl.textContent = `Total: S/ ${totalPrice}`;
-
-  cartEl.classList.remove("hidden");
-}
-</script>
-
+ 
  <script>
 function removeFromCart(productId) {
   const item = cart.find(i => i.id === productId);
@@ -1873,6 +1540,110 @@ function removeFromCart(productId) {
 
   updateFloatingCart();
 }
+
+   <script>
+let cart = [];
+
+/* ➕ AGREGAR */
+function addToCart(product) {
+  const existing = cart.find(
+    item => item.id === product.id
+  );
+
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ ...product, qty: 1 });
+  }
+
+  updateQtyDisplay(product.id);
+  updateFloatingCart();
+}
+
+/* ➖ QUITAR */
+function removeFromCart(productId) {
+  const item = cart.find(i => i.id === productId);
+  if (!item) return;
+
+  item.qty--;
+
+  if (item.qty <= 0) {
+    cart = cart.filter(i => i.id !== productId);
+  }
+
+  updateQtyDisplay(productId);
+  updateFloatingCart();
+}
+
+/* 🔢 ACTUALIZAR NUMERO */
+function updateQtyDisplay(productId) {
+  const item = cart.find(i => i.id === productId);
+  const qtySpan = document.getElementById(`qty-${productId}`);
+  if (!qtySpan) return;
+  qtySpan.textContent = item ? item.qty : 0;
+}
+
+/* 🛒 CARRITO FLOTANTE */
+function updateFloatingCart() {
+  const totalItems = cart.reduce((s, i) => s + i.qty, 0);
+  const totalPrice = cart.reduce((s, i) => s + i.qty * i.price, 0);
+
+  if (totalItems === 0) {
+    document.getElementById("floatingCart").classList.add("hidden");
+    return;
+  }
+
+  document.getElementById("cartItemsCount").textContent =
+    `${totalItems} producto${totalItems > 1 ? "s" : ""}`;
+
+  document.getElementById("cartTotal").textContent =
+    `Total: S/${totalPrice}`;
+
+  document.getElementById("floatingCart").classList.remove("hidden");
+}
+
+/* 📦 MODAL PEDIDO */
+function openOrder() {
+  const modal = document.getElementById("orderModal");
+  const itemsDiv = document.getElementById("orderItems");
+  const totalSpan = document.getElementById("orderTotal");
+
+  itemsDiv.innerHTML = "";
+  let total = 0;
+
+  cart.forEach(item => {
+    total += item.qty * item.price;
+    itemsDiv.innerHTML += `
+      <div class="order-item">
+        <span>${item.name} x${item.qty}</span>
+        <span>S/${item.qty * item.price}</span>
+      </div>
+    `;
+  });
+
+  totalSpan.textContent = `S/${total}`;
+  modal.classList.remove("hidden");
+}
+
+function closeOrder() {
+  document.getElementById("orderModal").classList.add("hidden");
+}
+
+/* 📲 ENVIAR WHATSAPP */
+function enviarPedidoWhatsApp() {
+  let mensaje = "Hola, quiero hacer este pedido:%0A";
+  cart.forEach(item => {
+    mensaje += `• ${item.name} x${item.qty}%0A`;
+  });
+
+  const total = cart.reduce((s, i) => s + i.qty * i.price, 0);
+  mensaje += `%0ATotal: S/${total}`;
+
+  window.open(`https://wa.me/51978742157?text=${mensaje}`, "_blank");
+}
+</script>
+
+   
 </script>
   
 </body>
