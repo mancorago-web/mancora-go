@@ -1258,11 +1258,12 @@ function isCafeCoralStatus() {
 
   // ❌ Martes cerrado todo el día
   if (day === 2) {
-    return {
-      status: "closed-today",
-      schedule: "🚫 Cerrado hoy"
-    };
-  }
+  return {
+    status: "closed-today",
+    schedule: "🚫 Cerrado por descanso",
+    message: "🚫 Cerrado por descanso"
+  };
+}
 
   // 🟡 Lunes a Jueves
   if (day >= 1 && day <= 4) {
