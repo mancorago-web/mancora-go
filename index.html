@@ -1908,6 +1908,24 @@ function updateFloatingCart() {
   cartEl.classList.remove("hidden");
 }
 </script>
+
+  <script>
+function removeFromCart(productId) {
+  if (!cart[productId]) return;
+
+  cart[productId].qty--;
+
+  if (cart[productId].qty <= 0) {
+    delete cart[productId];
+    document.getElementById("qty-" + productId).textContent = "0";
+  } else {
+    document.getElementById("qty-" + productId).textContent =
+      cart[productId].qty;
+  }
+
+  updateFloatingCart();
+}
+</script>
   
 </body>
 </html>
