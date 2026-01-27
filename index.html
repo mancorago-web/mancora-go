@@ -1844,6 +1844,75 @@ function updateFloatingCart() {
 }
 </script>
 
+  <div id="floatingCart" class="floating-cart hidden">
+  <div class="cart-info">
+    <strong id="cartItemsCount">0 productos</strong>
+    <span id="cartTotal">Total: S/ 0</span>
+  </div>
+  <button class="cart-btn">Ver pedido</button>
+</div>
+
+  <script>
+/* === CARRITO === */
+let cart = {};
+
+function addToCart(item) {
+  if (typeof item !== "object") {
+    console.error("addToCart espera un objeto", item);
+    return;
+  }
+
+  if (!cart[item.id]) {
+    cart[item.id] = { ...item, qty: 1 };
+  } else {
+    cart[item.id].qty++;
+  }
+
+  updateQty(item.id);
+  updateFloatingCart();
+}
+
+function removeFromCart(id) {
+  if (!cart[id]) return;
+
+  cart[id].qty--;
+
+  if (cart[id].qty <= 0) {
+    delete cart[id];
+  }
+
+  updateQty(id);
+  updateFloatingCart();
+}
+
+function updateQty(id) {
+  const el = document.getElementById(`qty-${id}`);
+  if (el) el.textContent = cart[id]?.qty || 0;
+}
+
+function updateFloatingCart() {
+  const cartEl = document.getElementById("floatingCart");
+  const countEl = document.getElementById("cartItemsCount");
+  const totalEl = document.getElementById("cartTotal");
+
+  if (!cartEl) return;
+
+  const items = Object.values(cart);
+
+  if (items.length === 0) {
+    cartEl.classList.add("hidden");
+    return;
+  }
+
+  const totalQty = items.reduce((s, i) => s + i.qty, 0);
+  const totalPrice = items.reduce((s, i) => s + i.qty * i.price, 0);
+
+  countEl.textContent = `${totalQty} producto${totalQty > 1 ? 's' : ''}`;
+  totalEl.textContent = `Total: S/ ${totalPrice}`;
+
+  cartEl.classList.remove("hidden");
+}
+</script>
   
 </body>
 </html>
