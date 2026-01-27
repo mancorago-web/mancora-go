@@ -1263,7 +1263,7 @@
   <!-- MODAL PEDIDO -->
 <div id="orderModal" class="modal hidden">
   <div class="modal-content">
-    <h3 id="orderTitle">Tu pedido</h3>
+    <h3>Tu pedido</h3>
 
     <div id="orderItems"></div>
 
@@ -1673,15 +1673,28 @@ function updateFloatingCart() {
    🧾 ABRIR PEDIDO
 ====================== */
 function openOrder() {
-  const title = document.getElementById("orderTitle");
+  if (cart.length === 0) return;
 
-  if (cart.length > 0) {
-    title.textContent = `Pedido – ${cart[0].restaurant}`;
-  } else {
-    title.textContent = "Tu pedido";
-  }
+  const modal = document.getElementById("orderModal");
+  const itemsContainer = document.getElementById("orderItems");
+  const totalEl = document.getElementById("orderTotal");
 
-  document.getElementById("orderModal").classList.remove("hidden");
+  itemsContainer.innerHTML = "";
+  let total = 0;
+
+  cart.forEach(item => {
+    const row = document.createElement("div");
+    row.className = "order-item";
+    row.innerHTML = `
+      <span>${item.qty} × ${item.name}</span>
+      <strong>S/ ${item.qty * item.price}</strong>
+    `;
+    itemsContainer.appendChild(row);
+    total += item.qty * item.price;
+  });
+
+  totalEl.textContent = "S/ " + total;
+  modal.classList.remove("hidden");
 }
 
 /* ======================
