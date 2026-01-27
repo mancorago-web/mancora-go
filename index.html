@@ -1673,8 +1673,14 @@ function updateFloatingCart() {
    🧾 ABRIR PEDIDO
 ====================== */
 function openOrder() {
-
+  // 🟢 NUEVO: poner nombre del restaurante en el título
   const title = document.getElementById("orderTitle");
+
+  if (cart.length > 0 && cart[0].restaurant) {
+    title.textContent = `Pedido – ${cart[0].restaurant}`;
+  } else {
+    title.textContent = "Tu pedido";
+  }
   if (cart.length === 0) return;
 
   const modal = document.getElementById("orderModal");
