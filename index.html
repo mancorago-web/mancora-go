@@ -1216,6 +1216,32 @@
   <div class="footer">© 2026 Máncora Go! - Delivery en Máncora</div>
 </div>
 
+    <div id="floatingCart" class="floating-cart hidden">
+  <div class="cart-info">
+    <strong id="cartItemsCount">0 productos</strong>
+    <span id="cartTotal">Total: S/ 0</span>
+  </div>
+  <button class="cart-btn">Ver pedido</button>
+</div>
+
+  <!-- MODAL PEDIDO -->
+<div id="orderModal" class="modal hidden">
+  <div class="modal-content">
+    <h3>Tu pedido</h3>
+
+    <div id="orderItems"></div>
+
+    <div class="order-total">
+      Total: <strong id="orderTotal">S/0</strong>
+    </div>
+
+    <button class="confirm-btn" onclick="enviarPedidoWhatsApp()">
+  Continuar
+</button>
+    <button class="close-btn" onclick="closeOrder()">Cerrar</button>
+  </div>
+</div>
+  
   <script>
   let lastRestaurantId = null;
 </script>
@@ -1477,18 +1503,7 @@ setInterval(checkRestaurantHours, 60000);
   }
     
 </script>
-
-  <!-- CARRITO FLOTANTE -->
-<div id="floatingCart" class="floating-cart hidden">
-  <div class="cart-info">
-    <span id="cartItems">0 items</span>
-    <strong id="cartTotal">S/0</strong>
-  </div>
-  <button class="cart-btn">
-    Ver pedido
-  </button>
-</div>
-
+  
   <script>
   let cart = [];
 
@@ -1651,39 +1666,7 @@ function updateFloatingCart() {
   cartEl.classList.remove("hidden");
 }
 </script>
-
-<!-- MODAL PEDIDO -->
-<div id="orderModal" class="modal hidden">
-  <div class="modal-content">
-    <h3>Tu pedido</h3>
-
-    <div id="orderItems"></div>
-
-    <div class="order-total">
-      Total: <strong id="orderTotal">S/0</strong>
-    </div>
-
-    <button class="confirm-btn" onclick="enviarPedidoWhatsApp()">
-  Continuar
-</button>
-    <button class="close-btn" onclick="closeOrder()">Cerrar</button>
-  </div>
-</div>
-
-  <!-- CARRITO FLOTANTE -->
-<div id="floatingCart" class="floating-cart hidden">
-  <div class="cart-info">
-    <span id="cartCount">0 productos</span>
-    <strong id="cartTotal">S/ 0</strong>
-    <div class="delivery-note">
-  🚚 Recuerda que el delivery se cobra aparte según tu ubicación 📍
-</div>
-  </div>
-  <button class="cart-btn" onclick="openOrderModal()">
-    Ver pedido
-  </button>
-</div>
-
+  
   <script>
 function enviarPedidoWhatsApp() {
   const telefono = "51978742157"; // TU número real
@@ -1749,37 +1732,6 @@ function updateFloatingCart() {
 }
 </script>
 
-<!-- MODAL DEL CARRITO -->
-<div id="cartModal" class="modal hidden">
-  <div class="modal-content">
-
-    <h3 style="margin-top:0;">🛒 Tu pedido</h3>
-
-    <div id="cartItems"></div>
-
-    <div class="order-total">
-      Total: S/ <span id="cartTotal">0</span>
-    </div>
-
-    <!-- MENSAJE DELIVERY -->
-    <div class="delivery-note">
-      🚚 El costo de delivery se cobra aparte según tu ubicación 📍
-    </div>
-
-    <button class="btn" onclick="closeCart()">Cerrar</button>
-  </div>
-</div>
-
-  <div id="floatingCart" class="floating-cart hidden">
-  <div class="cart-info">
-    <strong id="cartItemsCount">0 productos</strong>
-    <span id="cartTotal">Total: S/ 0</span>
-  </div>
-  <button class="cart-btn" onclick="openCartModal()">
-    Ver carrito
-  </button>
-</div>
-
   <script>
 /* === CARRITO === */
 let cart = {};
@@ -1838,15 +1790,7 @@ function updateFloatingCart() {
   cartEl.classList.remove("hidden");
 }
 </script>
-
-  <div id="floatingCart" class="floating-cart hidden">
-  <div class="cart-info">
-    <strong id="cartItemsCount">0 productos</strong>
-    <span id="cartTotal">Total: S/ 0</span>
-  </div>
-  <button class="cart-btn">Ver pedido</button>
-</div>
-
+  
   <script>
 /* === CARRITO === */
 let cart = {};
