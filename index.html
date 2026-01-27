@@ -1645,21 +1645,31 @@ function closeOrder() {
    📲 ENVIAR A WHATSAPP
 ====================== */
 function enviarPedidoWhatsApp() {
-  let mensaje = "Hola 👋, quiero hacer el siguiente pedido:%0A%0A";
+  const telefono = "51978742157";
+
+  if (cart.length === 0) {
+    alert("Tu carrito está vacío");
+    return;
+  }
+
+  // ✅ Tomamos el restaurante del primer producto
+  const restaurante = cart[0].restaurant;
+
+  let mensaje = `🍽️ *Pedido - ${restaurante}*%0A%0A`;
   let total = 0;
 
   cart.forEach(item => {
-    mensaje += `• ${item.qty} x ${item.name} (S/ ${item.qty * item.price})%0A`;
-    total += item.qty * item.price;
+    for (let i = 0; i < item.qty; i++) {
+      mensaje += `• ${item.name} - S/${item.price}%0A`;
+      total += item.price;
+    }
   });
 
-  mensaje += `%0A💰 Total: S/ ${total}`;
+  mensaje += `%0A💰 *Total:* S/${total}`;
+  mensaje += `%0A%0A📍 Te envío mi ubicación para el delivery`;
 
-  const telefono = "51978742157";
   const url = `https://wa.me/${telefono}?text=${mensaje}`;
   window.open(url, "_blank");
-
-  closeOrder();
 }
 </script>
   
