@@ -1673,6 +1673,8 @@ function updateFloatingCart() {
    🧾 ABRIR PEDIDO
 ====================== */
 function openOrder() {
+
+  const title = document.getElementById("orderTitle");
   if (cart.length === 0) return;
 
   const modal = document.getElementById("orderModal");
