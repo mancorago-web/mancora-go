@@ -1537,6 +1537,23 @@ let cart = [];
    ➕ AGREGAR PRODUCTO
 ====================== */
 function addToCart(product) {
+
+  // 🟡 Si el carrito ya tiene productos
+  if (cart.length > 0) {
+    const currentRestaurant = cart[0].restaurant;
+
+    // ❌ Si intenta mezclar restaurantes
+    if (product.restaurant !== currentRestaurant) {
+      alert(
+        `⚠️ Solo puedes pedir de un restaurante a la vez.\n\n` +
+        `Tu carrito es de: ${currentRestaurant}\n` +
+        `Producto seleccionado: ${product.restaurant}`
+      );
+      return;
+    }
+  }
+
+  // ➕ Agregar normalmente
   const existing = cart.find(item => item.id === product.id);
 
   if (existing) {
