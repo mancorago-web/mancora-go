@@ -1381,12 +1381,15 @@ else if (card.dataset.special === "cafe-coral") {
   const scheduleLabel = card.querySelector(".schedule-label");
   const status = isCafeCoralStatus();
 
-  if (scheduleLabel) scheduleLabel.textContent = status.schedule;
+  if (scheduleLabel) {
+    scheduleLabel.textContent = status.schedule;
+  }
+
   isOpen = status.status === "open";
 
   if (!isOpen && closedLabel) {
     closedLabel.textContent =
-      status.status === "closed-today" ? "🚫 Cerrado hoy" : "⛔ Cerrado ahora";
+      status.message || "⛔ Cerrado ahora";
   }
 }
 
