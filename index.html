@@ -1238,6 +1238,11 @@
     <button class="confirm-btn" onclick="enviarPedidoWhatsApp()">
   Continuar
 </button>
+
+<button class="empty-btn" onclick="vaciarCarrito()">
+  🗑️ Vaciar carrito
+</button>
+    
     <button class="close-btn" onclick="closeOrder()">Cerrar</button>
   </div>
 </div>
@@ -1703,6 +1708,20 @@ function canOpenRestaurant(restaurantName) {
   );
 
   return false;
+}
+
+    function vaciarCarrito() {
+  if (!confirm("⚠️ ¿Seguro que quieres vaciar el carrito?")) return;
+
+  cart = [];
+
+  // Resetear cantidades visibles
+  document.querySelectorAll(".qty-number").forEach(qty => {
+    qty.textContent = "0";
+  });
+
+  updateFloatingCart();
+  closeOrder();
 }
     
 </script>
