@@ -1551,7 +1551,8 @@ function openOrder() {
     total += item.price * item.qty;
   });
 
-  document.getElementById("orderTotal").textContent = `S/${total}`;
+ document.getElementById("orderModal").classList.remove("hidden");
+}
 
   document
     .getElementById("orderModal")
@@ -1838,18 +1839,15 @@ function updateFloatingCart() {
 }
 </script>
 
-  <script>
+ <script>
 function removeFromCart(productId) {
-  if (!cart[productId]) return;
+  const item = cart.find(i => i.id === productId);
+  if (!item) return;
 
-  cart[productId].qty--;
+  item.qty--;
 
-  if (cart[productId].qty <= 0) {
-    delete cart[productId];
-    document.getElementById("qty-" + productId).textContent = "0";
-  } else {
-    document.getElementById("qty-" + productId).textContent =
-      cart[productId].qty;
+  if (item.qty <= 0) {
+    cart = cart.filter(i => i.id !== productId);
   }
 
   updateFloatingCart();
