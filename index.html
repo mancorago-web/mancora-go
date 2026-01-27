@@ -1522,8 +1522,8 @@ setInterval(checkRestaurantHours, 60000);
     document.getElementById("cartItemsCount").textContent =
   `${totalItems} producto${totalItems > 1 ? "s" : ""}`;
 
-    document.getElementById("cartItemsCount").textContent =
-      `S/${totalPrice}`;
+document.getElementById("cartTotal").textContent =
+  `Total: S/${totalPrice}`;
 
     document
       .getElementById("floatingCart")
