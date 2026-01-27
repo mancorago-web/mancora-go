@@ -358,11 +358,6 @@
   text-align: center;
 }
     
-/* 🔒 Botones Agregar desactivados temporalmente */
-.add-btn {
-  display: none;
-}
-    
   </style>
 </head>
 <body>
@@ -1637,6 +1632,33 @@ function closeCart() {
 }
 </script>
 
+  <script>
+let cart = [];
+
+function addToCart(item) {
+  cart.push(item);
+  updateFloatingCart();
+}
+
+function updateFloatingCart() {
+  const cartEl = document.getElementById("floatingCart");
+  const countEl = document.getElementById("cartItemsCount");
+  const totalEl = document.getElementById("cartTotal");
+
+  if (cart.length === 0) {
+    cartEl.classList.add("hidden");
+    return;
+  }
+
+  const total = cart.reduce((sum, i) => sum + i.price, 0);
+
+  countEl.textContent = `${cart.length} producto${cart.length > 1 ? "s" : ""}`;
+  totalEl.textContent = `Total: S/ ${total}`;
+
+  cartEl.classList.remove("hidden");
+}
+</script>
+
 <!-- MODAL DEL CARRITO -->
 <div id="cartModal" class="modal hidden">
   <div class="modal-content">
@@ -1656,6 +1678,16 @@ function closeCart() {
 
     <button class="btn" onclick="closeCart()">Cerrar</button>
   </div>
+</div>
+
+  <div id="floatingCart" class="floating-cart hidden">
+  <div class="cart-info">
+    <strong id="cartItemsCount">0 productos</strong>
+    <span id="cartTotal">Total: S/ 0</span>
+  </div>
+  <button class="cart-btn" onclick="openCartModal()">
+    Ver carrito
+  </button>
 </div>
 
   
