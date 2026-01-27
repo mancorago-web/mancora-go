@@ -391,6 +391,42 @@
   color: #6b7280;
   text-align: center;
 }
+
+    .confirm-btn {
+  width: 100%;
+  margin-top: 14px;
+  background: #22c55e; /* VERDE */
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.empty-btn {
+  width: 100%;
+  margin-top: 10px;
+  background: #facc15; /* AMARILLO */
+  color: #1f2937;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.close-btn {
+  width: 100%;
+  margin-top: 10px;
+  background: #ef4444; /* ROJO */
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
     
   </style>
 </head>
@@ -1234,6 +1270,10 @@
     <div class="order-total">
       Total: <strong id="orderTotal">S/0</strong>
     </div>
+
+    <div class="delivery-note">
+  📌 Recuerda que el precio de la moto es aparte
+</div>
 
     <button class="confirm-btn" onclick="enviarPedidoWhatsApp()">
   ✅ Continuar
