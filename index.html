@@ -1534,31 +1534,21 @@ document.getElementById("cartTotal").textContent =
   .addEventListener("click", openOrder);
 
 function openOrder() {
-  const container = document.getElementById("orderItems");
-  container.innerHTML = "";
+  const orderItems = document.getElementById("orderItems");
+  orderItems.innerHTML = "";
 
   let total = 0;
 
   cart.forEach(item => {
-    const row = document.createElement("div");
-    row.className = "order-item";
-    row.innerHTML = `
-      <span>${item.qty} x ${item.name}</span>
-      <strong>S/${item.price * item.qty}</strong>
-    `;
-    container.appendChild(row);
-
     total += item.price * item.qty;
+    orderItems.innerHTML += `
+      <div>${item.name} x${item.qty}</div>
+    `;
   });
 
- document.getElementById("orderModal").classList.remove("hidden");
+  document.getElementById("orderTotal").textContent = `S/${total}`;
+  document.getElementById("orderModal").classList.remove("hidden");
 }
-
-  document
-    .getElementById("orderModal")
-    .classList.remove("hidden");
-}
-
 function closeOrder() {
   document
     .getElementById("orderModal")
