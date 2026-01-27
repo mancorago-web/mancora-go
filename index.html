@@ -1673,28 +1673,15 @@ function updateFloatingCart() {
    🧾 ABRIR PEDIDO
 ====================== */
 function openOrder() {
-  if (cart.length === 0) return;
+  const title = document.getElementById("orderTitle");
 
-  const modal = document.getElementById("orderModal");
-  const itemsContainer = document.getElementById("orderItems");
-  const totalEl = document.getElementById("orderTotal");
+  if (cart.length > 0) {
+    title.textContent = `Pedido – ${cart[0].restaurant}`;
+  } else {
+    title.textContent = "Tu pedido";
+  }
 
-  itemsContainer.innerHTML = "";
-  let total = 0;
-
-  cart.forEach(item => {
-    const row = document.createElement("div");
-    row.className = "order-item";
-    row.innerHTML = `
-      <span>${item.qty} × ${item.name}</span>
-      <strong>S/ ${item.qty * item.price}</strong>
-    `;
-    itemsContainer.appendChild(row);
-    total += item.qty * item.price;
-  });
-
-  totalEl.textContent = "S/ " + total;
-  modal.classList.remove("hidden");
+  document.getElementById("orderModal").classList.remove("hidden");
 }
 
 /* ======================
