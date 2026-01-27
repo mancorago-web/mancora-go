@@ -1400,12 +1400,6 @@ function checkRestaurantHours() {
   const openRestaurants = [];
   const closedRestaurants = [];
 
-  document
-  .querySelectorAll('.restaurant-card:not(.upcoming)')
-  .forEach(card => {
-    const closedLabel = card.querySelector('.closed-label');
-    let isOpen = true;
-
    // 🍔 BARRIO BURGUER
 if (card.dataset.special === "barrio-burguer") {
   const scheduleLabel = card.querySelector(".schedule-label");
