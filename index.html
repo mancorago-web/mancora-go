@@ -1400,80 +1400,71 @@ function checkRestaurantHours() {
   const openRestaurants = [];
   const closedRestaurants = [];
 
-   // 🍔 BARRIO BURGUER
-if (card.dataset.special === "barrio-burguer") {
-  const scheduleLabel = card.querySelector(".schedule-label");
-  const status = isBarrioBurguerStatus();
+  document.querySelectorAll(".restaurant-card").forEach(card => {
+    let isOpen = true;
 
-  if (scheduleLabel) scheduleLabel.textContent = status.schedule;
-  isOpen = status.status === "open";
+    const closedLabel = card.querySelector(".closed-label");
+    const scheduleLabel = card.querySelector(".schedule-label");
 
-  if (!isOpen && closedLabel) {
-    closedLabel.textContent = status.message;
-  }
-}
+    // 🍔 BARRIO BURGUER
+    if (card.dataset.special === "barrio-burguer") {
+      const status = isBarrioBurguerStatus();
+      isOpen = status.status === "open";
 
-// ☕ CAFÉ DE BARRIO
-else if (card.dataset.special === "cafe-barrio") {
-  const status = isCafeBarrioStatus();
-  isOpen = status === "open";
+      if (scheduleLabel) scheduleLabel.textContent = status.schedule;
+      if (!isOpen && closedLabel) closedLabel.textContent = status.message || "⛔ Cerrado ahora";
+    }
 
-  if (!isOpen && closedLabel) {
-    closedLabel.textContent =
-      status === "closed-today" ? "🚫 Cerrado hoy" : "⛔ Cerrado ahora";
-  }
-}
+    // ☕ CAFÉ DE BARRIO
+    else if (card.dataset.special === "cafe-barrio") {
+      const status = isCafeBarrioStatus();
+      isOpen = status === "open";
 
-// 🍰 CAFÉ CORAL
-else if (card.dataset.special === "cafe-coral") {
-  const scheduleLabel = card.querySelector(".schedule-label");
-  const status = isCafeCoralStatus();
+      if (!isOpen && closedLabel) {
+        closedLabel.textContent =
+          status === "closed-today" ? "🚫 Cerrado hoy" : "⛔ Cerrado ahora";
+      }
+    }
 
-  if (scheduleLabel) {
-    scheduleLabel.textContent = status.schedule;
-  }
+    // 🍰 CAFÉ CORAL
+    else if (card.dataset.special === "cafe-coral") {
+      const status = isCafeCoralStatus();
+      isOpen = status.status === "open";
 
-  isOpen = status.status === "open";
+      if (scheduleLabel) scheduleLabel.textContent = status.schedule;
+      if (!isOpen && closedLabel) {
+        closedLabel.textContent = status.message || "⛔ Cerrado ahora";
+      }
+    }
 
-  if (!isOpen && closedLabel) {
-    closedLabel.textContent =
-      status.message || "⛔ Cerrado ahora";
-  }
-}
-
-// 🟢 RESTAURANTES NORMALES
-else if (card.dataset.open && card.dataset.close) {
-  const open = parseFloat(card.dataset.open);
-  const close = parseFloat(card.dataset.close);
-  isOpen = !(currentHour < open || currentHour >= close);
-}
+    // 🟢 RESTAURANTES NORMALES
+    else if (card.dataset.open && card.dataset.close) {
+      const open = parseFloat(card.dataset.open);
+      const close = parseFloat(card.dataset.close);
+      isOpen = !(currentHour < open || currentHour >= close);
+    }
 
     // 🎯 ESTADO VISUAL
     const cardWrapper = card.closest(".card");
-const isFeatured = card.dataset.featured === "true";
+    const isFeatured = card.dataset.featured === "true";
 
-// 🎯 ESTADO VISUAL (para TODOS)
-if (!isOpen) {
-  card.style.pointerEvents = "none";
-  card.style.opacity = "0.55";
-  if (closedLabel) closedLabel.classList.remove("hidden");
-} else {
-  card.style.pointerEvents = "auto";
-  card.style.opacity = "1";
-  if (closedLabel) closedLabel.classList.add("hidden");
-}
+    if (!isOpen) {
+      card.style.pointerEvents = "none";
+      card.style.opacity = "0.55";
+      if (closedLabel) closedLabel.classList.remove("hidden");
+    } else {
+      card.style.pointerEvents = "auto";
+      card.style.opacity = "1";
+      if (closedLabel) closedLabel.classList.add("hidden");
+    }
 
-// 🔁 SOLO reordenar si NO es destacado
-if (!isFeatured && container.contains(cardWrapper)) {
-  if (isOpen) {
-    openRestaurants.push(cardWrapper);
-  } else {
-    closedRestaurants.push(cardWrapper);
-  }
-}
+    if (!isFeatured && container.contains(cardWrapper)) {
+      if (isOpen) openRestaurants.push(cardWrapper);
+      else closedRestaurants.push(cardWrapper);
+    }
   });
 
-  // 🔁 Reordenar DOM
+  // 🔁 Reordenar
   container.innerHTML = "";
   openRestaurants.forEach(card => container.appendChild(card));
   closedRestaurants.forEach(card => container.appendChild(card));
