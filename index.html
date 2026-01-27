@@ -318,6 +318,40 @@
   font-size: 14px;
 }
 
+    .qty-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.qty-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: none;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.qty-btn.plus {
+  background: #22c55e;
+  color: white;
+}
+
+.qty-btn.minus {
+  background: #ef4444;
+  color: white;
+}
+
+.qty-number {
+  min-width: 20px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 16px;
+}
+
     .modal {
   position: fixed;
   inset: 0;
@@ -925,13 +959,18 @@
         <p>Carne, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
         <div class="price">S/15.</div>
 
-<button class="add-btn" onclick="addToCart({
-  restaurant: '3 Empanadas',
-  name: '3 Empanadas de Carne',
-  price: 15
-})">
-  ➕ Agregar
-</button>
+<div class="qty-controls">
+  <button class="qty-btn minus" onclick="removeFromCart('3-emp-carne')">−</button>
+
+  <span class="qty-number" id="qty-3-emp-carne">0</span>
+
+  <button class="qty-btn plus" onclick="addToCart({
+    id: '3-emp-carne',
+    restaurant: '3 Empanadas',
+    name: '3 Empanadas de Carne',
+    price: 15
+  })">+</button>
+</div>
         
       </div>
     </div>
@@ -1559,6 +1598,62 @@ function updateFloatingCart() {
   cartTotal.textContent = `S/ ${total}`;
 
   floatingCart.classList.remove("hidden");
+}
+</script>
+
+  <script>
+let cart = {};
+
+function addToCart(item) {
+  if (!cart[item.id]) {
+    cart[item.id] = { ...item, qty: 1 };
+  } else {
+    cart[item.id].qty++;
+  }
+
+  updateQty(item.id);
+  updateFloatingCart();
+}
+
+function removeFromCart(id) {
+  if (!cart[id]) return;
+
+  cart[id].qty--;
+
+  if (cart[id].qty <= 0) {
+    delete cart[id];
+  }
+
+  updateQty(id);
+  updateFloatingCart();
+}
+
+function updateQty(id) {
+  const el = document.getElementById(`qty-${id}`);
+  if (!el) return;
+
+  el.textContent = cart[id]?.qty || 0;
+}
+
+function updateFloatingCart() {
+  const cartEl = document.getElementById("floatingCart");
+  const countEl = document.getElementById("cartItemsCount");
+  const totalEl = document.getElementById("cartTotal");
+
+  const items = Object.values(cart);
+
+  if (items.length === 0) {
+    cartEl.classList.add("hidden");
+    return;
+  }
+
+  const totalQty = items.reduce((s, i) => s + i.qty, 0);
+  const totalPrice = items.reduce((s, i) => s + i.qty * i.price, 0);
+
+  countEl.textContent = `${totalQty} producto${totalQty > 1 ? 's' : ''}`;
+  totalEl.textContent = `Total: S/ ${totalPrice}`;
+
+  cartEl.classList.remove("hidden");
 }
 </script>
 
