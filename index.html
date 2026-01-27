@@ -1221,7 +1221,7 @@
     <strong id="cartItemsCount">0 productos</strong>
     <span id="cartTotal">Total: S/ 0</span>
   </div>
-  <button class="cart-btn">Ver pedido</button>
+  <<button class="cart-btn" onclick="openOrder()">Ver pedido</button>
 </div>
 
   <!-- MODAL PEDIDO -->
@@ -1602,6 +1602,64 @@ function updateFloatingCart() {
   totalEl.textContent = `Total: S/ ${totalPrice}`;
 
   floating.classList.remove("hidden");
+}
+</script>
+
+  <script>
+/* ======================
+   🧾 ABRIR PEDIDO
+====================== */
+function openOrder() {
+  if (cart.length === 0) return;
+
+  const modal = document.getElementById("orderModal");
+  const itemsContainer = document.getElementById("orderItems");
+  const totalEl = document.getElementById("orderTotal");
+
+  itemsContainer.innerHTML = "";
+  let total = 0;
+
+  cart.forEach(item => {
+    const row = document.createElement("div");
+    row.className = "order-item";
+    row.innerHTML = `
+      <span>${item.qty} × ${item.name}</span>
+      <strong>S/ ${item.qty * item.price}</strong>
+    `;
+    itemsContainer.appendChild(row);
+    total += item.qty * item.price;
+  });
+
+  totalEl.textContent = "S/ " + total;
+  modal.classList.remove("hidden");
+}
+
+/* ======================
+   ❌ CERRAR MODAL
+====================== */
+function closeOrder() {
+  document.getElementById("orderModal").classList.add("hidden");
+}
+
+/* ======================
+   📲 ENVIAR A WHATSAPP
+====================== */
+function enviarPedidoWhatsApp() {
+  let mensaje = "Hola 👋, quiero hacer el siguiente pedido:%0A%0A";
+  let total = 0;
+
+  cart.forEach(item => {
+    mensaje += `• ${item.qty} x ${item.name} (S/ ${item.qty * item.price})%0A`;
+    total += item.qty * item.price;
+  });
+
+  mensaje += `%0A💰 Total: S/ ${total}`;
+
+  const telefono = "51978742157";
+  const url = `https://wa.me/${telefono}?text=${mensaje}`;
+  window.open(url, "_blank");
+
+  closeOrder();
 }
 </script>
   
