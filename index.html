@@ -955,16 +955,16 @@
         <div class="price">S/15.</div>
 
 <div class="qty-controls">
-  <button class="qty-btn minus" onclick="removeFromCart('3-emp-carne')">−</button>
-
-  <span class="qty-number" id="qty-3-emp-carne">0</span>
-
   <button class="qty-btn plus" onclick="addToCart({
     id: '3-emp-carne',
     restaurant: '3 Empanadas',
     name: '3 Empanadas de Carne',
     price: 15
   })">+</button>
+
+  <span class="qty-number" id="qty-3-emp-carne">0</span>
+
+  <button class="qty-btn minus" onclick="removeFromCart('3-emp-carne')">−</button>
 </div>
         
       </div>
@@ -1492,22 +1492,25 @@ setInterval(checkRestaurantHours, 60000);
   <script>
   let cart = [];
 
-  function addToCart(product) {
-    const existing = cart.find(
-      item =>
-        item.name === product.name &&
-        item.restaurant === product.restaurant
-    );
+ function addToCart(product) {
+  const existing = cart.find(
+    item =>
+      item.id === product.id &&
+      item.restaurant === product.restaurant
+  );
 
-    if (existing) {
-      existing.qty++;
-    } else {
-      cart.push({
-        ...product,
-        qty: 1
-      });
-    }
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({
+      ...product,
+      qty: 1
+    });
+  }
 
+  updateQtyDisplay(product.id);
+  updateFloatingCart();
+}
     updateFloatingCart();
     console.log(cart); // 👈 para pruebas
   }
@@ -1587,6 +1590,8 @@ function updateFloatingCart() {
 }
 </script>
 
+  
+
   <script>
 let cart = {};
 
@@ -1598,6 +1603,21 @@ function addToCart(item) {
   }
 
   updateQty(item.id);
+  updateFloatingCart();
+}
+
+    function removeFromCart(productId) {
+  const index = cart.findIndex(item => item.id === productId);
+
+  if (index === -1) return;
+
+  cart[index].qty--;
+
+  if (cart[index].qty <= 0) {
+    cart.splice(index, 1);
+  }
+
+  updateQtyDisplay(productId);
   updateFloatingCart();
 }
 
@@ -1705,6 +1725,17 @@ function updateFloatingCart() {
   totalEl.textContent = `Total: S/ ${total}`;
 
   cartEl.classList.remove("hidden");
+}
+</script>
+  
+  <script>
+function updateQtyDisplay(productId) {
+  const item = cart.find(i => i.id === productId);
+  const qtySpan = document.getElementById(`qty-${productId}`);
+
+  if (!qtySpan) return;
+
+  qtySpan.textContent = item ? item.qty : 0;
 }
 </script>
 
