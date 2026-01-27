@@ -1443,25 +1443,6 @@ setInterval(checkRestaurantHours, 60000);
     document.getElementById("cart-count").textContent = "2 items";
     document.getElementById("cart-total").textContent = "S/32";
   }
-
-<script>
-  let cartCount = 0;
-  let cartTotal = 0;
-
-  function addToCart(price) {
-    cartCount++;
-    cartTotal += price;
-
-    document.getElementById("cart-count").textContent =
-      cartCount + " item" + (cartCount > 1 ? "s" : "");
-
-    document.getElementById("cart-total").textContent =
-      "S/" + cartTotal;
-
-    document.getElementById("floating-cart")
-      .classList.remove("hidden");
-  }
- </script>
     
 </script>
 
