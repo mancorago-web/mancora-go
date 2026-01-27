@@ -1688,6 +1688,23 @@ function enviarPedidoWhatsApp() {
   const url = `https://wa.me/${telefono}?text=${mensaje}`;
   window.open(url, "_blank");
 }
+
+function canOpenRestaurant(restaurantName) {
+  if (cart.length === 0) return true;
+
+  const currentRestaurant = cart[0].restaurant;
+
+  if (restaurantName === currentRestaurant) return true;
+
+  alert(
+    `⚠️ Ya tienes un pedido en curso.\n\n` +
+    `Tu carrito es de: ${currentRestaurant}\n\n` +
+    `Finaliza o vacía el carrito para pedir en ${restaurantName}.`
+  );
+
+  return false;
+}
+    
 </script>
   
 </body>
