@@ -779,62 +779,98 @@
       </div>
     </div>
 
-    <!-- Complementos -->
-    <h3 class="menu-category">🍟 Complementos</h3>
+    <!-- COMPLEMENTOS – Barrio Burguer -->
+<h3 class="menu-category">🍟 Complementos</h3>
 
-     <div class="menu-item">
-      <img src=images/menus/papasfritas.jpg>
-      <div>
-        <strong>Papas Fritas</strong>
-        <p>200 Gr de papas fritas con cremas.</p>
-        <div class="price">Porción: S/7.</div>
-      </div>
+<!-- Papas Fritas -->
+<div class="menu-item">
+  <img src="images/menus/papasfritas.jpg">
+  <div>
+    <strong>Papas Fritas</strong>
+    <p>200 gr de papas fritas con cremas.</p>
+    <div class="price">S/7.</div>
+    <div class="qty-controls">
+      <button class="qty-btn plus" onclick="addToCart({id:'bb-papas-fritas',restaurant:'Barrio Burguer',name:'Papas Fritas',price:7})">+</button>
+      <span class="qty-number" id="qty-bb-papas-fritas">0</span>
+      <button class="qty-btn minus" onclick="removeFromCart('bb-papas-fritas')">−</button>
     </div>
+  </div>
+</div>
 
-      <div class="menu-item">
-      <img src=images/menus/aroscebolla.jpg>
-      <div>
-        <strong>Aros de Cebolla crispy</strong>
-        <p>4 aros de cebolla al panko con cremas.</p>
-        <div class="price">Porción: S/7.</div>
-      </div>
+<!-- Aros de Cebolla -->
+<div class="menu-item">
+  <img src="images/menus/aroscebolla.jpg">
+  <div>
+    <strong>Aros de Cebolla Crispy</strong>
+    <p>4 aros de cebolla al panko con cremas.</p>
+    <div class="price">S/7.</div>
+    <div class="qty-controls">
+      <button class="qty-btn plus" onclick="addToCart({id:'bb-aros-cebolla',restaurant:'Barrio Burguer',name:'Aros de Cebolla',price:7})">+</button>
+      <span class="qty-number" id="qty-bb-aros-cebolla">0</span>
+      <button class="qty-btn minus" onclick="removeFromCart('bb-aros-cebolla')">−</button>
     </div>
+  </div>
+</div>
 
-     <div class="menu-item">
-      <img src=images/menus/gaseosas.jpg>
-      <div>
-        <strong>Gaseosas</strong>
-        <p>Coca cola,Inka cola,Sprite.</p>
-        <div class="price">Unidad: S/6.</div>
-      </div>
+<!-- Gaseosas -->
+<div class="menu-item">
+  <img src="images/menus/gaseosas.jpg">
+  <div>
+    <strong>Gaseosas</strong>
+    <p>Coca Cola, Inka Cola, Sprite.</p>
+    <div class="price">S/6.</div>
+    <div class="qty-controls">
+      <button class="qty-btn plus" onclick="addToCart({id:'bb-gaseosa',restaurant:'Barrio Burguer',name:'Gaseosa',price:6})">+</button>
+      <span class="qty-number" id="qty-bb-gaseosa">0</span>
+      <button class="qty-btn minus" onclick="removeFromCart('bb-gaseosa')">−</button>
     </div>
+  </div>
+</div>
 
-     <div class="menu-item">
-      <img src=images/menus/combo1.jpg>
-      <div>
-        <strong>Combo 1</strong>
-        <p>Papas fritas + Gaseosa.</p>
-        <div class="price">Combo: S/10.</div>
-      </div>
+<!-- Cervezas -->
+<div class="menu-item">
+  <img src="images/menus/cervezas.jpg">
+  <div>
+    <strong>Cervezas</strong>
+    <p>Pilsen, Cusqueña trigo.</p>
+    <div class="price">S/10.</div>
+    <div class="qty-controls">
+      <button class="qty-btn plus" onclick="addToCart({id:'bb-cerveza',restaurant:'Barrio Burguer',name:'Cerveza',price:10})">+</button>
+      <span class="qty-number" id="qty-bb-cerveza">0</span>
+      <button class="qty-btn minus" onclick="removeFromCart('bb-cerveza')">−</button>
     </div>
+  </div>
+</div>
 
-     <div class="menu-item">
-      <img src=images/menus/combo2.jpg>
-      <div>
-        <strong>Combo 2</strong>
-        <p>Aros de Cebolla + Cerveza.</p>
-        <div class="price">Combo: S/12.</div>
-      </div>
+<!-- Combo 1 -->
+<div class="menu-item">
+  <img src="images/menus/combo1.jpg">
+  <div>
+    <strong>Combo 1</strong>
+    <p>Papas fritas + Gaseosa.</p>
+    <div class="price">S/10.</div>
+    <div class="qty-controls">
+      <button class="qty-btn plus" onclick="addToCart({id:'bb-combo-1',restaurant:'Barrio Burguer',name:'Combo 1',price:10})">+</button>
+      <span class="qty-number" id="qty-bb-combo-1">0</span>
+      <button class="qty-btn minus" onclick="removeFromCart('bb-combo-1')">−</button>
     </div>
+  </div>
+</div>
 
-     <div class="menu-item">
-      <img src=images/menus/cervezas.jpg>
-      <div>
-        <strong>Cervezas</strong>
-        <p>Pilsen,Cusqueña trigo.</p>
-        <div class="price">Unidad: S/10.</div>
-      </div>
+<!-- Combo 2 -->
+<div class="menu-item">
+  <img src="images/menus/combo2.jpg">
+  <div>
+    <strong>Combo 2</strong>
+    <p>Aros de Cebolla + Cerveza.</p>
+    <div class="price">S/12.</div>
+    <div class="qty-controls">
+      <button class="qty-btn plus" onclick="addToCart({id:'bb-combo-2',restaurant:'Barrio Burguer',name:'Combo 2',price:12})">+</button>
+      <span class="qty-number" id="qty-bb-combo-2">0</span>
+      <button class="qty-btn minus" onclick="removeFromCart('bb-combo-2')">−</button>
     </div>
+  </div>
+</div>
 
      <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
   ← Volver a restaurantes
