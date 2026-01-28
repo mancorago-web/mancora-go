@@ -637,8 +637,8 @@
   <div class="card-content">
 
     <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
-  ← Volver a restaurantes
-</a>
+      ← Volver a restaurantes
+    </a>
 
     <h2>Menú – Barrio Burguer</h2>
 
@@ -654,16 +654,26 @@
     <h3 class="menu-category">🍔 Hamburguesas</h3>
     
     <div class="menu-item">
-  <img src="images/menus/americanafinal.jpg">
-  <div>
-    <strong>Americana</strong>
-    <p>Carne de res, lechuga, tomate, pepinillos, cebolla, queso cheddar, salsa de la casa.</p>
-    <div class="price-row">
-      <span>Simple: S/18.</span>
-      <span>Doble: S/23.</span>
+      <img src="images/menus/americanafinal.jpg">
+      <div>
+        <strong>Americana</strong>
+        <p>Carne de res, lechuga, tomate, pepinillos, cebolla, queso cheddar, salsa de la casa.</p>
+        <div class="price-row">
+          <span>Simple: S/18.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-americana-simple',restaurant:'Barrio Burguer',name:'Americana Simple',price:18})">+</button>
+            <span class="qty-number" id="qty-burger-americana-simple">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-americana-simple')">−</button>
+          </div>
+          <span>Doble: S/23.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-americana-doble',restaurant:'Barrio Burguer',name:'Americana Doble',price:23})">+</button>
+            <span class="qty-number" id="qty-burger-americana-doble">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-americana-doble')">−</button>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
     <div class="menu-item">
       <img src="images/menus/baconfinal.jpg">
@@ -671,9 +681,19 @@
         <strong>Bacon</strong>
         <p>Carne de res, tocino ahumado, queso cheddar, salsa de la casa.</p>
         <div class="price-row">
-  <span>Simple: S/19.</span>
-  <span>Doble: S/24.</span>
-</div>
+          <span>Simple: S/19.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-bacon-simple',restaurant:'Barrio Burguer',name:'Bacon Simple',price:19})">+</button>
+            <span class="qty-number" id="qty-burger-bacon-simple">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-bacon-simple')">−</button>
+          </div>
+          <span>Doble: S/24.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-bacon-doble',restaurant:'Barrio Burguer',name:'Bacon Doble',price:24})">+</button>
+            <span class="qty-number" id="qty-burger-bacon-doble">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-bacon-doble')">−</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -683,9 +703,19 @@
         <strong>Barrio Crispy</strong>
         <p>Carne de res, cebolla crispy, mermelada de tocino, queso cheddar, salsa de la casa.</p>
         <div class="price-row">
-  <span>Simple: S/21.</span>
-  <span>Doble: S/26.</span>
-</div>
+          <span>Simple: S/21.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-crispy-simple',restaurant:'Barrio Burguer',name:'Barrio Crispy Simple',price:21})">+</button>
+            <span class="qty-number" id="qty-burger-crispy-simple">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-crispy-simple')">−</button>
+          </div>
+          <span>Doble: S/26.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-crispy-doble',restaurant:'Barrio Burguer',name:'Barrio Crispy Doble',price:26})">+</button>
+            <span class="qty-number" id="qty-burger-crispy-doble">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-crispy-doble')">−</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -695,9 +725,19 @@
         <strong>Oklahoma</strong>
         <p>Carne de res, cebolla grilled, queso cheddar, salsa de la casa.</p>
         <div class="price-row">
-  <span>Simple: S/18.</span>
-  <span>Doble: S/23.</span>
-</div>
+          <span>Simple: S/18.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-oklahoma-simple',restaurant:'Barrio Burguer',name:'Oklahoma Simple',price:18})">+</button>
+            <span class="qty-number" id="qty-burger-oklahoma-simple">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-oklahoma-simple')">−</button>
+          </div>
+          <span>Doble: S/23.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-oklahoma-doble',restaurant:'Barrio Burguer',name:'Oklahoma Doble',price:23})">+</button>
+            <span class="qty-number" id="qty-burger-oklahoma-doble">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-oklahoma-doble')">−</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -706,10 +746,20 @@
       <div>
         <strong>Barrio Burguer</strong>
         <p>Carne de res, tocino ahumado, cebolla caramelizada, queso cheddar, salsa de la casa.</p>
-       <div class="price-row">
-  <span>Simple: S/21.</span>
-  <span>Doble: S/26.</span>
-</div>
+        <div class="price-row">
+          <span>Simple: S/21.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-barrio-simple',restaurant:'Barrio Burguer',name:'Barrio Burguer Simple',price:21})">+</button>
+            <span class="qty-number" id="qty-burger-barrio-simple">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-barrio-simple')">−</button>
+          </div>
+          <span>Doble: S/26.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-barrio-doble',restaurant:'Barrio Burguer',name:'Barrio Burguer Doble',price:26})">+</button>
+            <span class="qty-number" id="qty-burger-barrio-doble">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-barrio-doble')">−</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -718,7 +768,14 @@
       <div>
         <strong>Triple "B"</strong>
         <p>Triple carne de res, triple queso cheddar, salsa de la casa.</p>
-        <div class="price">Triple: S/27.</div>
+        <div class="price-row">
+          <span>Triple: S/27.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-triple-b',restaurant:'Barrio Burguer',name:'Triple B',price:27})">+</button>
+            <span class="qty-number" id="qty-burger-triple-b">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-triple-b')">−</button>
+          </div>
+        </div>
       </div>
     </div>
 
