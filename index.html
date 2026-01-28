@@ -791,13 +791,13 @@
   </div>
 </div>
 
-  <!-- Menú Café de Barrio -->
+ <!-- Menú Café de Barrio -->
 <div class="card hidden menu-section" id="menu-cafe">
   <div class="card-content">
 
     <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
-  ← Volver a restaurantes
-</a>
+      ← Volver a restaurantes
+    </a>
 
     <h2>Menú – Café de Barrio</h2>
 
@@ -816,6 +816,11 @@
         <strong>Espresso</strong>
         <p>Un shot de sabor intenso y aroma profundo. 40 ML </p>
         <div class="price">S/7.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-espresso',restaurant:'Café de Barrio',name:'Espresso',price:7})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-espresso">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-espresso')">−</button>
+        </div>
       </div>
     </div>
 
@@ -825,6 +830,11 @@
         <strong>Americano</strong>
         <p>Espresso de calidad diluido con agua caliente. 180 ML </p>
         <div class="price">S/7.50.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-americano',restaurant:'Café de Barrio',name:'Americano',price:7.5})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-americano">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-americano')">−</button>
+        </div>
       </div>
     </div>
 
@@ -834,6 +844,11 @@
         <strong>Capuccino</strong>
         <p>Un terció de espresso, un tercio de leche vaporizada y un tercio de espuma. 200 ML </p>
         <div class="price">S/9.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-capuccino',restaurant:'Café de Barrio',name:'Capuccino',price:9})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-capuccino">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-capuccino')">−</button>
+        </div>
       </div>
     </div>
 
@@ -843,6 +858,11 @@
         <strong>Latte</strong>
         <p>Espresso de calidad y leche fresca al vapor, coronado con una delicada espuma de leche. 250 ML </p>
         <div class="price">S/9.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-latte',restaurant:'Café de Barrio',name:'Latte',price:9})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-latte">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-latte')">−</button>
+        </div>
       </div>
     </div>
 
@@ -852,6 +872,11 @@
         <strong>Iced Capuccino</strong>
         <p>Espresso de calidad, hielos, leche fresca al vapor, coronado con una delicada espuma de leche. 250 ML </p>
         <div class="price">S/12.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-iced-capuccino',restaurant:'Café de Barrio',name:'Iced Capuccino',price:12})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-iced-capuccino">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-iced-capuccino')">−</button>
+        </div>
       </div>
     </div>
 
@@ -862,8 +887,13 @@
       <img src="images/menus/sanguchepancetafinal.jpg">
       <div>
         <strong>Sanguche de Panceta</strong>
-        <p>Pan ciabatta,panceta ahumada,salsa asiatica.</p>
+        <p>Pan ciabatta, panceta ahumada, salsa asiatica.</p>
         <div class="price">S/15.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-sanguche-panceta',restaurant:'Café de Barrio',name:'Sanguche de Panceta',price:15})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-sanguche-panceta">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-sanguche-panceta')">−</button>
+        </div>
       </div>
     </div>
 
@@ -871,21 +901,31 @@
       <img src="images/menus/sanguchepaltafinal.jpg">
       <div>
         <strong>Sanguche de Palta</strong>
-        <p>Pan ciabatta,Palta.</p>
+        <p>Pan ciabatta, Palta.</p>
         <div class="price">S/7.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-sanguche-palta',restaurant:'Café de Barrio',name:'Sanguche de Palta',price:7})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-sanguche-palta">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-sanguche-palta')">−</button>
+        </div>
       </div>
     </div>
 
-     <div class="menu-item">
+    <div class="menu-item">
       <img src="images/menus/sanguchetriplepjqfinal.jpg">
       <div>
-        <strong>Sanguche Triple Pollo,Jamón,Queso</strong>
-        <p>Pan en molde,pollo con mayonesa,jamón y queso.</p>
+        <strong>Sanguche Triple Pollo, Jamón, Queso</strong>
+        <p>Pan en molde, pollo con mayonesa, jamón y queso.</p>
         <div class="price">S/13.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-sanguche-triple',restaurant:'Café de Barrio',name:'Sanguche Triple Pollo, Jamón, Queso',price:13})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-sanguche-triple">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-sanguche-triple')">−</button>
+        </div>
       </div>
     </div>
 
-     <!-- CROISSANT -->
+    <!-- CROISSANT -->
     <h3 class="menu-category">🥐 Croissant</h3>
 
     <div class="menu-item">
@@ -894,15 +934,25 @@
         <strong>Croissant de Mantequilla</strong>
         <p>Crujiente croissant sabor mantequilla.</p>
         <div class="price">S/6.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-croissant-mantequilla',restaurant:'Café de Barrio',name:'Croissant de Mantequilla',price:6})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-croissant-mantequilla">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-croissant-mantequilla')">−</button>
+        </div>
       </div>
     </div>
 
-     <div class="menu-item">
+    <div class="menu-item">
       <img src="images/menus/crossantmanjarfinal.jpg">
       <div>
         <strong>Croissant de Manjar</strong>
         <p>Crujiente croissant sabor mantequilla, relleno de manjar.</p>
         <div class="price">S/12.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-croissant-manjar',restaurant:'Café de Barrio',name:'Croissant de Manjar',price:12})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-croissant-manjar">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-croissant-manjar')">−</button>
+        </div>
       </div>
     </div>
 
@@ -910,40 +960,58 @@
       <img src="images/menus/crossantpdfinal.jpg">
       <div>
         <strong>Croissant Pollo con Durazno</strong>
-        <p>Crujiente croissant sabor mantequilla,pollo con mayonesa y durazno.</p>
+        <p>Crujiente croissant sabor mantequilla, pollo con mayonesa y durazno.</p>
         <div class="price">S/13.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-croissant-pollo-durazno',restaurant:'Café de Barrio',name:'Croissant Pollo con Durazno',price:13})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-croissant-pollo-durazno">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-croissant-pollo-durazno')">−</button>
+        </div>
       </div>
     </div>
 
-     <div class="menu-item">
+    <div class="menu-item">
       <img src="images/menus/crofflefinal.jpg">
       <div>
         <strong>Croffle</strong>
-        <p>Crujiente croissant sabor mantequilla,crema chantilli y jarabe de chocolate.</p>
+        <p>Crujiente croissant sabor mantequilla, crema chantilli y jarabe de chocolate.</p>
         <div class="price">S/12.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-croffle',restaurant:'Café de Barrio',name:'Croffle',price:12})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-croffle">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-croffle')">−</button>
+        </div>
       </div>
     </div>
 
-     <div class="menu-item">
+    <div class="menu-item">
       <img src="images/menus/wafflefrutasfinal.jpg">
       <div>
         <strong>Waffles con frutas</strong>
         <p>Sabroso waffle con frutas y miel.</p>
         <div class="price">S/20.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-waffles-frutas',restaurant:'Café de Barrio',name:'Waffles con frutas',price:20})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-waffles-frutas">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-waffles-frutas')">−</button>
+        </div>
       </div>
     </div>
-    
- 
+
     <!-- FRAPPES -->
     <h3 class="menu-category">🧊 Frappes</h3>
-
 
     <div class="menu-item">
       <img src="images/menus/frappeoreofinal.jpg">
       <div>
         <strong>Frappe de Oreo</strong>
-        <p>Frappe de oreo,jarabe de chocolate y crema chantilli.</p>
+        <p>Frappe de oreo, jarabe de chocolate y crema chantilli.</p>
         <div class="price">S/18.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-frappe-oreo',restaurant:'Café de Barrio',name:'Frappe de Oreo',price:18})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-frappe-oreo">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-frappe-oreo')">−</button>
+        </div>
       </div>
     </div>
 
@@ -951,16 +1019,19 @@
       <img src="images/menus/frappefresafinal.jpg">
       <div>
         <strong>Frappe de Fresa</strong>
-        <p>Frappe de fresa,jarabe de chocolate y crema chantilli.</p>
+        <p>Frappe de fresa, jarabe de chocolate y crema chantilli.</p>
         <div class="price">S/17.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-frappe-fresa',restaurant:'Café de Barrio',name:'Frappe de Fresa',price:17})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-frappe-fresa">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-frappe-fresa')">−</button>
+        </div>
       </div>
     </div>
 
-    
-
     <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
-  ← Volver a restaurantes
-</a>
+      ← Volver a restaurantes
+    </a>
 
     <!-- Botón WhatsApp -->
     <a class="btn" href="#" onclick="pedirWhatsApp('Café de Barrio')">
