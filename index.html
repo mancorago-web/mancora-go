@@ -1205,8 +1205,8 @@
   <div class="card-content">
 
     <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
-  ← Volver a restaurantes
-</a>
+      ← Volver a restaurantes
+    </a>
 
     <h2>Menú – Café Coral</h2>
 
@@ -1220,6 +1220,11 @@
         <strong>Tiramisu Cake</strong>
         <p>Descubre el equilibrio perfecto entre la intensidad de nuestro café de especialidad y la sedosidad del auténtico queso crema.</p>
         <div class="price">S/16.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-tiramisu',restaurant:'Café Coral',name:'Tiramisu Cake',price:16})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-tiramisu">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-tiramisu')">−</button>
+        </div>
       </div>
     </div>
 
@@ -1230,6 +1235,11 @@
         <strong>Torta de Chocolate Trufada</strong>
         <p>Cake de chocolate húmedo, relleno de trufa de chocolate y manjar blanco, envuelto en fudge y con un baño de trufa de chocolate.</p>
         <div class="price">S/14.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-torta-choco',restaurant:'Café Coral',name:'Torta de Chocolate Trufada',price:14})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-torta-choco">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-torta-choco')">−</button>
+        </div>
       </div>
     </div>
 
@@ -1240,6 +1250,11 @@
         <strong>Torta de Zanahoria</strong>
         <p>Cake de zanahoria húmedo con pecanas y arándanos rojos, rellena de manjar blanco.</p>
         <div class="price">S/14.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-torta-zanahoria',restaurant:'Café Coral',name:'Torta de Zanahoria',price:14})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-torta-zanahoria">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-torta-zanahoria')">−</button>
+        </div>
       </div>
     </div>
 
@@ -1250,6 +1265,11 @@
         <strong>Cheesecake de Fresa</strong>
         <p>La tarta de queso definitiva: base de masa quebrada, relleno ultra cremoso y una generosa capa de fresas naturales en almíbar ligero.</p>
         <div class="price">S/13.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-cheesecake-fresa',restaurant:'Café Coral',name:'Cheesecake de Fresa',price:13})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-cheesecake-fresa">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-cheesecake-fresa')">−</button>
+        </div>
       </div>
     </div>
 
@@ -1260,6 +1280,11 @@
         <strong>Cheesecake de Maracuya</strong>
         <p>Tarta de queso cremosa con cobertura de maracuyá natural.</p>
         <div class="price">S/13.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-cheesecake-maracuya',restaurant:'Café Coral',name:'Cheesecake de Maracuya',price:13})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-cheesecake-maracuya">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-cheesecake-maracuya')">−</button>
+        </div>
       </div>
     </div>
 
@@ -1270,6 +1295,11 @@
         <strong>Pie de Limón</strong>
         <p>El balance ideal entre la acidez vibrante del limón recién exprimido y el dulzor del merengue suizo flameado.</p>
         <div class="price">S/13.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-pie-limon',restaurant:'Café Coral',name:'Pie de Limón',price:13})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-pie-limon">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-pie-limon')">−</button>
+        </div>
       </div>
     </div>
 
@@ -1280,6 +1310,11 @@
         <strong>Brownie con Helado</strong>
         <p>Disfruta de nuestro brownie de chocolate al 70%, con una bola de helado de vainilla.</p>
         <div class="price">S/18.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-brownie-helado',restaurant:'Café Coral',name:'Brownie con Helado',price:18})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-brownie-helado">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-brownie-helado')">−</button>
+        </div>
       </div>
     </div>
 
@@ -1290,6 +1325,11 @@
         <strong>Croissant Dulce</strong>
         <p>Croissant relleno de helado de vainilla, fresas y salsa de chocolate.</p>
         <div class="price">S/20.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-croissant-dulce',restaurant:'Café Coral',name:'Croissant Dulce',price:20})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-croissant-dulce">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-croissant-dulce')">−</button>
+        </div>
       </div>
     </div>
 
@@ -1300,6 +1340,11 @@
         <strong>Brofle</strong>
         <p>Waffle con helado de vainilla, trozos de brownie y salsa de chocolate.</p>
         <div class="price">S/30.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-brofle',restaurant:'Café Coral',name:'Brofle',price:30})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-brofle">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-brofle')">−</button>
+        </div>
       </div>
     </div>
 
@@ -1310,6 +1355,11 @@
         <strong>Waffle con Frutas</strong>
         <p>Waffle con fresas, plátano y miel de maple.</p>
         <div class="price">S/28.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-waffle-frutas',restaurant:'Café Coral',name:'Waffle con Frutas',price:28})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-waffle-frutas">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-waffle-frutas')">−</button>
+        </div>
       </div>
     </div>
 
@@ -1323,6 +1373,11 @@
         <strong>Hamburguesa Clásica</strong>
         <p>Pan brioche artesanal, carne, lechuga, tomate, queso cheddar y mayonesa de la casa, acompañado de papas fritas.</p>
         <div class="price">S/28.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-hamburguesa-clasica',restaurant:'Café Coral',name:'Hamburguesa Clásica',price:28})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-hamburguesa-clasica">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-hamburguesa-clasica')">−</button>
+        </div>
       </div>
     </div>
 
@@ -1333,6 +1388,11 @@
         <strong>Hamburguesa Royal</strong>
         <p>Pan brioche artesanal, carne, doble queso cheddar, huevo, lechuga, tomate y mayonesa de la casa, acompañado de papas fritas.</p>
         <div class="price">S/32.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-hamburguesa-royal',restaurant:'Café Coral',name:'Hamburguesa Royal',price:32})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-hamburguesa-royal">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-hamburguesa-royal')">−</button>
+        </div>
       </div>
     </div>
 
@@ -1343,6 +1403,11 @@
         <strong>Hamburguesa con Tocino</strong>
         <p>Pan brioche artesanal, carne, lechuga, tomate, queso cheddar, tocino, cebolla caramelizada y mayonesa de la casa, acompañado de papas fritas.</p>
         <div class="price">S/32.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-hamburguesa-tocino',restaurant:'Café Coral',name:'Hamburguesa con Tocino',price:32})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-hamburguesa-tocino">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-hamburguesa-tocino')">−</button>
+        </div>
       </div>
     </div>
 
@@ -1353,6 +1418,11 @@
         <strong>Hamburguesa Argenta</strong>
         <p>Pan brioche artesanal, carne, chorizo campestre, chimichurri, lechuga, tomate y mayonesa de la casa acompañado de papas fritas.</p>
         <div class="price">S/41.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-hamburguesa-argenta',restaurant:'Café Coral',name:'Hamburguesa Argenta',price:41})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-hamburguesa-argenta">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-hamburguesa-argenta')">−</button>
+        </div>
       </div>
     </div>
 
@@ -1363,12 +1433,17 @@
         <strong>Club Sandwich</strong>
         <p>Tres capas de pan de miga, lechuga, tomate, pollo a la plancha, tocino, huevo, jamón, queso edam y mayonesa de la casa acompañado de papas fritas.</p>
         <div class="price">S/39.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-club-sandwich',restaurant:'Café Coral',name:'Club Sandwich',price:39})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-club-sandwich">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-club-sandwich')">−</button>
+        </div>
       </div>
     </div>
 
     <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
-  ← Volver a restaurantes
-</a>
+      ← Volver a restaurantes
+    </a>
 
     <!-- Botón WhatsApp -->
     <a class="btn" href="#" onclick="pedirWhatsApp('Café Coral')">
