@@ -1558,7 +1558,7 @@
   📌 Recuerda que el precio de la moto es aparte
 </div>
 
-    <button class="confirm-btn" onclick="confirmarPedido()">
+    <button class="confirm-btn" onclick="enviarPedidoWhatsApp()">
   ✅ Continuar
 </button>
 
@@ -1568,25 +1568,6 @@
     
     <button class="close-btn" onclick="closeOrder()">
       ❌ Cerrar</button>
-  </div>
-</div>
-
-  <div id="modal-resumen" class="modal hidden">
-  <div class="modal-content">
-    <h2>🛒 Confirmar pedido</h2>
-
-    <p><strong>📍 Distancia:</strong> <span id="m-km"></span> km</p>
-    <p><strong>🛵 Delivery:</strong> S/ <span id="m-delivery"></span></p>
-    <p><strong>🍽️ Comida:</strong> S/ <span id="m-comida"></span></p>
-
-    <hr>
-
-    <p><strong>💰 Total:</strong> S/ <span id="m-total"></span></p>
-
-    <div class="modal-actions">
-      <button onclick="cerrarModal()">Cancelar</button>
-      <button onclick="enviarWhatsAppFinal()">Confirmar</button>
-    </div>
   </div>
 </div>
   
@@ -2075,95 +2056,6 @@ function canOpenRestaurant(restaurantName) {
 }
     
 </script>
-
-<script>
-/* =====================================
-   DELIVERY GPS – 3 EMPANADAS (FUNCIONAL)
-===================================== */
-
-// Restaurante fijo
-const RESTAURANTE = {
-  nombre: "3 Empanadas",
-  lat: -4.109013,
-  lng: -81.047628
-};
-
-// Distancia Haversine
-function calcularKM(lat1, lon1, lat2, lon2) {
-  const R = 6371;
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a =
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(lat1 * Math.PI/180) *
-    Math.cos(lat2 * Math.PI/180) *
-    Math.sin(dLon/2) * Math.sin(dLon/2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c;
-}
-
-  function obtenerTotalCarrito() {
-  const el = document.getElementById("cartTotal");
-
-  if (!el) return 0;
-
-  // "Total: S/ 28"
-  const texto = el.innerText
-    .replace("Total:", "")
-    .replace("S/", "")
-    .trim();
-
-  return Number(texto) || 0;
-}
-
-// FUNCIÓN GLOBAL (NO TOCAR NOMBRE)
-function confirmarPedido() {
-  console.log("confirmarPedido ejecutada");
-
-  if (!navigator.geolocation) {
-    alert("Tu navegador no soporta ubicación");
-    return;
-  }
-
-  navigator.geolocation.getCurrentPosition(
-    function (pos) {
-      const userLat = pos.coords.latitude;
-      const userLng = pos.coords.longitude;
-
-      const km = calcularKM(
-        RESTAURANTE.lat,
-        RESTAURANTE.lng,
-        userLat,
-        userLng
-      );
-
-     const totalComida = obtenerTotalCarrito();
-
-if (totalComida <= 0) {
-  alert("Tu carrito está vacío 🛒");
-  return;
-}
-
-const delivery =
-  km <= 1 ? 4 :
-  km <= 3 ? 6 :
-  km <= 5 ? 8 : 10;
-
-const totalFinal = totalComida + delivery;
-
-      window.open(
-        "https://wa.me/51978742157?text=" +
-        encodeURIComponent(mensaje),
-        "_blank"
-      );
-    },
-    function () {
-      alert("Debes aceptar la ubicación para continuar");
-    },
-    { enableHighAccuracy: true }
-  );
-}
-</script>  
 
   
 </body>
