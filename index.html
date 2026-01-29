@@ -2151,23 +2151,6 @@ const delivery =
 
 const totalFinal = totalComida + delivery;
 
-      alert(
-        `📍 Distancia: ${km.toFixed(2)} km\n` +
-        `🛵 Delivery: S/ ${delivery}`
-      );
-
-      const mensaje =
-`Hola 👋 Pedido desde Máncora Go
-
-🥟 Restaurante: 3 Empanadas
-
-📍 Mi ubicación:
-https://maps.google.com/?q=${userLat},${userLng}
-
-📏 Distancia: ${km.toFixed(2)} km
-🛵 Delivery: S/ ${delivery}
-`;
-
       window.open(
         "https://wa.me/51978742157?text=" +
         encodeURIComponent(mensaje),
