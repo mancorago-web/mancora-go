@@ -2090,24 +2090,7 @@ function obtenerUbicacionCliente() {
     );
   });
 }
-
-/* ================================
-   CALCULAR DISTANCIA CON GOOGLE
-================================ */
-async function calcularDistanciaKM(userLat, userLng) {
-  const url =
-    `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric` +
-    `&origins=${RESTAURANTE.lat},${RESTAURANTE.lng}` +
-    `&destinations=${userLat},${userLng}` +
-    `&key=${GOOGLE_API_KEY}`;
-
-  const res = await fetch(url);
-  const data = await res.json();
-
-  const metros = data.rows[0].elements[0].distance.value;
-  return metros / 1000;
-}
-
+  
 /* ================================
    TARIFA DE DELIVERY
 ================================ */
@@ -2133,10 +2116,12 @@ async function confirmarPedido() {
 
     const ubicacion = await obtenerUbicacionCliente();
 
-    const km = await calcularDistanciaKM(
-      ubicacion.lat,
-      ubicacion.lng
-    );
+    const km = calcularDistanciaHaversine(
+  RESTAURANTE.lat,
+  RESTAURANTE.lng,
+  ubicacion.lat,
+  ubicacion.lng
+);
 
     const delivery = calcularDelivery(km);
     const totalFinal = totalComida + delivery;
@@ -2184,6 +2169,24 @@ https://maps.google.com/?q=${ubicacion.lat},${ubicacion.lng}
   window.open(url, "_blank");
 }
 </script>
+
+<script>
+function calcularDistanciaHaversine(lat1, lon1, lat2, lon2) {
+  const R = 6371; // Radio de la Tierra en km
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * Math.PI / 180) *
+    Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+</script>
+  
   
 
   
