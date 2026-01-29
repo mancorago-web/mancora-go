@@ -2058,136 +2058,87 @@ function canOpenRestaurant(restaurantName) {
 </script>
 
 <script>
-/* ================================
-   CONFIGURACIÓN DEL RESTAURANTE
-================================ */
+/* =====================================
+   DELIVERY GPS – 3 EMPANADAS (FUNCIONAL)
+===================================== */
+
+// Restaurante fijo
 const RESTAURANTE = {
   nombre: "3 Empanadas",
-  lat: -4.109000,   // AJUSTAR luego con Google Maps
-  lng: -81.047500
+  lat: -4.109013,
+  lng: -81.047628
 };
 
-const GOOGLE_API_KEY = "PEGA_AQUI_TU_API_KEY";
-
-/* ================================
-   OBTENER UBICACIÓN DEL CLIENTE
-================================ */
-function obtenerUbicacionCliente() {
-  return new Promise((resolve, reject) => {
-    if (!navigator.geolocation) {
-      reject("Geolocalización no soportada");
-    }
-
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        resolve({
-          lat: pos.coords.latitude,
-          lng: pos.coords.longitude
-        });
-      },
-      () => reject("Permiso de ubicación denegado"),
-      { enableHighAccuracy: true }
-    );
-  });
-}
-  
-/* ================================
-   TARIFA DE DELIVERY
-================================ */
-function calcularDelivery(km) {
-  if (km <= 1) return 4;
-  if (km <= 3) return 6;
-  if (km <= 5) return 8;
-  return 10;
+// Distancia Haversine
+function calcularKM(lat1, lon1, lat2, lon2) {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a =
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI/180) *
+    Math.cos(lat2 * Math.PI/180) *
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
 }
 
-/* ================================
-   CONFIRMAR PEDIDO (FUNCIÓN CLAVE)
-================================ */
-async function confirmarPedido() {
-  try {
-    // 👉 AJUSTA ESTE NOMBRE si tu variable se llama distinto
-    const totalComida = carritoTotal;
+// FUNCIÓN GLOBAL (NO TOCAR NOMBRE)
+function confirmarPedido() {
+  console.log("confirmarPedido ejecutada");
 
-    if (totalComida <= 0) {
-      alert("Tu carrito está vacío 🛒");
-      return;
-    }
-
-    const ubicacion = await obtenerUbicacionCliente();
-
-    const km = calcularDistanciaHaversine(
-  RESTAURANTE.lat,
-  RESTAURANTE.lng,
-  ubicacion.lat,
-  ubicacion.lng
-);
-
-    const delivery = calcularDelivery(km);
-    const totalFinal = totalComida + delivery;
-
-    mostrarResumen(km, delivery, totalFinal, ubicacion);
-
-  } catch (error) {
-    alert("Necesitamos tu ubicación para calcular el delivery 📍");
+  if (!navigator.geolocation) {
+    alert("Tu navegador no soporta ubicación");
+    return;
   }
-}
 
-/* ================================
-   MOSTRAR RESUMEN
-================================ */
-function mostrarResumen(km, delivery, total, ubicacion) {
-  const mensaje =
-    `📍 Distancia: ${km.toFixed(2)} km\n` +
-    `🛵 Delivery: S/ ${delivery}\n` +
-    `💰 Total: S/ ${total}`;
+  navigator.geolocation.getCurrentPosition(
+    function (pos) {
+      const userLat = pos.coords.latitude;
+      const userLng = pos.coords.longitude;
 
-  if (confirm(mensaje + "\n\n¿Confirmar pedido?")) {
-    enviarWhatsApp(km, delivery, total, ubicacion);
-  }
-}
+      const km = calcularKM(
+        RESTAURANTE.lat,
+        RESTAURANTE.lng,
+        userLat,
+        userLng
+      );
 
-/* ================================
-   ENVIAR WHATSAPP
-================================ */
-function enviarWhatsApp(km, delivery, total, ubicacion) {
-  const texto =
-`Hola 👋 quiero hacer un pedido:
+      const delivery =
+        km <= 1 ? 4 :
+        km <= 3 ? 6 :
+        km <= 5 ? 8 : 10;
+
+      alert(
+        `📍 Distancia: ${km.toFixed(2)} km\n` +
+        `🛵 Delivery: S/ ${delivery}`
+      );
+
+      const mensaje =
+`Hola 👋 Pedido desde Máncora Go
 
 🥟 Restaurante: 3 Empanadas
 
 📍 Mi ubicación:
-https://maps.google.com/?q=${ubicacion.lat},${ubicacion.lng}
+https://maps.google.com/?q=${userLat},${userLng}
 
 📏 Distancia: ${km.toFixed(2)} km
 🛵 Delivery: S/ ${delivery}
-💰 Total: S/ ${total}
 `;
 
-  const telefono = "519XXXXXXXX"; // REEMPLAZAR
-  const url = `https://wa.me/${telefono}?text=${encodeURIComponent(texto)}`;
-  window.open(url, "_blank");
+      window.open(
+        "https://wa.me/519XXXXXXXX?text=" +
+        encodeURIComponent(mensaje),
+        "_blank"
+      );
+    },
+    function () {
+      alert("Debes aceptar la ubicación para continuar");
+    },
+    { enableHighAccuracy: true }
+  );
 }
-</script>
-
-<script>
-function calcularDistanciaHaversine(lat1, lon1, lat2, lon2) {
-  const R = 6371; // Radio de la Tierra en km
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
-
-  const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(lat1 * Math.PI / 180) *
-    Math.cos(lat2 * Math.PI / 180) *
-    Math.sin(dLon / 2) * Math.sin(dLon / 2);
-
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c;
-}
-</script>
-  
-  
+</script>  
 
   
 </body>
