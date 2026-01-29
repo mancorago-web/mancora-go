@@ -2107,9 +2107,10 @@ function calcularKM(lat1, lon1, lat2, lon2) {
 
   if (!el) return 0;
 
+  // "Total: S/ 28"
   const texto = el.innerText
+    .replace("Total:", "")
     .replace("S/", "")
-    .replace("s/", "")
     .trim();
 
   return Number(texto) || 0;
