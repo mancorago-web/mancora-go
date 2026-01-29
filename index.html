@@ -1570,6 +1570,25 @@
       ❌ Cerrar</button>
   </div>
 </div>
+
+  <div id="modal-resumen" class="modal hidden">
+  <div class="modal-content">
+    <h2>🛒 Confirmar pedido</h2>
+
+    <p><strong>📍 Distancia:</strong> <span id="m-km"></span> km</p>
+    <p><strong>🛵 Delivery:</strong> S/ <span id="m-delivery"></span></p>
+    <p><strong>🍽️ Comida:</strong> S/ <span id="m-comida"></span></p>
+
+    <hr>
+
+    <p><strong>💰 Total:</strong> S/ <span id="m-total"></span></p>
+
+    <div class="modal-actions">
+      <button onclick="cerrarModal()">Cancelar</button>
+      <button onclick="enviarWhatsAppFinal()">Confirmar</button>
+    </div>
+  </div>
+</div>
   
   <script>
   let lastRestaurantId = null;
@@ -2083,6 +2102,19 @@ function calcularKM(lat1, lon1, lat2, lon2) {
   return R * c;
 }
 
+  function obtenerTotalCarrito() {
+  const el = document.getElementById("cartTotal");
+
+  if (!el) return 0;
+
+  const texto = el.innerText
+    .replace("S/", "")
+    .replace("s/", "")
+    .trim();
+
+  return Number(texto) || 0;
+}
+
 // FUNCIÓN GLOBAL (NO TOCAR NOMBRE)
 function confirmarPedido() {
   console.log("confirmarPedido ejecutada");
@@ -2104,10 +2136,19 @@ function confirmarPedido() {
         userLng
       );
 
-      const delivery =
-        km <= 1 ? 4 :
-        km <= 3 ? 6 :
-        km <= 5 ? 8 : 10;
+     const totalComida = obtenerTotalCarrito();
+
+if (totalComida <= 0) {
+  alert("Tu carrito está vacío 🛒");
+  return;
+}
+
+const delivery =
+  km <= 1 ? 4 :
+  km <= 3 ? 6 :
+  km <= 5 ? 8 : 10;
+
+const totalFinal = totalComida + delivery;
 
       alert(
         `📍 Distancia: ${km.toFixed(2)} km\n` +
