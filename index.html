@@ -1558,7 +1558,7 @@
   📌 Recuerda que el precio de la moto es aparte
 </div>
 
-    <button class="confirm-btn" onclick="enviarPedidoWhatsApp()">
+    <button class="confirm-btn" onclick="confirmarPedido()">
   ✅ Continuar
 </button>
 
@@ -2056,6 +2056,135 @@ function canOpenRestaurant(restaurantName) {
 }
     
 </script>
+
+<script>
+/* ================================
+   CONFIGURACIÓN DEL RESTAURANTE
+================================ */
+const RESTAURANTE = {
+  nombre: "3 Empanadas",
+  lat: -4.109000,   // AJUSTAR luego con Google Maps
+  lng: -81.047500
+};
+
+const GOOGLE_API_KEY = "PEGA_AQUI_TU_API_KEY";
+
+/* ================================
+   OBTENER UBICACIÓN DEL CLIENTE
+================================ */
+function obtenerUbicacionCliente() {
+  return new Promise((resolve, reject) => {
+    if (!navigator.geolocation) {
+      reject("Geolocalización no soportada");
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        resolve({
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude
+        });
+      },
+      () => reject("Permiso de ubicación denegado"),
+      { enableHighAccuracy: true }
+    );
+  });
+}
+
+/* ================================
+   CALCULAR DISTANCIA CON GOOGLE
+================================ */
+async function calcularDistanciaKM(userLat, userLng) {
+  const url =
+    `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric` +
+    `&origins=${RESTAURANTE.lat},${RESTAURANTE.lng}` +
+    `&destinations=${userLat},${userLng}` +
+    `&key=${GOOGLE_API_KEY}`;
+
+  const res = await fetch(url);
+  const data = await res.json();
+
+  const metros = data.rows[0].elements[0].distance.value;
+  return metros / 1000;
+}
+
+/* ================================
+   TARIFA DE DELIVERY
+================================ */
+function calcularDelivery(km) {
+  if (km <= 1) return 4;
+  if (km <= 3) return 6;
+  if (km <= 5) return 8;
+  return 10;
+}
+
+/* ================================
+   CONFIRMAR PEDIDO (FUNCIÓN CLAVE)
+================================ */
+async function confirmarPedido() {
+  try {
+    // 👉 AJUSTA ESTE NOMBRE si tu variable se llama distinto
+    const totalComida = carritoTotal;
+
+    if (totalComida <= 0) {
+      alert("Tu carrito está vacío 🛒");
+      return;
+    }
+
+    const ubicacion = await obtenerUbicacionCliente();
+
+    const km = await calcularDistanciaKM(
+      ubicacion.lat,
+      ubicacion.lng
+    );
+
+    const delivery = calcularDelivery(km);
+    const totalFinal = totalComida + delivery;
+
+    mostrarResumen(km, delivery, totalFinal, ubicacion);
+
+  } catch (error) {
+    alert("Necesitamos tu ubicación para calcular el delivery 📍");
+  }
+}
+
+/* ================================
+   MOSTRAR RESUMEN
+================================ */
+function mostrarResumen(km, delivery, total, ubicacion) {
+  const mensaje =
+    `📍 Distancia: ${km.toFixed(2)} km\n` +
+    `🛵 Delivery: S/ ${delivery}\n` +
+    `💰 Total: S/ ${total}`;
+
+  if (confirm(mensaje + "\n\n¿Confirmar pedido?")) {
+    enviarWhatsApp(km, delivery, total, ubicacion);
+  }
+}
+
+/* ================================
+   ENVIAR WHATSAPP
+================================ */
+function enviarWhatsApp(km, delivery, total, ubicacion) {
+  const texto =
+`Hola 👋 quiero hacer un pedido:
+
+🥟 Restaurante: 3 Empanadas
+
+📍 Mi ubicación:
+https://maps.google.com/?q=${ubicacion.lat},${ubicacion.lng}
+
+📏 Distancia: ${km.toFixed(2)} km
+🛵 Delivery: S/ ${delivery}
+💰 Total: S/ ${total}
+`;
+
+  const telefono = "519XXXXXXXX"; // REEMPLAZAR
+  const url = `https://wa.me/${telefono}?text=${encodeURIComponent(texto)}`;
+  window.open(url, "_blank");
+}
+</script>
+  
 
   
 </body>
