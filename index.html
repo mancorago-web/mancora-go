@@ -2047,31 +2047,32 @@ function canOpenRestaurant(restaurantName) {
   }
 </script>
 
-  <script>
+<script>
 /* === MODO EMERGENCIA BARRIO BURGUER === */
 const barrioEmergencyClosed = true; // 🔴 Cambiar a false mañana
 
 if (barrioEmergencyClosed) {
-  const rest = document.getElementById("rest-barrio-burguer");
+  const rest = document.getElementById("restaurant-barrio-burguer");
 
   if (rest) {
-    // Desactivar click
-    rest.onclick = null;
+
+    // Bloquear clicks
     rest.style.pointerEvents = "none";
     rest.style.opacity = "0.6";
 
-    // Mostrar cartel de cerrado
-    const closedLabel = rest.querySelector(".closed-label");
-    if (closedLabel) {
-      closedLabel.classList.remove("hidden");
-      closedLabel.innerHTML = "⛔ Cerrado por emergencia hoy";
+    // Forzar badge de cerrado
+    let badge = rest.querySelector(".restaurant-badge");
+    if (badge) {
+      badge.innerHTML = "CERRADO";
+      badge.style.background = "#dc2626";
+      badge.style.color = "#fff";
     }
 
-    // Cambiar horario visual
-    const scheduleLabel = rest.querySelector(".schedule-label");
-    if (scheduleLabel) {
-      scheduleLabel.innerHTML = "⚠️ No disponible temporalmente";
-      scheduleLabel.style.color = "#dc2626";
+    // Cambiar texto horario
+    let schedule = rest.querySelector(".restaurant-schedule");
+    if (schedule) {
+      schedule.innerHTML = "⛔ Cerrado por emergencia hoy";
+      schedule.style.color = "#dc2626";
     }
   }
 }
