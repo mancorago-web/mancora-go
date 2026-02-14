@@ -1702,6 +1702,26 @@ function isBarrioBurguerStatus() {
   
 <script>
 function checkRestaurantHours() {
+
+  // === BLOQUEO MANUAL BARRIO BURGUER ===
+const barrioEmergencyClosed = true; // 🔴 Cambiar a false mañana
+
+if (barrioEmergencyClosed) {
+  const barrio = document.getElementById("restaurant-barrio-burguer");
+
+  if (barrio) {
+    barrio.classList.add("closed");
+
+    let badge = barrio.querySelector(".restaurant-badge");
+    if (badge) badge.textContent = "CERRADO";
+
+    let schedule = barrio.querySelector(".restaurant-schedule");
+    if (schedule) schedule.textContent = "⛔ Cerrado por emergencia hoy";
+
+    return; // 🔥 Esto impide que el sistema lo vuelva a abrir
+  }
+}
+  
   const now = new Date();
   const currentHour = now.getHours() + now.getMinutes() / 60;
 
