@@ -1,4 +1,4 @@
-const CACHE_NAME = "mancora-go-v3";
+const CACHE_NAME = "mancora-go-v4";
 const urlsToCache = [
   "/",
   "/index.html",
