@@ -11,13 +11,13 @@
   <meta http-equiv="Expires" content="0">
   
   <!-- Version marker for cache busting -->
-  <meta name="version" content="2026.04.11">
+  <meta name="version" content="2026.04.12">
 </head>
 <body>
     <!-- Version marker for cache busting -->
     <script>
       // Force refresh if version changed
-      const currentVersion = '2026.04.11';
+      const currentVersion = '2026.04.12';
     const savedVersion = localStorage.getItem('appVersion');
     if (savedVersion !== currentVersion) {
       localStorage.setItem('appVersion', currentVersion);
@@ -2648,12 +2648,21 @@
     
     let html = '';
     
-    if (isFeaturedCategory && allCards.length > 0) {
+    const featuredCards = allCards.filter(c => c.isFeatured);
+    const nonFeaturedCards = allCards.filter(c => !c.isFeatured);
+    
+    if (isFeaturedCategory && featuredCards.length > 0) {
       html += '<div class="featured-section"><h2 class="section-title-featured">🔥 DESTACADOS 🔥</h2>';
-      html += allCards.map(c => c.card).join('');
+      html += featuredCards.map(c => c.card).join('');
       html += '</div>';
-    } else {
-      html += allCards.map(c => c.card).join('');
+    }
+    
+    if (nonFeaturedCards.length > 0) {
+      html += nonFeaturedCards.map(c => c.card).join('');
+    }
+    
+    if (!isFeaturedCategory && allCards.length > 0) {
+      html = allCards.map(c => c.card).join('');
     }
     
     if (html) {
