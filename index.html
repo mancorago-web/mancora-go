@@ -11,13 +11,13 @@
   <meta http-equiv="Expires" content="0">
   
   <!-- Version marker for cache busting -->
-  <meta name="version" content="2026.04.10">
+  <meta name="version" content="2026.04.11">
 </head>
 <body>
     <!-- Version marker for cache busting -->
     <script>
       // Force refresh if version changed
-      const currentVersion = '2026.04.10';
+      const currentVersion = '2026.04.11';
     const savedVersion = localStorage.getItem('appVersion');
     if (savedVersion !== currentVersion) {
       localStorage.setItem('appVersion', currentVersion);
@@ -2604,12 +2604,12 @@
       'hamburguesas': ['rest-barrio-burguer', 'rest-cafe-coral'],
       'cafe': ['rest-cafe-barrio'],
       'postres': ['rest-cafe-coral', 'rest-cafe-barrio'],
-      'sandwiches': ['rest-cafe-coral', 'rest-cafe-barrio', 'rest-3empanadas'],
+      'sandwiches': ['rest-cafe-barrio', 'rest-3empanadas'],
       'chifa': ['rest-kaisen']
     };
     
     const order = priorityOrder[normalizedCategory] || [];
-    const isFeaturedCategory = ['hamburguesas', 'postres', 'sandwiches'].includes(normalizedCategory);
+    const isFeaturedCategory = ['hamburguesas'].includes(normalizedCategory);
     
     let allCards = [];
     
