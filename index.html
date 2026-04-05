@@ -11,13 +11,13 @@
   <meta http-equiv="Expires" content="0">
   
   <!-- Version marker for cache busting -->
-  <meta name="version" content="2026.04.12">
+  <meta name="version" content="2026.04.13">
 </head>
 <body>
     <!-- Version marker for cache busting -->
     <script>
       // Force refresh if version changed
-      const currentVersion = '2026.04.12';
+      const currentVersion = '2026.04.13';
     const savedVersion = localStorage.getItem('appVersion');
     if (savedVersion !== currentVersion) {
       localStorage.setItem('appVersion', currentVersion);
@@ -1013,48 +1013,6 @@
       font-size: 15px;
     }
 
-    .categories-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .category-card {
-      background: white;
-      border-radius: var(--radius-md);
-      padding: 16px 8px;
-      text-align: center;
-      box-shadow: var(--shadow-soft);
-      cursor: pointer;
-      transition: all 0.3s;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
-      position: relative;
-      z-index: 10;
-    }
-
-    .category-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-hover);
-    }
-
-    .category-card:active {
-      transform: scale(0.95);
-    }
-
-    .category-emoji {
-      display: block;
-      font-size: 32px;
-      margin-bottom: 8px;
-    }
-
-    .category-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-dark);
-    }
-
     #categoryRestaurants {
       margin-top: 20px;
     }
@@ -1100,35 +1058,6 @@
 </header>
 
   <div class="container">
-
-  <h2 class="section-title">🍱 Categorías</h2>
-
-  <div class="categories-grid">
-    <div class="category-card" onclick="filterByCategory('pollos')">
-      <span class="category-emoji">🍗</span>
-      <span class="category-name">Pollos</span>
-    </div>
-    <div class="category-card" onclick="filterByCategory('hamburguesas')">
-      <span class="category-emoji">🍔</span>
-      <span class="category-name">Hamburgesas</span>
-    </div>
-    <div class="category-card" onclick="filterByCategory('cafe')">
-      <span class="category-emoji">☕</span>
-      <span class="category-name">Café</span>
-    </div>
-    <div class="category-card" onclick="filterByCategory('postres')">
-      <span class="category-emoji">🍰</span>
-      <span class="category-name">Postres</span>
-    </div>
-    <div class="category-card" onclick="filterByCategory('sandwiches')">
-      <span class="category-emoji">🥪</span>
-      <span class="category-name">Sandwiches</span>
-    </div>
-    <div class="category-card" onclick="filterByCategory('chifa')">
-      <span class="category-emoji">🍜</span>
-      <span class="category-name">Chifa</span>
-    </div>
-  </div>
 
   <div id="categoryRestaurants"></div>
 
