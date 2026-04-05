@@ -11,11 +11,13 @@
   <meta http-equiv="Expires" content="0">
   
   <!-- Version marker for cache busting -->
-  <meta name="version" content="2026.04.06">
-  
-  <script>
-    // Force refresh if version changed
-    const currentVersion = '2026.04.06';
+  <meta name="version" content="2026.04.07">
+</head>
+<body>
+    <!-- Version marker for cache busting -->
+    <script>
+      // Force refresh if version changed
+      const currentVersion = '2026.04.07';
     const savedVersion = localStorage.getItem('appVersion');
     if (savedVersion !== currentVersion) {
       localStorage.setItem('appVersion', currentVersion);
