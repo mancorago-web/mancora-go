@@ -478,12 +478,12 @@
       background-clip: text;
       -webkit-text-fill-color: transparent;
       position: relative;
-      display: block;
-      margin: 30px 0 20px;
+      display: inline-block;
+      margin: 30px auto 20px;
+      padding: 0 20px;
       text-transform: uppercase;
       animation: fireGlow 2s linear infinite;
-      width: 100%;
-      text-align: center;
+      width: auto;
     }
 
     @keyframes fireGlow {
@@ -516,6 +516,8 @@
       border-radius: 2px;
       animation: fireLine 2s linear infinite;
       box-shadow: 0 0 15px rgba(255, 100, 50, 0.6);
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     @keyframes fireLine {
@@ -1125,7 +1127,7 @@
     👁️ Ver todos los restaurantes
   </button>
   
-  <h2 class="section-title-featured">🔥 DESTACADOS 🔥</h2>    
+  <h2 class="section-title-featured">🔥 DESTACADOS 🔥</h2>
 
   <!-- Restaurante Destacado: Cafe Coral -->
 <div class="card featured-card">
@@ -1233,7 +1235,7 @@
     
   </div>
 
-  <h2 class="section-title">🚀 PRÓXIMOS LANZAMIENTOS 🚀</h2>
+  <h2 class="section-title">🚀 PRÓXIMAMENTE 🚀</h2>
 
   <div id="upcoming-list">
 
@@ -1244,7 +1246,7 @@
         <div class="card-content">
           <div class="badge-construction">🚧 En construcción</div>
           <div class="badge-separator"></div>
-          <div class="restaurant-name">🍜 Kai Sen</div>
+          <div class="restaurant-name">🍜 Kay Sen</div>
           <p>Chifa & Broaster</p>
           <p class="upcoming-label">
             🚀 Próximamente en Máncora Go
