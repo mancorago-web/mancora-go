@@ -11,13 +11,13 @@
   <meta http-equiv="Expires" content="0">
   
   <!-- Version marker for cache busting -->
-  <meta name="version" content="2026.04.08">
+  <meta name="version" content="2026.04.09">
 </head>
 <body>
     <!-- Version marker for cache busting -->
     <script>
       // Force refresh if version changed
-      const currentVersion = '2026.04.08';
+      const currentVersion = '2026.04.09';
     const savedVersion = localStorage.getItem('appVersion');
     if (savedVersion !== currentVersion) {
       localStorage.setItem('appVersion', currentVersion);
@@ -2598,61 +2598,62 @@
     const showAllBtn = document.getElementById('showAllBtn');
     
     container.innerHTML = '';
-    let featuredCards = [];
-    let otherCards = [];
-    let upcomingCards = [];
+    
+    const priorityOrder = {
+      'pollos': ['rest-kaisen', 'rest-3empanadas'],
+      'hamburguesas': ['rest-barrio-burguer', 'rest-cafe-coral'],
+      'cafe': ['rest-cafe-barrio'],
+      'postres': ['rest-cafe-coral', 'rest-cafe-barrio'],
+      'sandwiches': ['rest-cafe-coral', 'rest-cafe-barrio', 'rest-3empanadas'],
+      'chifa': ['rest-kaisen']
+    };
+    
+    const order = priorityOrder[normalizedCategory] || [];
+    const isFeaturedCategory = ['hamburguesas', 'postres', 'sandwiches'].includes(normalizedCategory);
+    
+    let allCards = [];
+    
+    upcomingList.forEach(card => {
+      const restaurantCard = card.querySelector('.restaurant-card');
+      const id = restaurantCard?.id || '';
+      const categories = restaurantCard?.getAttribute('data-category') || '';
+      
+      if (categories.split(',').includes(normalizedCategory)) {
+        allCards.push({ card: card.outerHTML, id: id, isUpcoming: true });
+      }
+    });
     
     restaurantsList.forEach(card => {
       const restaurantCard = card.querySelector('.restaurant-card');
+      const id = restaurantCard?.id || '';
       const categories = restaurantCard?.getAttribute('data-category') || '';
       const isFeatured = restaurantCard?.getAttribute('data-featured') === 'true';
       
       if (categories.split(',').includes(normalizedCategory)) {
-        if (isFeatured && (normalizedCategory === 'hamburguesas' || normalizedCategory === 'postres' || normalizedCategory === 'sandwiches')) {
-          featuredCards.push(card.outerHTML);
-        } else {
-          otherCards.push(card.outerHTML);
-        }
+        allCards.push({ card: card.outerHTML, id: id, isFeatured: isFeatured, isUpcoming: false });
       }
     });
     
-    upcomingList.forEach(card => {
-      const restaurantCard = card.querySelector('.restaurant-card');
-      const categories = restaurantCard?.getAttribute('data-category') || '';
+    allCards.sort((a, b) => {
+      const aIndex = order.indexOf(a.id);
+      const bIndex = order.indexOf(b.id);
+      const aInOrder = aIndex !== -1;
+      const bInOrder = bInOrder = bIndex !== -1;
       
-      if (categories.split(',').includes(normalizedCategory)) {
-        upcomingCards.push(card.outerHTML);
-      }
+      if (aInOrder && bInOrder) return aIndex - bIndex;
+      if (aInOrder) return -1;
+      if (bInOrder) return 1;
+      return 0;
     });
     
     let html = '';
     
-    // Special ordering for Pollos and Chifa: upcoming first (Kai Sen), then others
-    if (normalizedCategory === 'pollos' || normalizedCategory === 'chifa') {
-      html += upcomingCards.join('');
-      html += otherCards.join('');
+    if (isFeaturedCategory && allCards.length > 0) {
+      html += '<div class="featured-section"><h2 class="section-title-featured">🔥 DESTACADOS 🔥</h2>';
+      html += allCards.map(c => c.card).join('');
+      html += '</div>';
     } else {
-      // Normal order for other categories
-      if (featuredCards.length > 0 && (normalizedCategory === 'hamburguesas' || normalizedCategory === 'postres' || normalizedCategory === 'sandwiches')) {
-        html += '<div class="featured-section"><h2 class="section-title-featured">🔥 DESTACADOS 🔥</h2>';
-        html += featuredCards.join('');
-        html += '</div>';
-      }
-      
-      if (otherCards.length > 0 || upcomingCards.length > 0) {
-        if (featuredCards.length > 0 && (normalizedCategory === 'hamburgesas' || normalizedCategory === 'postres' || normalizedCategory === 'sandwiches')) {
-          html += '<h2 class="section-title">🍽️ RESTAURANTES 🍽️</h2>';
-        }
-        html += otherCards.join('');
-      }
-    }
-      
-      if (otherCards.length > 0 || upcomingCards.length > 0) {
-        if (featuredCards.length > 0 && (normalizedCategory === 'hamburguesas' || normalizedCategory === 'postres' || normalizedCategory === 'sandwiches')) {
-          html += '<h2 class="section-title">🍽️ RESTAURANTES 🍽️</h2>';
-        }
-        html += otherCards.join('');
-      }
+      html += allCards.map(c => c.card).join('');
     }
     
     if (html) {
