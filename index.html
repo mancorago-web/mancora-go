@@ -5,6 +5,24 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqoTZj1cSJbswj5ce3Xu3ESX84xJQIzqY&libraries=places"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- Cache control -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <!-- Version marker for cache busting -->
+  <meta name="version" content="2026.04.05">
+  
+  <script>
+    // Force refresh if version changed
+    const currentVersion = '2026.04.05';
+    const savedVersion = localStorage.getItem('appVersion');
+    if (savedVersion !== currentVersion) {
+      localStorage.setItem('appVersion', currentVersion);
+      window.location.reload(true);
+    }
+  </script>
+  
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#c62828">
   
