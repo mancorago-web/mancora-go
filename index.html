@@ -1,17 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-LY1LL98FKW"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-LY1LL98FKW');
-</script>
-  
-  <meta charset="UTF-8" />
+<!-- Google Maps API -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqoTZj1cSJbswj5ce3Xu3ESX84xJQIzqY&libraries=places"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link rel="manifest" href="/manifest.json">
@@ -25,413 +16,1045 @@
 <meta name="geo.placename" content="Máncora, Piura, Perú">
 <meta name="geo.position" content="-4.1086;-81.0479">
 <meta name="ICBM" content="-4.1086, -81.0479">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-   body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #f4efe9; /* arena suave */
-  color: #222;
-}
+    :root {
+      --sand-light: #fdf6ec;
+      --sand: #f5e6d3;
+      --sand-dark: #e8d5b7;
+      --coral: #ff6b6b;
+      --coral-light: #ff8e8e;
+      --turquoise: #20b2aa;
+      --turquoise-light: #48d1cc;
+      --ocean: #0077b6;
+      --ocean-light: #00b4d8;
+      --palm-green: #2d6a4f;
+      --sun-yellow: #ffd60a;
+      --sun-orange: #ff9f1c;
+      --white: #ffffff;
+      --text-dark: #2c3e50;
+      --text-light: #6b7280;
+      --shadow-soft: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-hover: 0 12px 40px rgba(0,0,0,0.15);
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(180deg, var(--sand-light) 0%, var(--sand) 100%);
+      color: var(--text-dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255,107,107,0.05) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(32,178,170,0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
     .hero {
-  background: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop")
-    center / cover no-repeat;
-  padding: 60px 20px 70px;
-  text-align: center;
-  color: white;
-  position: relative;
-}
-    header::before {
+      background: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop")
+        center / cover no-repeat;
+      padding: 50px 20px 80px;
+      text-align: center;
+      color: white;
+      position: relative;
+      border-radius: 0 0 40px 40px;
+      overflow: hidden;
+    }
+
+    .hero::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.45);
+      background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 100%);
     }
-    header * { position: relative; }
-    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-    .card { background: white; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); overflow: hidden; }
-    .card-content { padding: 16px 20px 20px; }
-    .restaurant-card { cursor: pointer; }
-    .restaurant-card img { width: 100%; height: 180px; object-fit: cover; }
-    .restaurant-name { font-size: 1.2rem; font-weight: bold; margin: 8px 0 4px; }
-    .menu-item { 
-  display: flex; 
-  gap: 12px; 
-  align-items: center;
-  padding: 16px 0;
-  border-bottom: 2px dashed #d1d5db;
-}
 
-.menu-item:last-of-type {
-  border-bottom: none;
-}
-    .menu-item img { width: 90px; height: 90px; object-fit: cover; border-radius: 10px; }
-    .price { font-weight: bold; }
-    .btn { display: block; margin: 20px auto 0; background: #25D366; color: white; text-decoration: none; padding: 12px 20px; border-radius: 12px; font-weight: bold; text-align: center; }
-    .hidden { display: none; }
-    .footer { text-align: center; font-size: 0.85rem; color: #666; margin: 30px 0 10px; }
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .container {
+      max-width: 580px;
+      margin: 0 auto;
+      padding: 20px;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-content {
+      padding: 16px 20px 20px;
+    }
+
+    .restaurant-card {
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .restaurant-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.1) 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .restaurant-card:hover::after {
+      opacity: 1;
+    }
+
+    .restaurant-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      cursor: pointer;
+    }
+
+    .restaurant-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .restaurant-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin: 8px 0 4px;
+      color: var(--text-dark);
+    }
+
+    .menu-item {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 2px dashed var(--sand-dark);
+      transition: background 0.3s;
+      border-radius: var(--radius-sm);
+      margin: 0 -10px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .menu-item:hover {
+      background: linear-gradient(90deg, rgba(245,230,211,0.5) 0%, rgba(255,255,255,0) 100%);
+    }
+
+    .menu-item:last-of-type {
+      border-bottom: none;
+    }
+
+    .menu-item img {
+      width: 85px;
+      height: 85px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      transition: transform 0.3s, box-shadow 0.3s;
+      flex-shrink: 0;
+    }
+
+    .menu-item:hover img {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    .price {
+      font-weight: 700;
+      color: var(--coral);
+      font-size: 1.1rem;
+    }
+
+    .btn {
+      display: block;
+      margin: 20px auto 0;
+      background: linear-gradient(135deg, #25D366, #20bd5a);
+      color: white;
+      text-decoration: none;
+      padding: 14px 24px;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      text-align: center;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(37,211,102,0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(37,211,102,0.4);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin: 30px 0 100px;
+      padding: 20px;
+    }
 
     .section-title {
-  margin: 30px 0 15px;
-  font-size: 1.5rem; /* mismo tamaño que h2 */
-  font-weight: 700;
-  text-align: left;
-}
+      margin: 35px 0 18px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-align: center;
+      position: relative;
+      display: block;
+      width: 100%;
+    }
 
-    /* === Restaurante Destacado === */
-.featured-card {
-  background: linear-gradient(135deg, #fffbea, #ffffff);
-  border: 2px solid #fde68a;
-}
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--coral), var(--sun-orange));
+      border-radius: 2px;
+      box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+    }
 
-.featured-badge {
-  display: inline-block;
-  background: #facc15;
-  color: #1f2937;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 999px;
-  margin-bottom: 6px;
-}
-    
-/* === Insignia NUEVO === */
-.badge-new {
-  display: inline-block;
-  background-color: #ecfdf5;
-  color: #047857;
-  border: 1px solid #6ee7b7;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  margin-left: 6px;
-}
+    .featured-card {
+      background: linear-gradient(135deg, #fff9f0 0%, #fff 100%);
+      border: 2px solid var(--sun-yellow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent 40%, rgba(255,214,10,0.1) 50%, transparent 60%);
+      animation: shimmer 3s infinite linear;
+    }
+
+    .featured-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--sun-yellow), var(--sun-orange));
+      color: var(--text-dark);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+      box-shadow: 0 2px 10px rgba(255,214,10,0.4);
+      animation: pulse 2s infinite;
+    }
+
+    .badge-new {
+      display: inline-block;
+      background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+      color: #065f46;
+      border: 1px solid #6ee7b7;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-left: 6px;
+    }
 
     .price-row {
-  display: flex;
-  gap: 12px;
-  font-weight: bold;
-  margin-top: 6px;
-  flex-wrap: wrap;
-}
-.logo-hero {
-  width: 220px;
-  max-width: 70%;
-  margin-bottom: 10px;
-  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.45));
-}
+      display: flex;
+      gap: 12px;
+      font-weight: 600;
+      margin-top: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
 
-.hero-tagline {
-  font-size: 1.1rem;
-  font-weight: 500;
-  opacity: 0.95;
-}
-   .menu-category {
-  background: #f3e8d9; /* crema / arena suave */
-  border: 2px solid #e7d3b8;
-  padding: 14px 16px;
-  margin: 32px 0 18px;
-  border-radius: 14px;
+    .burger-variant {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: var(--sand-light);
+      border-radius: var(--radius-sm);
+      margin-top: 8px;
+    }
 
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: #3f2d1c;
+    .variant-name {
+      font-weight: 700;
+      color: var(--text-dark);
+      font-size: 14px;
+    }
 
-  text-align: center;        /* 👈 CENTRADO */
-  letter-spacing: 0.3px;
-}
-    /* === Próximos lanzamientos === */
-.upcoming-card {
-  background: #fff7ed;
-  border: 2px dashed #fbbf24;
-}
+    .logo-hero {
+      width: 180px;
+      max-width: 70%;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.45));
+      animation: float 4s ease-in-out infinite;
+    }
 
-.restaurant-card.upcoming {
-  pointer-events: none;
-  opacity: 0.75;
-}
+    .hero-tagline {
+      font-size: 1.2rem;
+      font-weight: 500;
+      opacity: 0.95;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
 
-.upcoming-label {
-  margin-top: 10px;
-  font-size: 15px;
-  font-weight: 700;
-  color: #d97706;
-}
+    .menu-category {
+      background: linear-gradient(135deg, var(--sand) 0%, var(--sand-dark) 100%);
+      border: none;
+      padding: 16px 20px;
+      margin: 30px 0 20px;
+      border-radius: var(--radius-md);
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      text-align: center;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+    }
 
-    /* === Badge En Construcción === */
-.badge-construction {
-  display: inline-block;
-  background: repeating-linear-gradient(
-    45deg,
-    #fef3c7,
-    #fef3c7 10px,
-    #fde68a 10px,
-    #fde68a 20px
-  );
-  color: #92400e;
-  font-size: 0.75rem;
-  font-weight: 800;
-  padding: 6px 12px;
-  border-radius: 999px;
-  border: 1px solid #f59e0b;
-  margin-bottom: 8px;
-}
+    .menu-category::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
 
-    /* === Badge Top Pedidos === */
-.badge-top {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 800;
-  padding: 6px 12px;
-  border-radius: 999px;
-  margin-bottom: 6px;
-  color: white;
-}
+    .upcoming-card {
+      background: linear-gradient(135deg, #fff7ed, #fef3c7);
+      border: 2px dashed var(--sun-orange);
+      opacity: 0.85;
+    }
 
-.badge-top-1 {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-}
+    .restaurant-card.upcoming {
+      pointer-events: none;
+    }
 
-.badge-top-2 {
-  background: linear-gradient(135deg, #9ca3af, #6b7280);
-}
+    .upcoming-label {
+      margin-top: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--sun-orange);
+    }
 
-.badge-top-3 {
-  background: linear-gradient(135deg, #f97316, #c2410c);
-}
+    .badge-construction {
+      display: inline-block;
+      background: linear-gradient(45deg, #fef3c7, #fde68a);
+      color: #92400e;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 2px solid #f59e0b;
+      margin-bottom: 8px;
+    }
 
-    /* === Separador entre badges y nombre === */
-.badge-separator {
-  margin: 10px 0 8px;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    #e5e7eb,
-    transparent
-  );
-}
+    .badge-top {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+      color: white;
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
 
-/* === Micro Shine Top 1 === */
-.badge-top-1 {
-  position: relative;
-  overflow: hidden;
-}
+    .restaurant-card {
+      position: relative;
+      cursor: pointer;
+    }
 
-.badge-top-1::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -75%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,0.5),
-    transparent
-  );
-  animation: shine 5s ease-in-out infinite;
-}
+    .badge-top-1 {
+      background: linear-gradient(135deg, var(--sun-yellow), var(--sun-orange));
+      color: var(--text-dark);
+      animation: pulse 2s infinite;
+    }
 
-@keyframes shine {
-  0% {
-    left: -75%;
-  }
-  60% {
-    left: -75%;
-  }
-  100% {
-    left: 125%;
-  }
-}
+    .badge-top-2 {
+      background: linear-gradient(135deg, #9ca3af, #6b7280);
+    }
 
-    /* === Alinear badges en una misma línea === */
-.featured-badge,
-.badge-top,
-.badge-new,
-.badge-construction {
-  vertical-align: middle;
-}
-    
-.featured-card {
-  box-shadow:
-    0 10px 25px rgba(217, 119, 6, 0.18),
-    0 0 0 1px rgba(253, 230, 138, 0.9);
-}
+    .badge-top-3 {
+      background: linear-gradient(135deg, #f97316, #c2410c);
+    }
+
+    .badge-separator {
+      margin: 10px 0 8px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--sand-dark), transparent);
+    }
 
     .section-title-featured {
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  color: #b45309; /* dorado oscuro / ámbar */
-  text-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.6),
-    0 2px 4px rgba(0, 0, 0, 0.15);
-}
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, #ff4d4d, #ff9f43, #ff4d4d);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      display: block;
+      margin: 30px 0 20px;
+      text-transform: uppercase;
+      animation: fireGlow 2s linear infinite;
+      width: 100%;
+    }
 
-    /* === CARRITO FLOTANTE === */
-.floating-cart {
-  position: fixed;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  z-index: 9999;
-  max-width: 92%;
-}
+    @keyframes fireGlow {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
 
-.floating-cart.hidden {
-  display: none;
-}
+    .section-title-featured::before {
+      content: '🔥';
+      margin-right: 10px;
+      font-size: 1.4rem;
+      animation: pulse 1s infinite, flicker 0.5s infinite alternate;
+      filter: drop-shadow(0 0 8px rgba(255, 100, 50, 0.8));
+    }
 
-.cart-info {
-  display: flex;
-  flex-direction: column;
-  font-size: 14px;
-}
+    @keyframes flicker {
+      0% { transform: scale(1) rotate(-2deg); opacity: 1; }
+      100% { transform: scale(1.1) rotate(2deg); opacity: 0.9; }
+    }
 
-.cart-info strong {
-  font-size: 16px;
-}
+    .section-title-featured::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #ff4d4d, #ff9f43, #ffdd59, #ff4d4d);
+      background-size: 300% 100%;
+      border-radius: 2px;
+      animation: fireLine 2s linear infinite;
+      box-shadow: 0 0 15px rgba(255, 100, 50, 0.6);
+    }
 
-.cart-btn {
-  background: #0ea5e9;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  padding: 10px 14px;
-  font-weight: 700;
-  cursor: pointer;
-}
-    
+    @keyframes fireLine {
+      0% { background-position: 0% 0; }
+      100% { background-position: 300% 0; }
+    }
+
+    .floating-cart {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 9999;
+      max-width: 90%;
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .floating-cart.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .floating-cart.hidden {
+      transform: translateX(-50%) translateY(100px);
+      opacity: 0;
+    }
+
+    .cart-info {
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+    }
+
+    .cart-info strong {
+      font-size: 17px;
+      color: var(--text-dark);
+    }
+
+    .cart-btn {
+      background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 12px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(0,119,182,0.3);
+    }
+
+    .cart-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0,119,182,0.4);
+    }
+
     .add-btn {
-  margin-top: 10px;
-  background: #22c55e;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 8px 12px;
-  font-weight: 700;
-  cursor: pointer;
-  font-size: 14px;
-}
+      margin-top: 10px;
+      background: linear-gradient(135deg, var(--turquoise), var(--palm-green));
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+
+    .add-btn:hover {
+      transform: scale(1.05);
+    }
 
     .qty-controls {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 10px;
-}
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
 
-.qty-btn {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  border: none;
-  font-size: 20px;
-  font-weight: 700;
-  cursor: pointer;
-}
+    .qty-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      border: none;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
 
-.qty-btn.plus {
-  background: #22c55e;
-  color: white;
-}
+    .qty-btn.plus {
+      background: linear-gradient(135deg, var(--turquoise), var(--palm-green));
+      color: white;
+    }
 
-.qty-btn.minus {
-  background: #ef4444;
-  color: white;
-}
+    .qty-btn.plus:hover {
+      transform: scale(1.1);
+    }
 
-.qty-number {
-  min-width: 20px;
-  text-align: center;
-  font-weight: 700;
-  font-size: 16px;
-}
+    .qty-btn.minus {
+      background: linear-gradient(135deg, var(--coral), #e55a5a);
+      color: white;
+    }
+
+    .qty-btn.minus:hover {
+      transform: scale(1.1);
+    }
+
+    .qty-number {
+      min-width: 24px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--text-dark);
+    }
 
     .modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  display: none;
-}
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none;
+      backdrop-filter: blur(4px);
+      animation: fadeIn 0.3s;
+    }
 
-.modal:not(.hidden) {
-  display: flex;
-}
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
 
-.modal-content {
-  background: white;
-  width: 90%;
-  max-width: 400px;
-  border-radius: 16px;
-  padding: 16px;
-}
+    .modal:not(.hidden) {
+      display: flex !important;
+    }
 
-.order-item {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
+    .modal-content {
+      background: var(--white);
+      width: 90%;
+      max-width: 400px;
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
 
-.order-total {
-  margin-top: 12px;
-  font-size: 18px;
-}
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--sand);
+    }
+
+    .order-total {
+      margin-top: 16px;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--coral);
+    }
 
     .delivery-note {
-  margin-top: 6px;
-  font-size: 13px;
-  color: #6b7280;
-  text-align: center;
-}
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--text-light);
+      text-align: center;
+    }
 
     .confirm-btn {
-  width: 100%;
-  margin-top: 14px;
-  background: #22c55e; /* VERDE */
-  color: white;
-  border: none;
-  border-radius: 12px;
-  padding: 12px;
-  font-weight: 700;
-  cursor: pointer;
-}
+      width: 100%;
+      margin-top: 16px;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(34,197,94,0.3);
+    }
 
-.empty-btn {
-  width: 100%;
-  margin-top: 10px;
-  background: #facc15; /* AMARILLO */
-  color: #1f2937;
-  border: none;
-  border-radius: 12px;
-  padding: 12px;
-  font-weight: 700;
-  cursor: pointer;
-}
+    .confirm-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(34,197,94,0.4);
+    }
 
-.close-btn {
-  width: 100%;
-  margin-top: 10px;
-  background: #ef4444; /* ROJO */
-  color: white;
-  border: none;
-  border-radius: 12px;
-  padding: 12px;
-  font-weight: 700;
-  cursor: pointer;
-}
-    
+    .empty-btn {
+      width: 100%;
+      margin-top: 10px;
+      background: linear-gradient(135deg, var(--sun-yellow), var(--sun-orange));
+      color: var(--text-dark);
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .empty-btn:hover {
+      transform: scale(1.02);
+    }
+
+    .close-btn {
+      width: 100%;
+      margin-top: 10px;
+      background: linear-gradient(135deg, var(--coral), #e55a5a);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .close-btn:hover {
+      transform: scale(1.02);
+    }
+
+    /* === LIGHTBOX IMAGE PREVIEW === */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      padding: 20px;
+      cursor: pointer;
+    }
+
+    .lightbox.active {
+      display: flex;
+      animation: fadeIn 0.3s;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90vh;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 40px;
+      cursor: pointer;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+
+    .lightbox-close:hover {
+      opacity: 1;
+    }
+
+    /* === LOCATION SECTION === */
+    .location-section {
+      margin-top: 20px;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--sand-light), var(--sand));
+      border-radius: var(--radius-md);
+      border: 2px solid var(--sand-dark);
+    }
+
+    .location-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    .location-icon {
+      font-size: 20px;
+    }
+
+    .location-buttons {
+      display: none;
+    }
+
+    .location-btn.full-width {
+      width: 100%;
+      padding: 16px 20px;
+      font-size: 16px;
+    }
+
+    .location-selected {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+      border: 2px solid #10b981;
+      border-radius: var(--radius-md);
+      margin-top: 12px;
+    }
+
+    .location-selected.hidden {
+      display: none;
+    }
+
+    #locationDisplay {
+      font-weight: 600;
+      color: #065f46;
+    }
+
+    .location-change-btn {
+      padding: 6px 12px;
+      background: #059669;
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .location-btn {
+      flex: 1;
+      padding: 14px 16px;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-size: 14px;
+    }
+
+    .location-btn:hover {
+      transform: scale(1.02);
+    }
+
+    .gps-btn {
+      background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+      color: white;
+    }
+
+    .map-btn, .location-btn.map-btn {
+      background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+      color: white;
+    }
+
+    .location-link-input {
+      margin-bottom: 12px;
+    }
+
+    .location-input {
+      flex: 1;
+      padding: 12px 14px;
+      border: 2px solid var(--sand-dark);
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-family: inherit;
+      background: white;
+      transition: border-color 0.3s;
+    }
+
+    .location-input:focus {
+      outline: none;
+      border-color: var(--ocean);
+    }
+
+    .location-btn {
+      padding: 12px 14px;
+      background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 0.2s;
+    }
+
+    .location-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .distance-info {
+      margin-top: 12px;
+      padding: 12px;
+      background: white;
+      border-radius: var(--radius-sm);
+      border-left: 4px solid var(--turquoise);
+    }
+
+    .distance-info.hidden {
+      display: none;
+    }
+
+    #distanceText {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text-light);
+    }
+
+    .delivery-price {
+      margin: 8px 0 0;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--coral);
+    }
+
+    .delivery-total {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 2px dashed var(--sand-dark);
+      font-size: 20px;
+    }
+
+    .menu-item img {
+      width: 85px;
+      height: 85px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      transition: transform 0.3s, box-shadow 0.3s;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .menu-item:hover img {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .how-to-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      animation: fadeInUp 0.5s ease-out backwards;
+    }
+
+    .how-to-step:nth-child(1) { animation-delay: 0.1s; }
+    .how-to-step:nth-child(2) { animation-delay: 0.2s; }
+    .how-to-step:nth-child(3) { animation-delay: 0.3s; }
+    .how-to-step:nth-child(4) { animation-delay: 0.4s; }
+    .how-to-step:nth-child(5) { animation-delay: 0.5s; }
+
+    .how-to-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--coral-light), var(--coral));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(255,107,107,0.3);
+    }
+
+    .how-to-text {
+      font-size: 15px;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .category-card {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 16px 8px;
+      text-align: center;
+      box-shadow: var(--shadow-soft);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .category-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .category-card:active {
+      transform: scale(0.95);
+    }
+
+    .category-emoji {
+      display: block;
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .category-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    #categoryRestaurants {
+      margin-top: 20px;
+    }
+
+    .show-all-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+
+    .info-icon {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--turquoise), var(--ocean));
+      color: white;
+      text-align: center;
+      line-height: 24px;
+      font-size: 14px;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
   </style>
 </head>
 <body>
@@ -446,53 +1069,64 @@
   <p class="hero-tagline">📲 Pide comida en Máncora por WhatsApp</p>
 </header>
 
-<div class="container">
+  <div class="container">
 
-  <div class="card">
-  <div class="card-content">
-    <h2>⚡ ¿Cómo pedir?</h2>
-    <ul>
-      <li>🍔 Elige restaurante.</li>
-      <li>📲 Pides por WhatsApp.</li>
-      <li>📍 Envía tu ubicación.</li>
-      <li>💳 Paga por Yape.</li>
-      <li>🛵 Recíbelo.</li>
-    </ul>
-  </div>
-</div>
+  <h2 class="section-title">🍱 Categorías</h2>
 
-  <div class="card">
-  <div class="card-content">
-    <h2>📦 Tarifas de envío</h2>
-    <p class="delivery-info">
-  📦 Envío según tu ubicación <br>
-  📍 Precio antes de confirmar
-</p>
+  <div class="categories-grid">
+    <div class="category-card" onclick="filterByCategory('pollos')">
+      <span class="category-emoji">🍗</span>
+      <span class="category-name">Pollos</span>
+    </div>
+    <div class="category-card" onclick="filterByCategory('hamburguesas')">
+      <span class="category-emoji">🍔</span>
+      <span class="category-name">Hamburgesas</span>
+    </div>
+    <div class="category-card" onclick="filterByCategory('cafe')">
+      <span class="category-emoji">☕</span>
+      <span class="category-name">Café</span>
+    </div>
+    <div class="category-card" onclick="filterByCategory('postres')">
+      <span class="category-emoji">🍰</span>
+      <span class="category-name">Postres</span>
+    </div>
+    <div class="category-card" onclick="filterByCategory('sandwiches')">
+      <span class="category-emoji">🥪</span>
+      <span class="category-name">Sandwiches</span>
+    </div>
+    <div class="category-card" onclick="filterByCategory('chifa')">
+      <span class="category-emoji">🍜</span>
+      <span class="category-name">Chifa</span>
+    </div>
   </div>
-</div>
+
+  <div id="categoryRestaurants"></div>
+
+  <button id="showAllBtn" class="show-all-btn" onclick="showAllRestaurants()" style="display:none;">
+    👁️ Ver todos los restaurantes
+  </button>
   
   <h2 class="section-title-featured">🔥Restaurantes Destacados🔥</h2>    
 
-  <!-- Restaurante 0 -->
+  <!-- Restaurante Destacado: Cafe Coral -->
 <div class="card featured-card">
- <div 
-  class="restaurant-card"
-  id="rest-barrio-burguer"
-  data-special="barrio-burguer"
-  data-featured="true"
-  onclick="openMenu('menu-burger', 'rest-barrio-burguer')"
-
->
-    <img src="images/barrioburguerlogofinal.jpg">
+  <div 
+    class="restaurant-card"
+    id="rest-cafe-coral"
+    data-special="cafe-coral"
+    data-featured="true"
+    data-category="hamburguesas,cafe,postres,sandwiches"
+    onclick="openMenu('menu-cafe-coral', 'rest-cafe-coral')"
+  >
+    <img onclick="openLightbox(this.src)" src="images/cafecorallogofinal.png">
     <div class="card-content">
       
-      <div class="featured-badge">⭐ DESTACADO</div>  <div class="badge-top badge-top-1">🥇 TOP 1 - Pedidos</div>
+      <div class="featured-badge">⭐ DESTACADO</div> <div class="badge-top badge-top-2">🥈 TOP 2 - Pedidos</div>
 
       <div class="badge-separator"></div>
       
-      <div class="restaurant-name">🍔 Barrio Burguer</div>
-      
-      <p>Hamburguesas Artesanales</p>
+      <div class="restaurant-name">🍰 Café Coral</div>
+      <p>Postres & Hamburguesas</p>
       <p class="schedule-label" style="font-size:14px;color:#16a34a;">
   🕒 —
 </p>
@@ -504,115 +1138,102 @@
   </div>
 </div>
 
-  <h2 class="section-title">🍽️ Restaurantes</h2>
+  <h2 class="section-title">🍽️ RESTAURANTES 🍽️</h2>
 
   <div id="restaurants-list">
 
-     <!-- Restaurante Cafe Coral -->
-<div class="card">
-  <div 
-  class="restaurant-card"
-  id="rest-cafe-coral"
-  data-special="cafe-coral"
-  onclick="openMenu('menu-cafe-coral', 'rest-cafe-coral')"
->
-    <img src="images/cafecorallogofinal.png">
-    <div class="card-content">
-      <span class="badge-new">🆕 Nuevo en Máncora Go</span>  <div class="badge-top badge-top-2">🥈 TOP 2 - Pedidos</div>
-
-      <div class="badge-separator"></div>
-      
-      <div class="restaurant-name">🍰 Café Coral</div>
-      <p>Postres & Hamburguesas</p>
-      <p class="schedule-label" style="font-size:14px;color:#16a34a;">
-  🕒 —
-</p>
-
-<p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">
-  ⛔ Cerrado ahora
-</p>
-
-      <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
-      
-    </div>
-  </div>
-</div>
-
-     <!-- Restaurante Cafe de Barrio -->
-<div class="card">
-  <div 
-  class="restaurant-card"
-  id="rest-cafe-barrio"
-  data-special="cafe-barrio"
-  onclick="openMenu('menu-cafe', 'rest-cafe-barrio')"
->
-    <img src="images/cafedebarriologofinal.jpg">
-    <div class="card-content">
-      <span class="badge-new">🆕 Nuevo en Máncora Go</span>
-
-      <div class="badge-separator"></div>
-      
-      <div class="restaurant-name">☕ Café de Barrio</div>
-      <p>Cafetería de especialidad</p>
-      <p style="font-size:14px;color:#16a34a;">🕒 9:00 a.m. – 12:30 p.m.</p>
-      <p style="font-size:14px;color:#16a34a;">🕒 6:00 p.m. – 10:30 p.m.</p>
-      <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">
-  ⛔ Cerrado ahora
-</p>
-      <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
-    </div>
-  </div>
-</div>
-  
-  <!-- Restaurante Empanadas -->
-<div class="card">
- <div 
-  class="restaurant-card"
-  id="rest-3empanadas"
-  data-special="preorder-only"
-  onclick="openMenu('menu-empanadas', 'rest-3empanadas')"
->
-    <img src="images/3empanadaslogofinal.jpg">
-    <div class="card-content">
-      <span class="badge-new" style="background:#fef3c7;color:#92400e;border:1px solid #f59e0b;">
-  📦 Pedido anticipado
-</span>
-
-      <div class="badge-separator"></div>
-      
-      <div class="restaurant-name">🥟 3 Empanadas</div>
-      <p>Empanadas Argentinas Artesanales</p>
-      <p style="font-size:14px;color:#ca8a04;font-weight:700;">
-  🕒 Solo por pedido <br> ⏳ 24 horas antes
-</p>
-      
-      <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
-    </div>
-  </div>
-</div>
-    
-</div>
-
-  <h2 class="section-title">🚀 Próximos Lanzamientos</h2>
-
-<div id="upcoming-list">
-
-  <!-- Restaurante Próximamente 1 -->
-  <div class="card upcoming-card">
-    <div class="restaurant-card upcoming">
-      <img src="images/kaisenlogofinal.png">
-      <div class="card-content">
-        <div class="badge-construction">🚧 En construcción</div>
-
-        <div class="badge-separator"></div>
-        
-        <div class="restaurant-name">🍜 Kai Sen</div>
-        <p>Chifa & Broaster</p>
-        <p class="upcoming-label">
-          🚀 Próximamente en Máncora Go
-        </p>
+    <!-- Restaurante: Barrio Burger (cerrado) -->
+    <div class="card">
+      <div 
+        class="restaurant-card"
+        id="rest-barrio-burguer"
+        data-special="barrio-burguer"
+        data-category="hamburguesas"
+        onclick="openMenu('menu-burger', 'rest-barrio-burguer')"
+      >
+        <img onclick="openLightbox(this.src)" src="images/barrioburguerlogofinal.jpg">
+        <div class="card-content">
+          <div class="badge-top badge-top-1">🥇 TOP 1 - Pedidos</div>
+          <div class="badge-separator"></div>
+          <div class="restaurant-name">🍔 Barrio Burger</div>
+          <p>Hamburguesas Artesanales</p>
+          <p class="schedule-label" style="font-size:14px;color:#16a34a;">🕒 —</p>
+          <p class="closed-label" style="color:#dc2626;font-weight:700;margin-top:6px;">⛔ Cerrado ahora</p>
+          <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
+        </div>
       </div>
     </div>
+
+    <!-- Restaurante Cafe de Barrio -->
+    <div class="card">
+      <div 
+        class="restaurant-card"
+        id="rest-cafe-barrio"
+        data-special="cafe-barrio"
+        data-category="cafe,sandwiches,postres"
+        onclick="openMenu('menu-cafe', 'rest-cafe-barrio')"
+      >
+        <img onclick="openLightbox(this.src)" src="images/cafedebarriologofinal.jpg">
+        <div class="card-content">
+          <div class="badge-top badge-top-3">🥉 TOP 3 - Pedidos</div>
+          <div class="badge-separator"></div>
+          <div class="restaurant-name">☕ Café de Barrio</div>
+          <p>Cafetería de especialidad</p>
+          <p style="font-size:14px;color:#16a34a;">🕒 9:00 a.m. – 12:30 p.m.</p>
+          <p style="font-size:14px;color:#16a34a;">🕒 6:00 p.m. – 10:30 p.m.</p>
+          <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">⛔ Cerrado ahora</p>
+          <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Restaurante Empanadas -->
+    <div class="card">
+      <div 
+        class="restaurant-card"
+        id="rest-3empanadas"
+        data-special="preorder-only"
+        data-category="pollos,sandwiches"
+        onclick="openMenu('menu-empanadas', 'rest-3empanadas')"
+      >
+        <img onclick="openLightbox(this.src)" src="images/3empanadaslogofinal.jpg">
+        <div class="card-content">
+          <span class="badge-new" style="background:#fef3c7;color:#92400e;border:1px solid #f59e0b;">
+            📦 Pedido anticipado
+          </span>
+          <div class="badge-separator"></div>
+          <div class="restaurant-name">🥟 3 Empanadas</div>
+          <p>Empanadas Argentinas Artesanales</p>
+          <p style="font-size:14px;color:#ca8a04;font-weight:700;">
+            🕒 Solo por pedido <br> ⏳ 24 horas antes
+          </p>
+          <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <h2 class="section-title">🚀 PRÓXIMOS LANZAMIENTOS 🚀</h2>
+
+  <div id="upcoming-list">
+
+    <!-- Restaurante Próximamente: Kai Sen -->
+    <div class="card upcoming-card">
+      <div class="restaurant-card upcoming" id="rest-kaisen" data-category="pollos,chifa">
+        <img onclick="openLightbox(this.src)" src="images/kaisenlogofinal.png">
+        <div class="card-content">
+          <div class="badge-construction">🚧 En construcción</div>
+          <div class="badge-separator"></div>
+          <div class="restaurant-name">🍜 Kai Sen</div>
+          <p>Chifa & Broaster</p>
+          <p class="upcoming-label">
+            🚀 Próximamente en Máncora Go
+          </p>
+        </div>
+      </div>
+    </div>
+
   </div>
 
    <!-- Menú Burger -->
@@ -623,7 +1244,7 @@
       ← Volver a restaurantes
     </a>
 
-    <h2>Menú – Barrio Burguer</h2>
+    <h2>Menú – Barrio Burger</h2>
 
     <!-- Aclaratoria -->
     <div style="background:#f8fafc;border-left:4px solid #0ea5e9;padding:10px;margin-bottom:15px;font-size:14px;">
@@ -637,20 +1258,24 @@
     <h3 class="menu-category">🍔 Hamburguesas</h3>
     
     <div class="menu-item">
-      <img src="images/menus/americanafinal.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/americanafinal.jpg">
       <div>
         <strong>Americana</strong>
         <p>Carne de res, lechuga, tomate, pepinillos, cebolla, queso cheddar, salsa de la casa.</p>
-        <div class="price-row">
-          <span>Simple: S/18.</span>
+        
+        <div class="burger-variant">
+          <span class="variant-name">Simple: S/18.</span>
           <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'burger-americana-simple',restaurant:'Barrio Burguer',name:'Americana Simple',price:18})">+</button>
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-americana-simple',restaurant:'Barrio Burger',name:'Americana Simple',price:18})">+</button>
             <span class="qty-number" id="qty-burger-americana-simple">0</span>
             <button class="qty-btn minus" onclick="removeFromCart('burger-americana-simple')">−</button>
           </div>
-          <span>Doble: S/23.</span>
+        </div>
+        
+        <div class="burger-variant">
+          <span class="variant-name">Doble: S/23.</span>
           <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'burger-americana-doble',restaurant:'Barrio Burguer',name:'Americana Doble',price:23})">+</button>
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-americana-doble',restaurant:'Barrio Burger',name:'Americana Doble',price:23})">+</button>
             <span class="qty-number" id="qty-burger-americana-doble">0</span>
             <button class="qty-btn minus" onclick="removeFromCart('burger-americana-doble')">−</button>
           </div>
@@ -659,20 +1284,24 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/baconfinal.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/baconfinal.jpg">
       <div>
         <strong>Bacon</strong>
         <p>Carne de res, tocino ahumado, queso cheddar, salsa de la casa.</p>
-        <div class="price-row">
-          <span>Simple: S/19.</span>
+        
+        <div class="burger-variant">
+          <span class="variant-name">Simple: S/19.</span>
           <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'burger-bacon-simple',restaurant:'Barrio Burguer',name:'Bacon Simple',price:19})">+</button>
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-bacon-simple',restaurant:'Barrio Burger',name:'Bacon Simple',price:19})">+</button>
             <span class="qty-number" id="qty-burger-bacon-simple">0</span>
             <button class="qty-btn minus" onclick="removeFromCart('burger-bacon-simple')">−</button>
           </div>
-          <span>Doble: S/24.</span>
+        </div>
+        
+        <div class="burger-variant">
+          <span class="variant-name">Doble: S/24.</span>
           <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'burger-bacon-doble',restaurant:'Barrio Burguer',name:'Bacon Doble',price:24})">+</button>
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-bacon-doble',restaurant:'Barrio Burger',name:'Bacon Doble',price:24})">+</button>
             <span class="qty-number" id="qty-burger-bacon-doble">0</span>
             <button class="qty-btn minus" onclick="removeFromCart('burger-bacon-doble')">−</button>
           </div>
@@ -681,20 +1310,24 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/barriocrispyfinal.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/barriocrispyfinal.jpg">
       <div>
         <strong>Barrio Crispy</strong>
         <p>Carne de res, cebolla crispy, mermelada de tocino, queso cheddar, salsa de la casa.</p>
-        <div class="price-row">
-          <span>Simple: S/21.</span>
+        
+        <div class="burger-variant">
+          <span class="variant-name">Simple: S/21.</span>
           <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'burger-crispy-simple',restaurant:'Barrio Burguer',name:'Barrio Crispy Simple',price:21})">+</button>
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-crispy-simple',restaurant:'Barrio Burger',name:'Barrio Crispy Simple',price:21})">+</button>
             <span class="qty-number" id="qty-burger-crispy-simple">0</span>
             <button class="qty-btn minus" onclick="removeFromCart('burger-crispy-simple')">−</button>
           </div>
-          <span>Doble: S/26.</span>
+        </div>
+        
+        <div class="burger-variant">
+          <span class="variant-name">Doble: S/26.</span>
           <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'burger-crispy-doble',restaurant:'Barrio Burguer',name:'Barrio Crispy Doble',price:26})">+</button>
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-crispy-doble',restaurant:'Barrio Burger',name:'Barrio Crispy Doble',price:26})">+</button>
             <span class="qty-number" id="qty-burger-crispy-doble">0</span>
             <button class="qty-btn minus" onclick="removeFromCart('burger-crispy-doble')">−</button>
           </div>
@@ -703,20 +1336,24 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/oklahomafinal.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/oklahomafinal.jpg">
       <div>
         <strong>Oklahoma</strong>
-        <p>Carne de res, cebolla grilled, queso cheddar, salsa de la casa.</p>
-        <div class="price-row">
-          <span>Simple: S/18.</span>
+        <p>Carne de res, tocino, queso americano, salsa de la casa.</p>
+        
+        <div class="burger-variant">
+          <span class="variant-name">Simple: S/18.</span>
           <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'burger-oklahoma-simple',restaurant:'Barrio Burguer',name:'Oklahoma Simple',price:18})">+</button>
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-oklahoma-simple',restaurant:'Barrio Burger',name:'Oklahoma Simple',price:18})">+</button>
             <span class="qty-number" id="qty-burger-oklahoma-simple">0</span>
             <button class="qty-btn minus" onclick="removeFromCart('burger-oklahoma-simple')">−</button>
           </div>
-          <span>Doble: S/23.</span>
+        </div>
+        
+        <div class="burger-variant">
+          <span class="variant-name">Doble: S/23.</span>
           <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'burger-oklahoma-doble',restaurant:'Barrio Burguer',name:'Oklahoma Doble',price:23})">+</button>
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-oklahoma-doble',restaurant:'Barrio Burger',name:'Oklahoma Doble',price:23})">+</button>
             <span class="qty-number" id="qty-burger-oklahoma-doble">0</span>
             <button class="qty-btn minus" onclick="removeFromCart('burger-oklahoma-doble')">−</button>
           </div>
@@ -725,20 +1362,24 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/barrioburguerfinal.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/barrioburguerfinal.jpg">
       <div>
-        <strong>Barrio Burguer</strong>
-        <p>Carne de res, tocino ahumado, cebolla caramelizada, queso cheddar, salsa de la casa.</p>
-        <div class="price-row">
-          <span>Simple: S/21.</span>
+        <strong>Barrio Burger</strong>
+        <p>Carne de res, queso edam, lechuga, tomate, cebolla, tocino, huevo frito, salsa de la casa.</p>
+        
+        <div class="burger-variant">
+          <span class="variant-name">Simple: S/21.</span>
           <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'burger-barrio-simple',restaurant:'Barrio Burguer',name:'Barrio Burguer Simple',price:21})">+</button>
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-barrio-simple',restaurant:'Barrio Burger',name:'Barrio Burger Simple',price:21})">+</button>
             <span class="qty-number" id="qty-burger-barrio-simple">0</span>
             <button class="qty-btn minus" onclick="removeFromCart('burger-barrio-simple')">−</button>
           </div>
-          <span>Doble: S/26.</span>
+        </div>
+        
+        <div class="burger-variant">
+          <span class="variant-name">Doble: S/26.</span>
           <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'burger-barrio-doble',restaurant:'Barrio Burguer',name:'Barrio Burguer Doble',price:26})">+</button>
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-barrio-doble',restaurant:'Barrio Burger',name:'Barrio Burger Doble',price:26})">+</button>
             <span class="qty-number" id="qty-burger-barrio-doble">0</span>
             <button class="qty-btn minus" onclick="removeFromCart('burger-barrio-doble')">−</button>
           </div>
@@ -747,14 +1388,14 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/triplebfinal.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/triplebfinal.jpg">
       <div>
         <strong>Triple "B"</strong>
         <p>Triple carne de res, triple queso cheddar, salsa de la casa.</p>
         <div class="price-row">
           <span>Triple: S/27.</span>
           <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'burger-triple-b',restaurant:'Barrio Burguer',name:'Triple B',price:27})">+</button>
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-triple-b',restaurant:'Barrio Burger',name:'Triple B',price:27})">+</button>
             <span class="qty-number" id="qty-burger-triple-b">0</span>
             <button class="qty-btn minus" onclick="removeFromCart('burger-triple-b')">−</button>
           </div>
@@ -762,18 +1403,18 @@
       </div>
     </div>
 
-    <!-- COMPLEMENTOS – Barrio Burguer -->
+    <!-- COMPLEMENTOS – Barrio Burger -->
 <h3 class="menu-category">🍟 Complementos</h3>
 
 <!-- Papas Fritas -->
 <div class="menu-item">
-  <img src="images/menus/papasfinalbb.jpg">
+  <img onclick="openLightbox(this.src)" src="images/menus/papasfinalbb.jpg">
   <div>
     <strong>Papas Fritas</strong>
     <p>200 gr de papas fritas con cremas.</p>
     <div class="price">S/7.</div>
     <div class="qty-controls">
-      <button class="qty-btn plus" onclick="addToCart({id:'bb-papas-fritas',restaurant:'Barrio Burguer',name:'Papas Fritas',price:7})">+</button>
+      <button class="qty-btn plus" onclick="addToCart({id:'bb-papas-fritas',restaurant:'Barrio Burger',name:'Papas Fritas',price:7})">+</button>
       <span class="qty-number" id="qty-bb-papas-fritas">0</span>
       <button class="qty-btn minus" onclick="removeFromCart('bb-papas-fritas')">−</button>
     </div>
@@ -782,13 +1423,13 @@
 
 <!-- Aros de Cebolla -->
 <div class="menu-item">
-  <img src="images/menus/arosfinalbb.jpg">
+  <img onclick="openLightbox(this.src)" src="images/menus/arosfinalbb.jpg">
   <div>
     <strong>Aros de Cebolla Crispy</strong>
     <p>4 aros de cebolla al panko con cremas.</p>
     <div class="price">S/7.</div>
     <div class="qty-controls">
-      <button class="qty-btn plus" onclick="addToCart({id:'bb-aros-cebolla',restaurant:'Barrio Burguer',name:'Aros de Cebolla',price:7})">+</button>
+      <button class="qty-btn plus" onclick="addToCart({id:'bb-aros-cebolla',restaurant:'Barrio Burger',name:'Aros de Cebolla',price:7})">+</button>
       <span class="qty-number" id="qty-bb-aros-cebolla">0</span>
       <button class="qty-btn minus" onclick="removeFromCart('bb-aros-cebolla')">−</button>
     </div>
@@ -797,13 +1438,13 @@
 
 <!-- Gaseosas -->
 <div class="menu-item">
-  <img src="images/menus/gaseosas.jpg">
+  <img onclick="openLightbox(this.src)" src="images/menus/gaseosas.jpg">
   <div>
     <strong>Gaseosas</strong>
     <p>Coca Cola, Inka Cola, Sprite.</p>
     <div class="price">S/6.</div>
     <div class="qty-controls">
-      <button class="qty-btn plus" onclick="addToCart({id:'bb-gaseosa',restaurant:'Barrio Burguer',name:'Gaseosa',price:6})">+</button>
+      <button class="qty-btn plus" onclick="addToCart({id:'bb-gaseosa',restaurant:'Barrio Burger',name:'Gaseosa',price:6})">+</button>
       <span class="qty-number" id="qty-bb-gaseosa">0</span>
       <button class="qty-btn minus" onclick="removeFromCart('bb-gaseosa')">−</button>
     </div>
@@ -812,13 +1453,13 @@
 
 <!-- Cervezas -->
 <div class="menu-item">
-  <img src="images/menus/cervezas.jpg">
+  <img onclick="openLightbox(this.src)" src="images/menus/cervezas.jpg">
   <div>
     <strong>Cervezas</strong>
     <p>Pilsen, Cusqueña trigo.</p>
     <div class="price">S/10.</div>
     <div class="qty-controls">
-      <button class="qty-btn plus" onclick="addToCart({id:'bb-cerveza',restaurant:'Barrio Burguer',name:'Cerveza',price:10})">+</button>
+      <button class="qty-btn plus" onclick="addToCart({id:'bb-cerveza',restaurant:'Barrio Burger',name:'Cerveza',price:10})">+</button>
       <span class="qty-number" id="qty-bb-cerveza">0</span>
       <button class="qty-btn minus" onclick="removeFromCart('bb-cerveza')">−</button>
     </div>
@@ -827,13 +1468,13 @@
 
 <!-- Combo 1 -->
 <div class="menu-item">
-  <img src="images/menus/combo1.jpg">
+  <img onclick="openLightbox(this.src)" src="images/menus/combo1.jpg">
   <div>
     <strong>Combo 1</strong>
     <p>Papas fritas + Gaseosa.</p>
     <div class="price">S/10.</div>
     <div class="qty-controls">
-      <button class="qty-btn plus" onclick="addToCart({id:'bb-combo-1',restaurant:'Barrio Burguer',name:'Combo 1',price:10})">+</button>
+      <button class="qty-btn plus" onclick="addToCart({id:'bb-combo-1',restaurant:'Barrio Burger',name:'Combo 1',price:10})">+</button>
       <span class="qty-number" id="qty-bb-combo-1">0</span>
       <button class="qty-btn minus" onclick="removeFromCart('bb-combo-1')">−</button>
     </div>
@@ -842,13 +1483,13 @@
 
 <!-- Combo 2 -->
 <div class="menu-item">
-  <img src="images/menus/combo2finalbb.jpg">
+  <img onclick="openLightbox(this.src)" src="images/menus/combo2finalbb.jpg">
   <div>
     <strong>Combo 2</strong>
     <p>Aros de Cebolla + Cerveza.</p>
     <div class="price">S/12.</div>
     <div class="qty-controls">
-      <button class="qty-btn plus" onclick="addToCart({id:'bb-combo-2',restaurant:'Barrio Burguer',name:'Combo 2',price:12})">+</button>
+      <button class="qty-btn plus" onclick="addToCart({id:'bb-combo-2',restaurant:'Barrio Burger',name:'Combo 2',price:12})">+</button>
       <span class="qty-number" id="qty-bb-combo-2">0</span>
       <button class="qty-btn minus" onclick="removeFromCart('bb-combo-2')">−</button>
     </div>
@@ -882,7 +1523,7 @@
     <h3 class="menu-category">☕ Café</h3>
 
     <div class="menu-item">
-      <img src="images/menus/cafeespressofinal.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/cafeespressofinal.jpg">
       <div>
         <strong>Espresso</strong>
         <p>Un shot de sabor intenso y aroma profundo. 40 ML </p>
@@ -896,7 +1537,7 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/cafeamericanofinal.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/cafeamericanofinal.jpg">
       <div>
         <strong>Americano</strong>
         <p>Espresso de calidad diluido con agua caliente. 180 ML </p>
@@ -910,7 +1551,7 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/cafecapuccinofinal.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/cafecapuccinofinal.jpg">
       <div>
         <strong>Capuccino</strong>
         <p>Un terció de espresso, un tercio de leche vaporizada y un tercio de espuma. 200 ML </p>
@@ -924,7 +1565,7 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/cafelattefinal.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/cafelattefinal.jpg">
       <div>
         <strong>Latte</strong>
         <p>Espresso de calidad y leche fresca al vapor, coronado con una delicada espuma de leche. 250 ML </p>
@@ -938,7 +1579,7 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/cafeicedcapuccino.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/cafeicedcapuccino.jpg">
       <div>
         <strong>Iced Capuccino</strong>
         <p>Espresso de calidad, hielos, leche fresca al vapor, coronado con una delicada espuma de leche. 250 ML </p>
@@ -955,7 +1596,7 @@
     <h3 class="menu-category">🥪 Sanguches</h3>
 
     <div class="menu-item">
-      <img src="images/menus/sanguchepancetafinal.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/sanguchepancetafinal.jpg">
       <div>
         <strong>Sanguche de Panceta</strong>
         <p>Pan ciabatta, panceta ahumada, salsa asiatica.</p>
@@ -969,7 +1610,7 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/sanguchepaltafinal.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/sanguchepaltafinal.jpg">
       <div>
         <strong>Sanguche de Palta</strong>
         <p>Pan ciabatta, Palta.</p>
@@ -983,7 +1624,7 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/sanguchetriplepjqfinal.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/sanguchetriplepjqfinal.jpg">
       <div>
         <strong>Sanguche Triple Pollo, Jamón, Queso</strong>
         <p>Pan en molde, pollo con mayonesa, jamón y queso.</p>
@@ -1000,7 +1641,7 @@
     <h3 class="menu-category">🥐 Croissant</h3>
 
     <div class="menu-item">
-      <img src="images/menus/crossantmantequillafinal.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/crossantmantequillafinal.jpg">
       <div>
         <strong>Croissant de Mantequilla</strong>
         <p>Crujiente croissant sabor mantequilla.</p>
@@ -1014,7 +1655,7 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/crossantmanjarfinal.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/crossantmanjarfinal.jpg">
       <div>
         <strong>Croissant de Manjar</strong>
         <p>Crujiente croissant sabor mantequilla, relleno de manjar.</p>
@@ -1028,7 +1669,7 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/crossantpdfinal.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/crossantpdfinal.jpg">
       <div>
         <strong>Croissant Pollo con Durazno</strong>
         <p>Crujiente croissant sabor mantequilla, pollo con mayonesa y durazno.</p>
@@ -1042,7 +1683,7 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/crofflefinal.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/crofflefinal.jpg">
       <div>
         <strong>Croffle</strong>
         <p>Crujiente croissant sabor mantequilla, crema chantilli y jarabe de chocolate.</p>
@@ -1056,7 +1697,7 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/wafflefrutasfinal.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/wafflefrutasfinal.jpg">
       <div>
         <strong>Waffles con frutas</strong>
         <p>Sabroso waffle con frutas y miel.</p>
@@ -1073,7 +1714,7 @@
     <h3 class="menu-category">🧊 Frappes</h3>
 
     <div class="menu-item">
-      <img src="images/menus/frappeoreofinal.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/frappeoreofinal.jpg">
       <div>
         <strong>Frappe de Oreo</strong>
         <p>Frappe de oreo, jarabe de chocolate y crema chantilli.</p>
@@ -1087,7 +1728,7 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/frappefresafinal.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/frappefresafinal.jpg">
       <div>
         <strong>Frappe de Fresa</strong>
         <p>Frappe de fresa, jarabe de chocolate y crema chantilli.</p>
@@ -1121,7 +1762,7 @@
     <h3 class="menu-category">🥩 Empanadas de Carne</h3>
 
     <div class="menu-item">
-      <img src="images/menus/empanadas3.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/empanadas3.jpg">
       <div>
         <strong>3 Empanadas</strong>
         <p>Carne, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
@@ -1143,7 +1784,7 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/empanadas6.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/empanadas6.jpg">
       <div>
         <strong>6 Empanadas</strong>
         <p>Carne, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
@@ -1165,7 +1806,7 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/empanadas12.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/empanadas12.jpg">
       <div>
         <strong>12 Empanadas</strong>
         <p>Carne, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
@@ -1189,7 +1830,7 @@
     <h3 class="menu-category">🐥 Empanadas de Pollo</h3>
 
     <div class="menu-item">
-      <img src="images/menus/empanadas3.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/empanadas3.jpg">
       <div>
         <strong>3 Empanadas</strong>
         <p>Pollo, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
@@ -1211,7 +1852,7 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/empanadas6.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/empanadas6.jpg">
       <div>
         <strong>6 Empanadas</strong>
         <p>Pollo, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
@@ -1233,7 +1874,7 @@
     </div>
 
     <div class="menu-item">
-      <img src="images/menus/empanadas12.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/empanadas12.jpg">
       <div>
         <strong>12 Empanadas</strong>
         <p>Pollo, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
@@ -1276,7 +1917,7 @@
 
     <!-- 1 -->
     <div class="menu-item">
-      <img src="images/menus/tiramisu1.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/tiramisu1.jpg">
       <div>
         <strong>Tiramisu Cake</strong>
         <p>Descubre el equilibrio perfecto entre la intensidad de nuestro café de especialidad y la sedosidad del auténtico queso crema.</p>
@@ -1291,7 +1932,7 @@
 
     <!-- 2 -->
     <div class="menu-item">
-      <img src="images/menus/tortachocolate2.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/tortachocolate2.jpg">
       <div>
         <strong>Torta de Chocolate Trufada</strong>
         <p>Cake de chocolate húmedo, relleno de trufa de chocolate y manjar blanco, envuelto en fudge y con un baño de trufa de chocolate.</p>
@@ -1306,7 +1947,7 @@
 
     <!-- 3 -->
     <div class="menu-item">
-      <img src="images/menus/tortazanahoria3.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/tortazanahoria3.jpg">
       <div>
         <strong>Torta de Zanahoria</strong>
         <p>Cake de zanahoria húmedo con pecanas y arándanos rojos, rellena de manjar blanco.</p>
@@ -1321,7 +1962,7 @@
 
     <!-- 4 -->
     <div class="menu-item">
-      <img src="images/menus/cheesecakefresa4.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/cheesecakefresa4.jpg">
       <div>
         <strong>Cheesecake de Fresa</strong>
         <p>La tarta de queso definitiva: base de masa quebrada, relleno ultra cremoso y una generosa capa de fresas naturales en almíbar ligero.</p>
@@ -1336,7 +1977,7 @@
 
     <!-- 5 -->
     <div class="menu-item">
-      <img src="images/menus/cheesecakemaracuya5.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/cheesecakemaracuya5.jpg">
       <div>
         <strong>Cheesecake de Maracuya</strong>
         <p>Tarta de queso cremosa con cobertura de maracuyá natural.</p>
@@ -1351,7 +1992,7 @@
 
     <!-- 6 -->
     <div class="menu-item">
-      <img src="images/menus/piedelimon6.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/piedelimon6.jpg">
       <div>
         <strong>Pie de Limón</strong>
         <p>El balance ideal entre la acidez vibrante del limón recién exprimido y el dulzor del merengue suizo flameado.</p>
@@ -1366,7 +2007,7 @@
 
     <!-- 7 -->
     <div class="menu-item">
-      <img src="images/menus/browniehelado7.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/browniehelado7.jpg">
       <div>
         <strong>Brownie con Helado</strong>
         <p>Disfruta de nuestro brownie de chocolate al 70%, con una bola de helado de vainilla.</p>
@@ -1381,7 +2022,7 @@
 
     <!-- 8 -->
     <div class="menu-item">
-      <img src="images/menus/croissantdulce8.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/croissantdulce8.jpg">
       <div>
         <strong>Croissant Dulce</strong>
         <p>Croissant relleno de helado de vainilla, fresas y salsa de chocolate.</p>
@@ -1396,7 +2037,7 @@
 
     <!-- 9 -->
     <div class="menu-item">
-      <img src="images/menus/brofle9.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/brofle9.jpg">
       <div>
         <strong>Brofle</strong>
         <p>Waffle con helado de vainilla, trozos de brownie y salsa de chocolate.</p>
@@ -1411,7 +2052,7 @@
 
     <!-- 10 -->
     <div class="menu-item">
-      <img src="images/menus/wafflefrutas10.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/wafflefrutas10.jpg">
       <div>
         <strong>Waffle con Frutas</strong>
         <p>Waffle con fresas, plátano y miel de maple.</p>
@@ -1429,7 +2070,7 @@
 
     <!-- 11 -->
     <div class="menu-item">
-      <img src="images/menus/hamburguesaclasica11.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/hamburguesaclasica11.jpg">
       <div>
         <strong>Hamburguesa Clásica</strong>
         <p>Pan brioche artesanal, carne, lechuga, tomate, queso cheddar y mayonesa de la casa, acompañado de papas fritas.</p>
@@ -1444,7 +2085,7 @@
 
     <!-- 12 -->
     <div class="menu-item">
-      <img src="images/menus/hamburguesaroyal12.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/hamburguesaroyal12.jpg">
       <div>
         <strong>Hamburguesa Royal</strong>
         <p>Pan brioche artesanal, carne, doble queso cheddar, huevo, lechuga, tomate y mayonesa de la casa, acompañado de papas fritas.</p>
@@ -1459,7 +2100,7 @@
 
     <!-- 13 -->
     <div class="menu-item">
-      <img src="images/menus/hamburguesacontocino13.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/hamburguesacontocino13.jpg">
       <div>
         <strong>Hamburguesa con Tocino</strong>
         <p>Pan brioche artesanal, carne, lechuga, tomate, queso cheddar, tocino, cebolla caramelizada y mayonesa de la casa, acompañado de papas fritas.</p>
@@ -1474,7 +2115,7 @@
 
     <!-- 14 -->
     <div class="menu-item">
-      <img src="images/menus/hamburguesaargenta14.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/hamburguesaargenta14.jpg">
       <div>
         <strong>Hamburguesa Argenta</strong>
         <p>Pan brioche artesanal, carne, chorizo campestre, chimichurri, lechuga, tomate y mayonesa de la casa acompañado de papas fritas.</p>
@@ -1489,7 +2130,7 @@
 
     <!-- 15 -->
     <div class="menu-item">
-      <img src="images/menus/clubsandwich15.jpg">
+      <img onclick="openLightbox(this.src)" src="images/menus/clubsandwich15.jpg">
       <div>
         <strong>Club Sandwich</strong>
         <p>Tres capas de pan de miga, lechuga, tomate, pollo a la plancha, tocino, huevo, jamón, queso edam y mayonesa de la casa acompañado de papas fritas.</p>
@@ -1523,7 +2164,7 @@
     <strong id="cartItemsCount">0 productos</strong>
     <span id="cartTotal">Total: S/ 0</span>
   </div>
-  <<button class="cart-btn" onclick="openOrder()">Ver pedido</button>
+  <button class="cart-btn" onclick="openOrder()">Ver pedido</button>
 </div>
 
   <!-- MODAL PEDIDO -->
@@ -1534,16 +2175,44 @@
     <div id="orderItems"></div>
 
     <div class="order-total">
-      Total: <strong id="orderTotal">S/0</strong>
+      Total productos: <strong id="orderTotal">S/0</strong>
+    </div>
+
+    <!-- UBICACIÓN DEL CLIENTE -->
+    <div class="location-section">
+      <div class="location-header">
+        <span class="location-icon">📍</span>
+        <span>Tu ubicación para delivery</span>
+      </div>
+      
+      <button class="location-btn map-btn full-width" onclick="openGoogleMapsPicker()">
+        🗺️ Elegir ubicación en el mapa
+      </button>
+      
+      <input type="hidden" id="clientLocation" value="">
+      
+      <div class="location-selected hidden" id="locationSelected">
+        <span id="locationDisplay"></span>
+        <button class="location-change-btn" onclick="openGoogleMapsPicker()">Cambiar</button>
+      </div>
+      
+      <div id="distanceInfo" class="distance-info hidden">
+        <p id="distanceText"></p>
+        <p id="deliveryPriceText" class="delivery-price"></p>
+      </div>
     </div>
 
     <div class="delivery-note">
-  📌 Recuerda que el precio de la moto es aparte
-</div>
+      📌 El precio de delivery se calcula según tu ubicación
+    </div>
+
+    <div class="order-total delivery-total">
+      Total con Delivery: <strong id="orderTotalWithDelivery">S/0</strong>
+    </div>
 
     <button class="confirm-btn" onclick="enviarPedidoWhatsApp()">
-  ✅ Continuar
-</button>
+      ✅ Continuar
+    </button>
 
 <button class="empty-btn" onclick="vaciarCarrito()">
   🗑️ Vaciar Pedido
@@ -1553,9 +2222,417 @@
       ❌ Cerrar</button>
   </div>
 </div>
+
+<!-- MODAL PAGO YAPE -->
+<div id="paymentModal" class="modal hidden">
+  <div class="modal-content payment-modal">
+    <h3>💚 Pago con Yape</h3>
+    
+      <div class="payment-info">
+        
+        <div class="payment-total">
+          <span>Total a pagar:</span>
+          <strong id="paymentTotalAmount">S/0</strong>
+        </div>
+      
+      <div class="yape-section">
+        <p class="yape-title">📱 Yape</p>
+        
+        <div class="yape-details">
+          <div class="yape-detail-item">
+            <span class="yape-label">👤</span>
+            <span class="yape-value">David Justiniano S.</span>
+          </div>
+          <div class="yape-detail-item phone-item">
+            <span class="yape-label">📱</span>
+            <span class="yape-value">978742157</span>
+            <button class="copy-btn" onclick="copyToClipboard('978742157')">📋</button>
+          </div>
+        </div>
+        
+        <div class="yape-qr">
+          <img src="images/yape-qr.jpeg" alt="QR Yape" onerror="this.style.display='none';">
+        </div>
+      </div>
+      
+      <div class="payment-note">
+        ⚠️ IMPORTANTE: Después de pagar, envía el comprobante por WhatsApp
+      </div>
+    </div>
+    
+    <div class="payment-buttons">
+      <button class="payment-cancel-btn" onclick="goBackToOrder()">← Atrás</button>
+      <button class="payment-confirm-btn" onclick="confirmPaymentAndSend()">✅ Ya pagué - Enviar</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .payment-modal {
+    width: 95% !important;
+    max-width: 400px !important;
+    max-height: none !important;
+    overflow: hidden !important;
+    padding: 10px !important;
+  }
   
-  <script>
+  .payment-info {
+    padding: 5px 0;
+  }
+  
+  .payment-instructions {
+    display: none;
+  }
+  
+  .payment-fields {
+    display: none;
+  }
+  
+  .payment-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: linear-gradient(135deg, var(--sand-light), var(--sand));
+    border-radius: var(--radius-md);
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  
+  .payment-total strong {
+    color: var(--coral);
+    font-size: 20px;
+  }
+  
+  .yape-section {
+    text-align: center;
+    padding: 10px;
+    background: white;
+    border-radius: var(--radius-md);
+    border: 2px dashed #22c55e;
+    margin-bottom: 8px;
+  }
+  
+  .yape-title {
+    margin: 0 0 8px;
+    font-weight: 700;
+    color: var(--text-dark);
+    font-size: 16px;
+  }
+  
+  .yape-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  
+  .yape-detail-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: #f0fdf4;
+    border-radius: var(--radius-sm);
+    border: 1px solid #bbf7d0;
+  }
+  
+  .yape-detail-item.phone-item {
+    background: #fef3c7;
+    border-color: #fcd34d;
+  }
+  
+  .yape-label {
+    width: 24px;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  .yape-value {
+    flex: 1;
+    text-align: right;
+    color: #15803d;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  
+  .copy-btn {
+    padding: 4px 8px;
+    background: #059669;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: 6px;
+  }
+  
+  .yape-label {
+    color: #166534;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  
+  .yape-value {
+    color: #15803d;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  
+  .yape-qr {
+    max-width: 140px;
+    margin: 0 auto 8px;
+  }
+  
+  .yape-qr img {
+    width: 100%;
+    border-radius: 8px;
+    border: 2px solid #22c55e;
+  }
+  
+  .yape-instructions {
+    display: none;
+  }
+  
+  .yape-number {
+    display: none;
+  }
+  
+  .payment-note {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-light);
+    padding: 6px;
+    background: var(--sand-light);
+    border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+  }
+  
+  .payment-buttons {
+    display: flex;
+    gap: 6px;
+  }
+  
+  .payment-cancel-btn {
+    flex: 1;
+    padding: 10px;
+    background: linear-gradient(135deg, var(--coral), #e55a5a);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  
+  .payment-confirm-btn {
+    flex: 2;
+    padding: 10px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 13px;
+  }
+</style>
+
+<!-- MAPA INTERACTIVO GOOGLE MAPS -->
+<div id="mapModal" class="modal hidden">
+  <div class="map-modal-content">
+    <h3>🗺️ Selecciona tu ubicación de entrega</h3>
+    <p class="map-instructions">👆 Arrastra el mapa o el marcador rojo a tu ubicación</p>
+    
+    <div id="mapContainer" class="map-container"></div>
+    
+    <div class="map-selected-coords">
+      <span id="selectedCoords">📍 Arrastra el marcador a tu ubicación</span>
+    </div>
+    
+    <div class="map-buttons">
+      <button class="map-cancel-btn" onclick="closeMapModal()">✖ Cancelar</button>
+      <button class="map-confirm-btn" onclick="confirmLocation()">✓ Confirmar Ubicación</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .map-embed-container {
+    display: none;
+  }
+
+  .map-help-text {
+    display: none;
+  }
+
+  .map-modal-content {
+    background: white;
+    width: 95%;
+    max-width: 450px;
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .map-modal-content h3 {
+    margin: 0 0 8px;
+    color: var(--text-dark);
+    text-align: center;
+    font-size: 1.1rem;
+  }
+
+  .map-instructions {
+    margin: 0 0 12px;
+    color: var(--text-light);
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .map-container {
+    width: 100%;
+    height: 350px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: 12px;
+    border: 3px solid var(--ocean);
+  }
+
+  .map-selected-coords {
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+    padding: 12px;
+    background: var(--sand-light);
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+  }
+
+  .map-buttons {
+    display: flex;
+    gap: 10px;
+    position: sticky;
+    bottom: 0;
+    background: white;
+    padding-top: 8px;
+  }
+  }
+
+  .map-cancel-btn {
+    flex: 1;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--coral), #e55a5a);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .map-confirm-btn {
+    flex: 2;
+    padding: 14px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    cursor: pointer;
+  }
+</style>
+
+<!-- LIGHTBOX IMAGE PREVIEW -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close">&times;</span>
+  <img id="lightboxImg" src="" alt="Imagen ampliada">
+</div>
+
+<script>
   let lastRestaurantId = null;
+</script>
+
+<script>
+  function filterByCategory(category) {
+    const categoryMap = {
+      'hamburgesas': 'hamburguesas'
+    };
+    const normalizedCategory = categoryMap[category] || category;
+    
+    const restaurantsList = Array.from(document.querySelectorAll('#restaurants-list .card'));
+    const upcomingList = Array.from(document.querySelectorAll('#upcoming-list .card'));
+    const container = document.getElementById('categoryRestaurants');
+    const showAllBtn = document.getElementById('showAllBtn');
+    
+    container.innerHTML = '';
+    let featuredCards = [];
+    let otherCards = [];
+    let upcomingCards = [];
+    
+    restaurantsList.forEach(card => {
+      const restaurantCard = card.querySelector('.restaurant-card');
+      const categories = restaurantCard?.getAttribute('data-category') || '';
+      const isFeatured = restaurantCard?.getAttribute('data-featured') === 'true';
+      
+      if (categories.split(',').includes(normalizedCategory)) {
+        if (isFeatured && (normalizedCategory === 'hamburguesas' || normalizedCategory === 'postres' || normalizedCategory === 'sandwiches')) {
+          featuredCards.push(card.outerHTML);
+        } else {
+          otherCards.push(card.outerHTML);
+        }
+      }
+    });
+    
+    upcomingList.forEach(card => {
+      const restaurantCard = card.querySelector('.restaurant-card');
+      const categories = restaurantCard?.getAttribute('data-category') || '';
+      
+      if (categories.split(',').includes(normalizedCategory)) {
+        upcomingCards.push(card.outerHTML);
+      }
+    });
+    
+    let html = '';
+    
+    // Special ordering for Pollos and Chifa: upcoming first (Kai Sen), then others
+    if (normalizedCategory === 'pollos' || normalizedCategory === 'chifa') {
+      html += upcomingCards.join('');
+      html += otherCards.join('');
+    } else {
+      // Normal order for other categories
+      if (featuredCards.length > 0 && (normalizedCategory === 'hamburguesas' || normalizedCategory === 'postres' || normalizedCategory === 'sandwiches')) {
+        html += '<h2 class="section-title-featured">🔥Restaurantes Destacados🔥</h2>';
+        html += featuredCards.join('');
+      }
+      
+      if (otherCards.length > 0 || upcomingCards.length > 0) {
+        if (featuredCards.length > 0 && (normalizedCategory === 'hamburguesas' || normalizedCategory === 'postres' || normalizedCategory === 'sandwiches')) {
+          html += '<h2 class="section-title">🍽️ RESTAURANTES 🍽️</h2>';
+        }
+        html += otherCards.join('');
+      }
+    }
+    
+    if (html) {
+      container.innerHTML = html;
+      showAllBtn.style.display = 'block';
+    } else {
+      container.innerHTML = '<p style="text-align:center;color:var(--text-light);padding:20px;">No hay restaurantes en esta categoría</p>';
+      showAllBtn.style.display = 'block';
+    }
+    
+    document.getElementById('restaurants-list').style.display = 'none';
+    document.getElementById('upcoming-list').style.display = 'none';
+  }
+  
+  function showAllRestaurants() {
+    document.getElementById('categoryRestaurants').innerHTML = '';
+    document.getElementById('showAllBtn').style.display = 'none';
+    document.getElementById('restaurants-list').style.display = 'block';
+    document.getElementById('upcoming-list').style.display = 'block';
+  }
 </script>
 
 <script>
@@ -1804,29 +2881,116 @@ setInterval(checkRestaurantHours, 60000);
   
   <script>
 function enviarPedidoWhatsApp() {
-  const telefono = "51978742157"; // TU número real
-
-  if (cart.length === 0) {
-    alert("Tu carrito está vacío");
+  console.log("enviarPedidoWhatsApp called");
+  
+  // Validar que tenga ubicación
+  const clientLocationEl = document.getElementById("clientLocation");
+  console.log("clientLocation:", clientLocationEl ? clientLocationEl.value : "no element");
+  
+  if (!clientLocationEl || !clientLocationEl.value) {
+    alert("Por favor selecciona tu ubicación de entrega primero");
     return;
   }
 
-  let mensaje = "🛵 *Nuevo pedido - Máncora Go*%0A%0A";
+  // Calcular total con delivery
+  let subtotal = cart.reduce((sum, item) => sum + (item.qty * item.price), 0);
+  let totalWithDelivery = subtotal + (clientDeliveryPrice || 0);
+  console.log("totalWithDelivery:", totalWithDelivery);
+  
+  // Abrir modal de pago
+  document.getElementById("paymentTotalAmount").textContent = "S/ " + totalWithDelivery;
+  
+  const paymentModal = document.getElementById("paymentModal");
+  console.log("paymentModal:", paymentModal);
+  paymentModal.classList.remove("hidden");
+  paymentModal.style.display = "flex";
+  
+  // Cerrar modal de pedido
+  closeOrder();
+}
 
+function closePaymentModal() {
+  const paymentModal = document.getElementById("paymentModal");
+  paymentModal.classList.add("hidden");
+  paymentModal.style.display = "none";
+}
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(function() {
+    alert("📋 Teléfono copiado: " + text);
+  }, function(err) {
+    console.error('Error al copiar: ', err);
+  });
+}
+
+function goBackToOrder() {
+  closePaymentModal();
+  openOrder();
+}
+
+function confirmPaymentAndSend() {
+  // Cerrar modal de pago
+  closePaymentModal();
+  
+  // Enviar a WhatsApp
+  sendToWhatsApp();
+}
+
+function sendToWhatsApp() {
+  const telefonoDestino = "51978742157";
+  
+  // Obtener nombre del restaurante
+  const restaurante = cart.length > 0 ? cart[0].restaurant : "Máncora Go";
+  
+  let mensaje = `🛵 *Nuevo pedido - ${restaurante}*%0A%0A`;
+  mensaje += `*🍔 Pedido:*%0A`;
   let total = 0;
-
   cart.forEach(item => {
-  for (let i = 0; i < (item.qty || 1); i++) {
-    mensaje += `• ${item.name} - S/${item.price}%0A`;
-    total += item.price;
+    for (let i = 0; i < (item.qty || 1); i++) {
+      mensaje += `• ${item.name} - S/${item.price}%0A`;
+      total += item.price;
+    }
+  });
+
+  mensaje += `%0A-------------------%0A`;
+  mensaje += `💰 *Subtotal:* S/${total}%0A`;
+
+  if (typeof clientDeliveryPrice !== 'undefined' && clientDeliveryPrice > 0) {
+    mensaje += `🚚 *Delivery:* S/${clientDeliveryPrice}%0A`;
+    mensaje += `💵 *TOTAL A PAGAR:* S/${total + clientDeliveryPrice}%0A%0A`;
+  } else {
+    mensaje += `💵 *Total:* S/${total}%0A%0A`;
   }
-});
 
-  mensaje += `%0A💰 *Total:* S/${total}%0A`;
-  mensaje += `%0A📍 Te enviaré mi ubicación ahora para cotizar el Delivery`;
+  const clientLocationEl = document.getElementById("clientLocation");
+  if (clientLocationEl && clientLocationEl.value) {
+    // Convertir coordenadas a enlace de Google Maps
+    const coords = clientLocationEl.value.trim();
+    const coordsMatch = coords.match(/(-?\d+\.?\d*),\s*(-?\d+\.?\d*)/);
+    if (coordsMatch) {
+      const lat = coordsMatch[1];
+      const lng = coordsMatch[2];
+      const mapsLink = `https://www.google.com/maps?q=${lat},${lng}`;
+      mensaje += `📍 *Ubicación de entrega:*%0A${mapsLink}%0A%0A`;
+    }
+  }
 
-  const url = `https://wa.me/${telefono}?text=${mensaje}`;
+  mensaje += `━━━━━━━━━━━━━━━━━━━━%0A`;
+  mensaje += `✅ *Por favor enviar:*%0A`;
+  mensaje += `1. 📸 Comprobante de pago Yape%0A`;
+  mensaje += `2. 📍 Referencia de tu ubicación (Hotel, Hostal, Número, Etc.)%0A%0A`;
+  mensaje += `💚 Gracias por tu pedido!`;
+
+  const url = `https://wa.me/${telefonoDestino}?text=${mensaje}`;
   window.open(url, "_blank");
+  
+  // Mostrar mensaje de confirmación
+  alert("📱 Se abrirá WhatsApp. Por favor:\n\n1. Envía el comprobante de pago\n2. Envía tu dirección de entrega\n\n¡Gracias por tu pedido! 😊");
+  
+  // Vaciar carrito después de enviar
+  setTimeout(() => {
+    vaciarCarrito();
+  }, 2000);
 }
 </script>
 
@@ -1917,6 +3081,7 @@ function updateFloatingCart() {
 
   if (!floating || cart.length === 0) {
     floating.classList.add("hidden");
+    floating.classList.remove("show");
     return;
   }
 
@@ -1932,6 +3097,7 @@ function updateFloatingCart() {
   totalEl.textContent = `Total: S/ ${totalPrice}`;
 
   floating.classList.remove("hidden");
+  floating.classList.add("show");
 }
 </script>
 
@@ -1940,18 +3106,24 @@ function updateFloatingCart() {
    🧾 ABRIR PEDIDO
 ====================== */
 function openOrder() {
- const title = document.getElementById("orderTitle");
+  console.log("openOrder called, cart length:", cart.length);
+  const title = document.getElementById("orderTitle");
 
-if (cart.length > 0 && cart[0].restaurant) {
-  title.textContent = `Pedido – ${cart[0].restaurant}`;
-} else {
-  title.textContent = "Tu pedido";
-}
-  if (cart.length === 0) return;
+  if (cart.length > 0 && cart[0].restaurant) {
+    title.textContent = `Pedido – ${cart[0].restaurant}`;
+  } else {
+    title.textContent = "Tu pedido";
+  }
+  if (cart.length === 0) {
+    alert("Tu carrito está vacío");
+    return;
+  }
 
   const modal = document.getElementById("orderModal");
   const itemsContainer = document.getElementById("orderItems");
   const totalEl = document.getElementById("orderTotal");
+
+  console.log("modal:", modal, "itemsContainer:", itemsContainer);
 
   itemsContainer.innerHTML = "";
   let total = 0;
@@ -1968,45 +3140,266 @@ if (cart.length > 0 && cart[0].restaurant) {
   });
 
   totalEl.textContent = "S/ " + total;
+  
+  // Reset location
+  clientDeliveryPrice = 0;
+  document.getElementById("clientLocation").value = "";
+  document.getElementById("distanceInfo").classList.add("hidden");
+  document.getElementById("locationSelected").classList.add("hidden");
+  updateTotalWithDelivery(total);
+  
   modal.classList.remove("hidden");
+  modal.style.display = "flex";
+}
+
+let clientDeliveryPrice = 0;
+
+function updateTotalWithDelivery(subtotal) {
+  const totalWithDelivery = subtotal + clientDeliveryPrice;
+  document.getElementById("orderTotalWithDelivery").textContent = "S/ " + totalWithDelivery;
+}
+
+function checkDeliveryPrice() {
+  const location = document.getElementById("clientLocation").value;
+  const distanceInfo = document.getElementById("distanceInfo");
+  const distanceText = document.getElementById("distanceText");
+  const deliveryPriceText = document.getElementById("deliveryPriceText");
+  
+  // Buscar coordenadas en el texto (varios formatos)
+  let coordMatch = location.match(/@(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+  
+  if (!coordMatch) {
+    coordMatch = location.match(/(-?\d+\.?\d*),\s*(-?\d+\.?\d*)/);
+  }
+  
+  if (!coordMatch && location.includes('google.com/maps')) {
+    // Para URLs de Google Maps, buscar en diferentes patrones
+    const urlPatterns = [
+      /\/maps\/place\/[^\/]+\/(-?\d+\.?\d*),(-?\d+\.?\d*)/,
+      /\/maps\/@(-?\d+\.?\d*),(-?\d+\.?\d*)/,
+      /query=(-?\d+\.?\d*),(-?\d+\.?\d*)/
+    ];
+    
+    for (const pattern of urlPatterns) {
+      coordMatch = location.match(pattern);
+      if (coordMatch) break;
+    }
+  }
+  
+  if (coordMatch) {
+    const clientLat = parseFloat(coordMatch[1]);
+    const clientLng = parseFloat(coordMatch[2]);
+    
+    // Calcular distancia usando Haversine
+    const restaurantCoords = {
+      'Barrio Burger': { lat: -4.107269, lng: -81.058158 },
+      'Café Coral': { lat: -4.107268, lng: -81.057695 },
+      'Café de Barrio': { lat: -4.107453, lng: -81.056745 },
+      '3 Empanadas': { lat: -4.109579, lng: -81.058479 }
+    };
+    
+    const restaurantName = cart[0]?.restaurant || 'Barrio Burger';
+    const restCoords = restaurantCoords[restaurantName] || restaurantCoords['Barrio Burger'];
+    
+    const distance = calculateDistance(restCoords.lat, restCoords.lng, clientLat, clientLng);
+    
+    // Calcular precio: S/5 base + S/2 por km
+    clientDeliveryPrice = Math.round((5 + (distance * 3.5)) * 10) / 10;
+    
+    distanceText.textContent = `📍 Distancia aproximada: ${distance.toFixed(1)} km`;
+    deliveryPriceText.textContent = `🚚 Costo delivery: S/ ${clientDeliveryPrice}`;
+    distanceInfo.classList.remove("hidden");
+    
+    // Actualizar total
+    let subtotal = cart.reduce((sum, item) => sum + (item.qty * item.price), 0);
+    updateTotalWithDelivery(subtotal);
+  } else {
+    distanceInfo.classList.add("hidden");
+    clientDeliveryPrice = 0;
+    let subtotal = cart.reduce((sum, item) => sum + (item.qty * item.price), 0);
+    updateTotalWithDelivery(subtotal);
+  }
+}
+
+function calculateDistance(lat1, lng1, lat2, lng2) {
+  const R = 6371; // Radio de la Tierra en km
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+            Math.sin(dLng/2) * Math.sin(dLng/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c;
+}
+
+function toRad(deg) {
+  return deg * (Math.PI/180);
+}
+
+function getCurrentLocation() {
+  // Intentar primero con geolocalización automática
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const coords = `${position.coords.latitude}, ${position.coords.longitude}`;
+        document.getElementById("clientLocation").value = coords;
+        checkDeliveryPrice();
+      },
+      (error) => {
+        // Si falla, abrir Google Maps
+        openGoogleMapsPicker();
+      }
+    );
+  } else {
+    openGoogleMapsPicker();
+  }
+}
+
+function openGoogleMapsPicker() {
+  // Abrir el modal con Google Maps
+  const mapModal = document.getElementById("mapModal");
+  mapModal.classList.remove("hidden");
+  mapModal.style.display = "flex";
+  
+  // Reinicializar el mapa si ya estaba creado (para resetear posición)
+  if (map) {
+    map.setCenter({ lat: -4.1086, lng: -81.0479 });
+    map.setZoom(16);
+    marker.setPosition({ lat: -4.1086, lng: -81.0479 });
+    selectedLat = -4.1086;
+    selectedLng = -81.0479;
+    updateCoordsDisplay();
+  } else {
+    // Inicializar el mapa después de que el modal esté visible
+    setTimeout(initMap, 100);
+  }
+}
+
+let map;
+let marker;
+let selectedLat = -4.1086;
+let selectedLng = -81.0479;
+
+function initMap() {
+  // Verificar si el mapa ya está inicializado
+  if (map) return;
+  
+  // Coordenadas de Máncora
+  const mancoraCenter = { lat: -4.1086, lng: -81.0479 };
+  
+  // Crear el mapa optimizado para móvil
+  map = new google.maps.Map(document.getElementById("mapContainer"), {
+    center: mancoraCenter,
+    zoom: 16,
+    mapTypeControl: false,
+    streetViewControl: false,
+    fullscreenControl: true,
+    zoomControl: true,
+    gestureHandling: 'greedy', // Permite zoom con un dedo en móvil
+    disableDefaultUI: false
+  });
+  
+  // Crear marcador arrastrable con icono rojo
+  marker = new google.maps.Marker({
+    position: mancoraCenter,
+    map: map,
+    draggable: true,
+    title: "Tu ubicación de entrega",
+    animation: google.maps.Animation.DROP
+  });
+  
+  // Actualizar coordenadas al mover el marcador
+  marker.addListener('dragend', function(event) {
+    selectedLat = event.latLng.lat();
+    selectedLng = event.latLng.lng();
+    updateCoordsDisplay();
+  });
+  
+  // Actualizar coordenadas al mover el mapa
+  map.addListener('center_changed', function() {
+    const center = map.getCenter();
+    selectedLat = center.lat();
+    selectedLng = center.lng();
+  });
+  
+  updateCoordsDisplay();
+}
+
+function updateCoordsDisplay() {
+  document.getElementById("selectedCoords").textContent = 
+    `📍 ${selectedLat.toFixed(6)}, ${selectedLng.toFixed(6)}`;
+}
+
+function closeMapModal() {
+  const mapModal = document.getElementById("mapModal");
+  mapModal.classList.add("hidden");
+  mapModal.style.display = "none";
+}
+
+function confirmLocation() {
+  // Establecer las coordenadas seleccionadas en el campo
+  const coords = `${selectedLat.toFixed(6)}, ${selectedLng.toFixed(6)}`;
+  document.getElementById("clientLocation").value = coords;
+  
+  // Mostrar la ubicación seleccionada visualmente
+  const locationSelected = document.getElementById("locationSelected");
+  const locationDisplay = document.getElementById("locationDisplay");
+  locationDisplay.textContent = `📍 ${selectedLat.toFixed(5)}, ${selectedLng.toFixed(5)}`;
+  locationSelected.classList.remove("hidden");
+  
+  checkDeliveryPrice();
+  closeMapModal();
 }
 
 /* ======================
    ❌ CERRAR MODAL
 ====================== */
 function closeOrder() {
-  document.getElementById("orderModal").classList.add("hidden");
+  const modal = document.getElementById("orderModal");
+  modal.classList.add("hidden");
+  modal.style.display = "none";
 }
 
 /* ======================
-   📲 ENVIAR A WHATSAPP
+   🔍 LIGHTBOX IMAGE
+====================== */
+function openLightbox(src) {
+  const lightbox = document.getElementById("lightbox");
+  const img = document.getElementById("lightboxImg");
+  img.src = src;
+  lightbox.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+
+function closeLightbox() {
+  document.getElementById("lightbox").classList.remove("active");
+  document.body.style.overflow = "";
+}
+
+/* ======================
+   📲 ENVIAR A WHATSAPP (con validación y modal de pago)
 ====================== */
 function enviarPedidoWhatsApp() {
-  const telefono = "51978742157";
-
-  if (cart.length === 0) {
-    alert("Tu carrito está vacío");
+  // Validar que tenga ubicación
+  const clientLocationEl = document.getElementById("clientLocation");
+  if (!clientLocationEl || !clientLocationEl.value) {
+    alert("Por favor selecciona tu ubicación de entrega primero");
     return;
   }
 
-  // ✅ Tomamos el restaurante del primer producto
-  const restaurante = cart[0].restaurant;
-
-  let mensaje = `🍽️ *Pedido - ${restaurante}*%0A%0A`;
-  let total = 0;
-
-  cart.forEach(item => {
-    for (let i = 0; i < item.qty; i++) {
-      mensaje += `• ${item.name} - S/${item.price}%0A`;
-      total += item.price;
-    }
-  });
-
-  mensaje += `%0A💰 *Total:* S/${total}`;
-  mensaje += `%0A%0A📍 Te envío mi ubicación para el delivery`;
-
-  const url = `https://wa.me/${telefono}?text=${mensaje}`;
-  window.open(url, "_blank");
+  // Calcular total con delivery
+  let subtotal = cart.reduce((sum, item) => sum + (item.qty * item.price), 0);
+  let totalWithDelivery = subtotal + (clientDeliveryPrice || 0);
+  
+  // Abrir modal de pago
+  document.getElementById("paymentTotalAmount").textContent = "S/ " + totalWithDelivery;
+  
+  const paymentModal = document.getElementById("paymentModal");
+  paymentModal.classList.remove("hidden");
+  paymentModal.style.display = "flex";
+  
+  // Cerrar modal de pedido
+  closeOrder();
 }
 
 function canOpenRestaurant(restaurantName) {
