@@ -469,6 +469,11 @@
       background: linear-gradient(90deg, transparent, var(--sand-dark), transparent);
     }
 
+    .featured-section {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
     .section-title-featured {
       font-weight: 800;
       letter-spacing: 1px;
@@ -484,6 +489,7 @@
       text-transform: uppercase;
       animation: fireGlow 2s linear infinite;
       text-align: center;
+      width: 100%;
     }
 
     .section-title-featured::before,
@@ -1122,10 +1128,11 @@
     👁️ Ver todos los restaurantes
   </button>
   
-  <h2 class="section-title-featured">🔥 DESTACADOS 🔥</h2>
+  <div class="featured-section">
+    <h2 class="section-title-featured">🔥 DESTACADOS 🔥</h2>
 
-  <!-- Restaurante Destacado: Cafe Coral -->
-<div class="card featured-card">
+    <!-- Restaurante Destacado: Cafe Coral -->
+    <div class="card featured-card">
   <div 
     class="restaurant-card"
     id="rest-cafe-coral"
@@ -2619,9 +2626,18 @@
     } else {
       // Normal order for other categories
       if (featuredCards.length > 0 && (normalizedCategory === 'hamburguesas' || normalizedCategory === 'postres' || normalizedCategory === 'sandwiches')) {
-        html += '<h2 class="section-title-featured">🔥 DESTACADOS 🔥</h2>';
+        html += '<div class="featured-section"><h2 class="section-title-featured">🔥 DESTACADOS 🔥</h2>';
         html += featuredCards.join('');
+        html += '</div>';
       }
+      
+      if (otherCards.length > 0 || upcomingCards.length > 0) {
+        if (featuredCards.length > 0 && (normalizedCategory === 'hamburgesas' || normalizedCategory === 'postres' || normalizedCategory === 'sandwiches')) {
+          html += '<h2 class="section-title">🍽️ RESTAURANTES 🍽️</h2>';
+        }
+        html += otherCards.join('');
+      }
+    }
       
       if (otherCards.length > 0 || upcomingCards.length > 0) {
         if (featuredCards.length > 0 && (normalizedCategory === 'hamburguesas' || normalizedCategory === 'postres' || normalizedCategory === 'sandwiches')) {
