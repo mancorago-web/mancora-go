@@ -11,13 +11,13 @@
   <meta http-equiv="Expires" content="0">
   
   <!-- Version marker for cache busting -->
-  <meta name="version" content="2026.04.14">
+  <meta name="version" content="2026.04.15">
 </head>
 <body>
     <!-- Version marker for cache busting -->
     <script>
       // Force refresh if version changed
-      const currentVersion = '2026.04.14';
+      const currentVersion = '2026.04.15';
     const savedVersion = localStorage.getItem('appVersion');
     if (savedVersion !== currentVersion) {
       localStorage.setItem('appVersion', currentVersion);
@@ -1018,6 +1018,15 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
       margin-bottom: 20px;
+      position: sticky;
+      top: 0;
+      background: var(--sand-light);
+      padding: 10px 0;
+      z-index: 100;
+    }
+
+    .categories-grid.stuck {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     .category-card {
