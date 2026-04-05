@@ -11,13 +11,13 @@
   <meta http-equiv="Expires" content="0">
   
   <!-- Version marker for cache busting -->
-  <meta name="version" content="2026.04.09">
+  <meta name="version" content="2026.04.10">
 </head>
 <body>
     <!-- Version marker for cache busting -->
     <script>
       // Force refresh if version changed
-      const currentVersion = '2026.04.09';
+      const currentVersion = '2026.04.10';
     const savedVersion = localStorage.getItem('appVersion');
     if (savedVersion !== currentVersion) {
       localStorage.setItem('appVersion', currentVersion);
@@ -2638,7 +2638,7 @@
       const aIndex = order.indexOf(a.id);
       const bIndex = order.indexOf(b.id);
       const aInOrder = aIndex !== -1;
-      const bInOrder = bInOrder = bIndex !== -1;
+      const bInOrder = bIndex !== -1;
       
       if (aInOrder && bInOrder) return aIndex - bIndex;
       if (aInOrder) return -1;
