@@ -474,6 +474,8 @@
     .featured-section {
       max-width: 100%;
       margin: 0 auto;
+      position: relative;
+      z-index: 5;
     }
 
     .section-title-featured {
@@ -1026,6 +1028,10 @@
       box-shadow: var(--shadow-soft);
       cursor: pointer;
       transition: all 0.3s;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      position: relative;
+      z-index: 10;
     }
 
     .category-card:hover {
