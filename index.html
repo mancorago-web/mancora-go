@@ -11,13 +11,13 @@
   <meta http-equiv="Expires" content="0">
   
   <!-- Version marker for cache busting -->
-  <meta name="version" content="2026.04.18">
+  <meta name="version" content="2026.04.19">
 </head>
 <body>
     <!-- Version marker for cache busting -->
     <script>
       // Force refresh if version changed
-      const currentVersion = '2026.04.18';
+      const currentVersion = '2026.04.19';
     const savedVersion = localStorage.getItem('appVersion');
     if (savedVersion !== currentVersion) {
       localStorage.setItem('appVersion', currentVersion);
@@ -2674,22 +2674,32 @@ function isCafeBarrioStatus() {
 
   <script>
 function isCafeCoralStatus() {
-  // ❌ Siempre cerrado
+  const now = new Date();
+  const minutes = now.getHours() * 60 + now.getMinutes();
+
+  const open = 10 * 60;  // 10:00 a.m.
+  const close = 22 * 60; // 10:00 p.m.
+  const isOpen = minutes >= open && minutes < close;
+
   return {
-    status: "closed-today",
-    schedule: "🚫 Cerrado hoy",
-    message: "🚫 Cerrado por descanso"
+    status: isOpen ? "open" : "closed-now",
+    schedule: "🕒 10:00 a.m. – 10:00 p.m."
   };
 }
 </script>
 
 <script>
 function isBarrioBurguerStatus() {
-  // ❌ Siempre cerrado
+  const now = new Date();
+  const minutes = now.getHours() * 60 + now.getMinutes();
+
+  const open = 16 * 60; // 4:00 p.m.
+  const close = 22 * 60; // 10:00 p.m.
+  const isOpen = minutes >= open && minutes < close;
+
   return {
-    status: "closed-today",
-    schedule: "🚫 Cerrado hoy",
-    message: "🚫 Cerrado por descanso"
+    status: isOpen ? "open" : "closed-now",
+    schedule: "🕒 4:00 p.m. – 10:00 p.m."
   };
 }
 </script>
