@@ -11,13 +11,13 @@
   <meta http-equiv="Expires" content="0">
   
   <!-- Version marker for cache busting -->
-  <meta name="version" content="2026.04.19">
+  <meta name="version" content="2026.04.20">
 </head>
 <body>
     <!-- Version marker for cache busting -->
     <script>
       // Force refresh if version changed
-      const currentVersion = '2026.04.19';
+      const currentVersion = '2026.04.20';
     const savedVersion = localStorage.getItem('appVersion');
     if (savedVersion !== currentVersion) {
       localStorage.setItem('appVersion', currentVersion);
@@ -28,8 +28,19 @@
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#c62828">
   
-  <title>Delivery en Máncora | Máncora Go</title> 
-  <meta property="og:image" content="https://raw.githubusercontent.com/mancorago-web/mancora-go/main/images/Mancora-Go-Logo.jpeg">
+  <title>Delivery en Máncora | Máncora Go</title>
+  
+  <!-- WhatsApp/Open Graph Meta Tags -->
+  <meta property="og:title" content="Máncora Go - Delivery en Máncora">
+  <meta property="og:description" content="Pide comida a domicilio en Máncora por WhatsApp. Restaurantes locales, envíos rápidos.">
+  <meta property="og:image" content="https://mancora-go.vercel.app/images/Mancora-Go-Logo.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:url" content="https://mancora-go.vercel.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Máncora Go">
+  
   <meta name="description" content="Delivery en Máncora. Pide comida a domicilio por WhatsApp con Máncora Go. Restaurantes locales, envíos rápidos y fáciles." />
   <meta name="robots" content="index, follow">
 <meta name="geo.region" content="PE-PIU">
