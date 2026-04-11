@@ -11,13 +11,13 @@
   <meta http-equiv="Expires" content="0">
   
   <!-- Version marker for cache busting -->
-  <meta name="version" content="2026.04.21">
+  <meta name="version" content="2026.04.22">
 </head>
 <body>
     <!-- Version marker for cache busting -->
     <script>
       // Force refresh if version changed
-      const currentVersion = '2026.04.21';
+      const currentVersion = '2026.04.22';
     const savedVersion = localStorage.getItem('appVersion');
     if (savedVersion !== currentVersion) {
       localStorage.setItem('appVersion', currentVersion);
@@ -1189,22 +1189,6 @@
 
   <div id="upcoming-list">
 
-    <!-- Restaurante Próximamente: Kai Sen -->
-    <div class="card upcoming-card">
-      <div class="restaurant-card upcoming" id="rest-kaisen" data-category="pollos,chifa">
-        <img onclick="openLightbox(this.src)" src="images/kaisenlogofinal.png">
-        <div class="card-content">
-          <div class="badge-construction">🚧 En construcción</div>
-          <div class="badge-separator"></div>
-          <div class="restaurant-name">🍜 Kay Sen</div>
-          <p>Chifa & Broaster</p>
-          <p class="upcoming-label">
-            🚀 Próximamente en Máncora Go
-          </p>
-        </div>
-      </div>
-    </div>
-
     <!-- Restaurante Próximamente: Masa -->
     <div class="card upcoming-card">
       <div class="restaurant-card upcoming" id="rest-masa" data-category="pastas,pizzas">
@@ -1214,6 +1198,22 @@
           <div class="badge-separator"></div>
           <div class="restaurant-name">🍝 Masa</div>
           <p>Pastas & Pizzas</p>
+          <p class="upcoming-label">
+            🚀 Próximamente en Máncora Go
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Restaurante Próximamente: Kay Sen -->
+    <div class="card upcoming-card">
+      <div class="restaurant-card upcoming" id="rest-kaisen" data-category="pollos,chifa">
+        <img onclick="openLightbox(this.src)" src="images/kaisenlogofinal.png">
+        <div class="card-content">
+          <div class="badge-construction">🚧 En construcción</div>
+          <div class="badge-separator"></div>
+          <div class="restaurant-name">🍜 Kay Sen</div>
+          <p>Chifa & Broaster</p>
           <p class="upcoming-label">
             🚀 Próximamente en Máncora Go
           </p>
