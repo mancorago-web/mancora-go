@@ -16,14 +16,60 @@
 <body>
     <!-- Version marker for cache busting -->
     <script>
-      // Force refresh if version changed
-      const currentVersion = '2026.04.22';
-    const savedVersion = localStorage.getItem('appVersion');
-    if (savedVersion !== currentVersion) {
-      localStorage.setItem('appVersion', currentVersion);
-      window.location.reload(true);
-    }
-  </script>
+      const currentVersion = '2026.04.23';
+      const savedVersion = localStorage.getItem('appVersion');
+      
+      if (savedVersion !== currentVersion) {
+        localStorage.setItem('appVersion', currentVersion);
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then(registrations => {
+            registrations.forEach(registration => registration.unregister());
+          });
+        }
+        window.location.reload(true);
+      }
+      
+      // Check for updates periodically
+      if ('serviceWorker' in navigator) {
+        setInterval(() => {
+          navigator.serviceWorker.getRegistrations().then(registrations => {
+            registrations.forEach(registration => {
+              registration.update();
+            });
+          });
+        }, 60000); // Check every minute
+      }
+    </script>
+    
+    <!-- Update Notification -->
+    <div id="updateNotification" style="display:none;position:fixed;top:0;left:0;right:0;background:linear-gradient(135deg,#ff6b6b,#ff9f43);color:white;text-align:center;padding:12px 20px;z-index:99999;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+      🚀 ¡Nueva versión disponible! <button onclick="updateApp()" style="background:white;color:#ff6b6b;border:none;padding:8px 16px;border-radius:20px;font-weight:700;cursor:pointer;margin-left:10px;">Actualizar</button>
+    </div>
+    
+    <script>
+      function updateApp() {
+        localStorage.removeItem('appVersion');
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then(registrations => {
+            registrations.forEach(registration => registration.unregister());
+          });
+        }
+        window.location.reload(true);
+      }
+      
+      // Check for new version periodically
+      const appVersion = '2026.04.23';
+      setInterval(() => {
+        fetch('/?v=' + Date.now())
+          .then(() => {
+            const saved = localStorage.getItem('appVersion');
+            if (saved && saved !== appVersion) {
+              document.getElementById('updateNotification').style.display = 'block';
+            }
+          })
+          .catch(() => {});
+      }, 30000);
+    </script>
   
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#c62828">
