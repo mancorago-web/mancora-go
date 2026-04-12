@@ -16,7 +16,7 @@
 <body>
     <!-- Version marker for cache busting -->
     <script>
-      const currentVersion = '2026.04.23';
+      const currentVersion = '2026.04.24';
       const savedVersion = localStorage.getItem('appVersion');
       
       if (savedVersion !== currentVersion) {
@@ -58,7 +58,7 @@
       }
       
       // Check for new version periodically
-      const appVersion = '2026.04.23';
+      const appVersion = '2026.04.24';
       setInterval(() => {
         fetch('/?v=' + Date.now())
           .then(() => {
@@ -78,14 +78,20 @@
   
   <!-- WhatsApp/Open Graph Meta Tags -->
   <meta property="og:title" content="Máncora Go - Delivery en Máncora">
-  <meta property="og:description" content="Pide comida a domicilio en Máncora por WhatsApp. Restaurantes locales, envíos rápidos.">
-  <meta property="og:image" content="https://mancora-go.vercel.app/images/Mancora-Go-Logo.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+  <meta property="og:description" content="🍔🍕 Pide comida a domicilio en Máncora por WhatsApp. Los mejores restaurantes locales.">
+  <meta property="og:image" content="https://mancora-go.vercel.app/images/logo512.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
   <meta property="og:image:type" content="image/png">
   <meta property="og:url" content="https://mancora-go.vercel.app/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Máncora Go">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Máncora Go - Delivery en Máncora">
+  <meta name="twitter:description" content="🍔🍕 Pide comida a domicilio en Máncora por WhatsApp.">
+  <meta name="twitter:image" content="https://mancora-go.vercel.app/images/logo512.png">
   
   <meta name="description" content="Delivery en Máncora. Pide comida a domicilio por WhatsApp con Máncora Go. Restaurantes locales, envíos rápidos y fáciles." />
   <meta name="robots" content="index, follow">
