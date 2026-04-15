@@ -1,4 +1,4 @@
-const CACHE_NAME = "mancora-go-v26";
+const CACHE_NAME = "mancora-go-v27";
 
 // Delete ALL old caches on activate
 self.addEventListener("activate", event => {
