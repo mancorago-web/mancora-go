@@ -1,0 +1,4196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- Google Maps API -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqoTZj1cSJbswj5ce3Xu3ESX84xJQIzqY&libraries=places"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Cache control -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <!-- Version marker for cache busting -->
+  <meta name="version" content="2026.04.22">
+</head>
+<body>
+    <!-- Version marker for cache busting -->
+    <script>
+      const currentVersion = '2026.04.26';
+      const savedVersion = localStorage.getItem('appVersion');
+      
+      if (savedVersion !== currentVersion) {
+        localStorage.setItem('appVersion', currentVersion);
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then(registrations => {
+            registrations.forEach(registration => registration.unregister());
+          });
+        }
+        window.location.reload(true);
+      }
+      
+      // Check for updates periodically
+      if ('serviceWorker' in navigator) {
+        setInterval(() => {
+          navigator.serviceWorker.getRegistrations().then(registrations => {
+            registrations.forEach(registration => {
+              registration.update();
+            });
+          });
+        }, 60000); // Check every minute
+      }
+    </script>
+    
+    <!-- Update Notification -->
+    <div id="updateNotification" style="display:none;position:fixed;top:0;left:0;right:0;background:linear-gradient(135deg,#ff6b6b,#ff9f43);color:white;text-align:center;padding:12px 20px;z-index:99999;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+      🚀 ¡Nueva versión disponible! <button onclick="updateApp()" style="background:white;color:#ff6b6b;border:none;padding:8px 16px;border-radius:20px;font-weight:700;cursor:pointer;margin-left:10px;">Actualizar</button>
+    </div>
+    
+    <script>
+      function updateApp() {
+        localStorage.removeItem('appVersion');
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then(registrations => {
+            registrations.forEach(registration => registration.unregister());
+          });
+        }
+        window.location.reload(true);
+      }
+      
+      // Check for new version periodically
+      const appVersion = '2026.04.26';
+      setInterval(() => {
+        fetch('/?v=' + Date.now())
+          .then(() => {
+            const saved = localStorage.getItem('appVersion');
+            if (saved && saved !== appVersion) {
+              document.getElementById('updateNotification').style.display = 'block';
+            }
+          })
+          .catch(() => {});
+      }, 30000);
+    </script>
+  
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#c62828">
+  
+  <title>Delivery en Máncora | Máncora Go</title>
+  
+  <!-- WhatsApp/Open Graph Meta Tags -->
+  <meta property="og:title" content="Máncora Go - Delivery en Máncora">
+  <meta property="og:description" content="🍔🍕 Pide comida a domicilio en Máncora por WhatsApp. Los mejores restaurantes locales.">
+  <meta property="og:image" content="https://mancora-go.vercel.app/images/logo512.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:url" content="https://mancora-go.vercel.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Máncora Go">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Máncora Go - Delivery en Máncora">
+  <meta name="twitter:description" content="🍔🍕 Pide comida a domicilio en Máncora por WhatsApp.">
+  <meta name="twitter:image" content="https://mancora-go.vercel.app/images/logo512.png">
+  
+  <meta name="description" content="Delivery en Máncora. Pide comida a domicilio por WhatsApp con Máncora Go. Restaurantes locales, envíos rápidos y fáciles." />
+  <meta name="robots" content="index, follow">
+<meta name="geo.region" content="PE-PIU">
+<meta name="geo.placename" content="Máncora, Piura, Perú">
+<meta name="geo.position" content="-4.1086;-81.0479">
+<meta name="ICBM" content="-4.1086, -81.0479">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sand-light: #fdf6ec;
+      --sand: #f5e6d3;
+      --sand-dark: #e8d5b7;
+      --coral: #ff6b6b;
+      --coral-light: #ff8e8e;
+      --turquoise: #20b2aa;
+      --turquoise-light: #48d1cc;
+      --ocean: #0077b6;
+      --ocean-light: #00b4d8;
+      --palm-green: #2d6a4f;
+      --sun-yellow: #ffd60a;
+      --sun-orange: #ff9f1c;
+      --white: #ffffff;
+      --text-dark: #2c3e50;
+      --text-light: #6b7280;
+      --shadow-soft: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-hover: 0 12px 40px rgba(0,0,0,0.15);
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(180deg, var(--sand-light) 0%, var(--sand) 100%);
+      color: var(--text-dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255,107,107,0.05) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(32,178,170,0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .hero {
+      background: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop")
+        center / cover no-repeat;
+      padding: 50px 20px 80px;
+      text-align: center;
+      color: white;
+      position: relative;
+      border-radius: 0 0 40px 40px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 100%);
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .container {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 20px;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-content {
+      padding: 16px 20px 20px;
+    }
+
+    .restaurant-card {
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .restaurant-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.1) 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .restaurant-card:hover::after {
+      opacity: 1;
+    }
+
+    .restaurant-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      cursor: pointer;
+    }
+
+    .restaurant-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .restaurant-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin: 8px 0 4px;
+      color: var(--text-dark);
+    }
+
+    .menu-item {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 2px dashed var(--sand-dark);
+      transition: background 0.3s;
+      border-radius: var(--radius-sm);
+      margin: 0 -10px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .menu-item:hover {
+      background: linear-gradient(90deg, rgba(245,230,211,0.5) 0%, rgba(255,255,255,0) 100%);
+    }
+
+    .menu-item:last-of-type {
+      border-bottom: none;
+    }
+
+    .menu-item img {
+      width: 85px;
+      height: 85px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      transition: transform 0.3s, box-shadow 0.3s;
+      flex-shrink: 0;
+    }
+
+    .menu-item:hover img {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    .price {
+      font-weight: 700;
+      color: var(--coral);
+      font-size: 1.1rem;
+    }
+
+    .btn {
+      display: block;
+      margin: 20px auto 0;
+      background: linear-gradient(135deg, #25D366, #20bd5a);
+      color: white;
+      text-decoration: none;
+      padding: 14px 24px;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      text-align: center;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(37,211,102,0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(37,211,102,0.4);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin: 30px 0 100px;
+      padding: 20px;
+    }
+
+    .section-title {
+      margin: 35px 0 18px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-align: center;
+      position: relative;
+      display: block;
+      width: 100%;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--coral), var(--sun-orange));
+      border-radius: 2px;
+      box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+    }
+
+    .featured-card {
+      background: linear-gradient(135deg, #fff9f0 0%, #fff 100%);
+      border: 2px solid var(--sun-yellow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent 40%, rgba(255,214,10,0.1) 50%, transparent 60%);
+      animation: shimmer 3s infinite linear;
+    }
+
+    .featured-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--sun-yellow), var(--sun-orange));
+      color: var(--text-dark);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+      box-shadow: 0 2px 10px rgba(255,214,10,0.4);
+      animation: pulse 2s infinite;
+    }
+
+    .badge-new {
+      display: inline-block;
+      background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+      color: #065f46;
+      border: 1px solid #6ee7b7;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-left: 6px;
+    }
+
+    .price-row {
+      display: flex;
+      gap: 12px;
+      font-weight: 600;
+      margin-top: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .burger-variant {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: var(--sand-light);
+      border-radius: var(--radius-sm);
+      margin-top: 8px;
+    }
+
+    .variant-name {
+      font-weight: 700;
+      color: var(--text-dark);
+      font-size: 14px;
+    }
+
+    .logo-hero {
+      width: 180px;
+      max-width: 70%;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.45));
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .hero-tagline {
+      font-size: 1.2rem;
+      font-weight: 500;
+      opacity: 0.95;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .menu-category {
+      background: linear-gradient(135deg, var(--sand) 0%, var(--sand-dark) 100%);
+      border: none;
+      padding: 16px 20px;
+      margin: 30px 0 20px;
+      border-radius: var(--radius-md);
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      text-align: center;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .menu-category::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    .upcoming-card {
+      background: linear-gradient(135deg, #fff7ed, #fef3c7);
+      border: 2px dashed var(--sun-orange);
+      opacity: 0.85;
+    }
+
+    .restaurant-card.upcoming {
+      pointer-events: none;
+    }
+
+    .upcoming-label {
+      margin-top: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--sun-orange);
+    }
+
+    .badge-construction {
+      display: inline-block;
+      background: linear-gradient(45deg, #fef3c7, #fde68a);
+      color: #92400e;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 2px solid #f59e0b;
+      margin-bottom: 8px;
+    }
+
+    .badge-top {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+      color: white;
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .restaurant-card {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .badge-top-1 {
+      background: linear-gradient(135deg, var(--sun-yellow), var(--sun-orange));
+      color: var(--text-dark);
+      animation: pulse 2s infinite;
+    }
+
+    .badge-top-2 {
+      background: linear-gradient(135deg, #9ca3af, #6b7280);
+    }
+
+    .badge-top-3 {
+      background: linear-gradient(135deg, #f97316, #c2410c);
+    }
+
+    .badge-separator {
+      margin: 10px 0 8px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--sand-dark), transparent);
+    }
+
+    .featured-section {
+      max-width: 100%;
+      margin: 0 auto;
+      position: relative;
+      z-index: 5;
+    }
+
+    .section-title-featured {
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, #ff4d4d, #ff9f43, #ff4d4d);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      display: inline-block;
+      margin: 30px auto 20px;
+      padding: 0 20px;
+      text-transform: uppercase;
+      animation: fireGlow 2s linear infinite;
+      text-align: center;
+      width: 100%;
+    }
+
+    .section-title-featured::before,
+    .section-title-featured::after {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .section-title-featured::before {
+      content: '🔥';
+      top: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      margin-right: 0;
+      font-size: 1.4rem;
+      animation: pulse 1s infinite, flicker 0.5s infinite alternate;
+      filter: drop-shadow(0 0 8px rgba(255, 100, 50, 0.8));
+    }
+
+    .section-title-featured::after {
+      content: '';
+      bottom: -6px;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #ff4d4d, #ff9f43, #ffdd59, #ff4d4d);
+      background-size: 300% 100%;
+      border-radius: 2px;
+      animation: fireLine 2s linear infinite;
+      box-shadow: 0 0 15px rgba(255, 100, 50, 0.6);
+    }
+
+    @keyframes fireLine {
+      0% { background-position: 0% 0; }
+      100% { background-position: 300% 0; }
+    }
+
+    .floating-cart {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 9999;
+      max-width: 90%;
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .floating-cart.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .floating-cart.hidden {
+      transform: translateX(-50%) translateY(100px);
+      opacity: 0;
+    }
+
+    .cart-info {
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+    }
+
+    .cart-info strong {
+      font-size: 17px;
+      color: var(--text-dark);
+    }
+
+    .cart-btn {
+      background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 12px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(0,119,182,0.3);
+    }
+
+    .cart-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0,119,182,0.4);
+    }
+
+    .add-btn {
+      margin-top: 10px;
+      background: linear-gradient(135deg, var(--turquoise), var(--palm-green));
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+
+    .add-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .qty-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .qty-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      border: none;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .qty-btn.plus {
+      background: linear-gradient(135deg, var(--turquoise), var(--palm-green));
+      color: white;
+    }
+
+    .qty-btn.plus:hover {
+      transform: scale(1.1);
+    }
+
+    .qty-btn.minus {
+      background: linear-gradient(135deg, var(--coral), #e55a5a);
+      color: white;
+    }
+
+    .qty-btn.minus:hover {
+      transform: scale(1.1);
+    }
+
+    .qty-number {
+      min-width: 24px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--text-dark);
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none;
+      backdrop-filter: blur(4px);
+      animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal:not(.hidden) {
+      display: flex !important;
+    }
+
+    .modal-content {
+      background: var(--white);
+      width: 90%;
+      max-width: 400px;
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--sand);
+    }
+
+    .order-total {
+      margin-top: 16px;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--coral);
+    }
+
+    .delivery-note {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--text-light);
+      text-align: center;
+    }
+
+    .confirm-btn {
+      width: 100%;
+      margin-top: 16px;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(34,197,94,0.3);
+    }
+
+    .confirm-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(34,197,94,0.4);
+    }
+
+    .empty-btn {
+      width: 100%;
+      margin-top: 10px;
+      background: linear-gradient(135deg, var(--sun-yellow), var(--sun-orange));
+      color: var(--text-dark);
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .empty-btn:hover {
+      transform: scale(1.02);
+    }
+
+    .close-btn {
+      width: 100%;
+      margin-top: 10px;
+      background: linear-gradient(135deg, var(--coral), #e55a5a);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .close-btn:hover {
+      transform: scale(1.02);
+    }
+
+    /* === LIGHTBOX IMAGE PREVIEW === */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      padding: 20px;
+      cursor: pointer;
+    }
+
+    .lightbox.active {
+      display: flex;
+      animation: fadeIn 0.3s;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90vh;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 40px;
+      cursor: pointer;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+
+    .lightbox-close:hover {
+      opacity: 1;
+    }
+
+    /* === LOCATION SECTION === */
+    .location-section {
+      margin-top: 20px;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--sand-light), var(--sand));
+      border-radius: var(--radius-md);
+      border: 2px solid var(--sand-dark);
+    }
+
+    .location-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    .location-icon {
+      font-size: 20px;
+    }
+
+    .location-buttons {
+      display: none;
+    }
+
+    .location-btn.full-width {
+      width: 100%;
+      padding: 16px 20px;
+      font-size: 16px;
+    }
+
+    .location-selected {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+      border: 2px solid #10b981;
+      border-radius: var(--radius-md);
+      margin-top: 12px;
+    }
+
+    .location-selected.hidden {
+      display: none;
+    }
+
+    #locationDisplay {
+      font-weight: 600;
+      color: #065f46;
+    }
+
+    .location-change-btn {
+      padding: 6px 12px;
+      background: #059669;
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .location-btn {
+      flex: 1;
+      padding: 14px 16px;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-size: 14px;
+    }
+
+    .location-btn:hover {
+      transform: scale(1.02);
+    }
+
+    .gps-btn {
+      background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+      color: white;
+    }
+
+    .map-btn, .location-btn.map-btn {
+      background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+      color: white;
+    }
+
+    .location-link-input {
+      margin-bottom: 12px;
+    }
+
+    .location-input {
+      flex: 1;
+      padding: 12px 14px;
+      border: 2px solid var(--sand-dark);
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-family: inherit;
+      background: white;
+      transition: border-color 0.3s;
+    }
+
+    .location-input:focus {
+      outline: none;
+      border-color: var(--ocean);
+    }
+
+    .location-btn {
+      padding: 12px 14px;
+      background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 0.2s;
+    }
+
+    .location-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .distance-info {
+      margin-top: 12px;
+      padding: 12px;
+      background: white;
+      border-radius: var(--radius-sm);
+      border-left: 4px solid var(--turquoise);
+    }
+
+    .distance-info.hidden {
+      display: none;
+    }
+
+    #distanceText {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text-light);
+    }
+
+    .delivery-price {
+      margin: 8px 0 0;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--coral);
+    }
+
+    .delivery-total {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 2px dashed var(--sand-dark);
+      font-size: 20px;
+    }
+
+    .menu-item img {
+      width: 85px;
+      height: 85px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      transition: transform 0.3s, box-shadow 0.3s;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .menu-item:hover img {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .how-to-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      animation: fadeInUp 0.5s ease-out backwards;
+    }
+
+    .how-to-step:nth-child(1) { animation-delay: 0.1s; }
+    .how-to-step:nth-child(2) { animation-delay: 0.2s; }
+    .how-to-step:nth-child(3) { animation-delay: 0.3s; }
+    .how-to-step:nth-child(4) { animation-delay: 0.4s; }
+    .how-to-step:nth-child(5) { animation-delay: 0.5s; }
+
+    .how-to-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--coral-light), var(--coral));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(255,107,107,0.3);
+    }
+
+    .how-to-text {
+      font-size: 15px;
+    }
+
+    #categoryRestaurants {
+      margin-top: 20px;
+    }
+
+    .show-all-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--ocean), var(--ocean-light));
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+
+    .info-icon {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--turquoise), var(--ocean));
+      color: white;
+      text-align: center;
+      line-height: 24px;
+      font-size: 14px;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+
+<header class="hero">
+  <h1 style="display:none;">Delivery en Máncora – Máncora Go</h1>
+  <img 
+    src="images/mancoragologo.png.png" 
+    alt="Máncora Go Delivery"
+    class="logo-hero"
+  />
+  <p class="hero-tagline">📲 Pide comida en Máncora por WhatsApp</p>
+</header>
+
+  <div class="container">
+
+  <div id="categoryRestaurants"></div>
+
+  <button id="showAllBtn" class="show-all-btn" onclick="showAllRestaurants()" style="display:none;">
+    👁️ Ver todos los restaurantes
+  </button>
+
+  <div class="featured-section">
+    <h2 class="section-title-featured">🔥 DESTACADOS 🔥</h2>
+
+    <!-- Restaurante Destacado: Cafe Coral -->
+    <div class="card featured-card">
+  <div 
+    class="restaurant-card"
+    id="rest-cafe-coral"
+    data-special="cafe-coral"
+    data-featured="true"
+    data-category="hamburguesas,cafe,postres,sandwiches"
+    onclick="openMenu('menu-cafe-coral', 'rest-cafe-coral')"
+  >
+    <img onclick="openLightbox(this.src)" src="images/cafecorallogofinal.png">
+    <div class="card-content">
+      
+      <div class="featured-badge">⭐ DESTACADO</div> <div class="badge-top badge-top-2">🥈 TOP 2 - Pedidos</div>
+
+      <div class="badge-separator"></div>
+      
+      <div class="restaurant-name">🍰 Café Coral</div>
+      <p>Postres & Hamburguesas</p>
+      <p class="schedule-label" style="font-size:14px;color:#16a34a;">
+  🕒 10:00 a.m. – 10:00 p.m.
+</p>
+       <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">
+  ⛔ Cerrado ahora
+</p>
+      <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
+    </div>
+  </div>
+</div>
+
+  <h2 class="section-title">🍽️ RESTAURANTES 🍽️</h2>
+
+  <div id="restaurants-list">
+
+    <!-- Restaurante: Barrio Burger (cerrado) -->
+    <div class="card">
+      <div 
+        class="restaurant-card"
+        id="rest-barrio-burguer"
+        data-special="barrio-burguer"
+        data-category="hamburguesas"
+        onclick="openMenu('menu-burger', 'rest-barrio-burguer')"
+      >
+        <img onclick="openLightbox(this.src)" src="images/barrioburguerlogofinal.jpg">
+        <div class="card-content">
+          <div class="badge-top badge-top-1">🥇 TOP 1 - Pedidos</div>
+          <div class="badge-separator"></div>
+          <div class="restaurant-name">🍔 Barrio Burger</div>
+          <p>Hamburguesas Artesanales</p>
+          <p class="schedule-label" style="font-size:14px;color:#16a34a;">🕒 4:00 p.m. – 10:00 p.m.</p>
+          <p class="closed-label" style="color:#dc2626;font-weight:700;margin-top:6px;">⛔ Cerrado ahora</p>
+          <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Restaurante Cafe de Barrio -->
+    <div class="card">
+      <div 
+        class="restaurant-card"
+        id="rest-cafe-barrio"
+        data-special="cafe-barrio"
+        data-category="cafe,sandwiches,postres"
+        onclick="openMenu('menu-cafe', 'rest-cafe-barrio')"
+      >
+        <img onclick="openLightbox(this.src)" src="images/cafedebarriologofinal.jpg">
+        <div class="card-content">
+          <div class="badge-top badge-top-3">🥉 TOP 3 - Pedidos</div>
+          <div class="badge-separator"></div>
+          <div class="restaurant-name">☕ Café de Barrio</div>
+          <p>Cafetería de especialidad</p>
+          <p style="font-size:14px;color:#16a34a;">🕒 9:00 a.m. – 12:30 p.m.</p>
+          <p style="font-size:14px;color:#16a34a;">🕒 6:00 p.m. – 10:00 p.m.</p>
+          <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">⛔ Cerrado ahora</p>
+          <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Restaurante Empanadas -->
+    <div class="card">
+      <div 
+        class="restaurant-card"
+        id="rest-3empanadas"
+        data-special="preorder-only"
+        data-category="pollos,sandwiches"
+        onclick="openMenu('menu-empanadas', 'rest-3empanadas')"
+      >
+        <img onclick="openLightbox(this.src)" src="images/3empanadaslogofinal.jpg">
+        <div class="card-content">
+          <span class="badge-new" style="background:#fef3c7;color:#92400e;border:1px solid #f59e0b;">
+            📦 Pedido anticipado
+          </span>
+          <div class="badge-separator"></div>
+          <div class="restaurant-name">🥟 3 Empanadas</div>
+          <p>Empanadas Argentinas Artesanales</p>
+          <p style="font-size:14px;color:#ca8a04;font-weight:700;">
+            🕒 Solo por pedido <br> ⏳ 24 horas antes
+          </p>
+          <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Restaurante: Masa -->
+    <div class="card">
+      <div 
+        class="restaurant-card"
+        id="rest-masa"
+        data-special="masa"
+        data-category="pizzas,pastas"
+        onclick="openMenu('menu-masa', 'rest-masa')"
+      >
+        <img onclick="openLightbox(this.src)" src="images/masalogo.png">
+        <div class="card-content">
+          <div class="badge-separator"></div>
+          <div class="restaurant-name">🍝 Masa</div>
+          <p>Pizzas & Pastas</p>
+          <p class="schedule-label" style="font-size:14px;color:#16a34a;">
+  🕒 12:00 p.m. – 10:00 p.m.
+</p>
+       <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">
+  ⛔ Cerrado ahora
+</p>
+          <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <h2 class="section-title">🚀 PRÓXIMAMENTE 🚀</h2>
+
+  <div id="upcoming-list">
+
+    <!-- Restaurante Próximamente: Kay Sen -->
+    <div class="card upcoming-card">
+      <div class="restaurant-card upcoming" id="rest-kaisen" data-category="pollos,chifa">
+        <img onclick="openLightbox(this.src)" src="images/kaisenlogofinal.png">
+        <div class="card-content">
+          <div class="badge-construction">🚧 En construcción</div>
+          <div class="badge-separator"></div>
+          <div class="restaurant-name">🍜 Kay Sen</div>
+          <p>Chifa & Broaster</p>
+          <p class="upcoming-label">
+            🚀 Próximamente en Máncora Go
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+   <!-- Menú Burger -->
+<div class="card hidden menu-section" id="menu-burger">
+  <div class="card-content">
+
+    <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
+      ← Volver a restaurantes
+    </a>
+
+    <h2>Menú – Barrio Burger</h2>
+
+    <!-- Aclaratoria -->
+    <div style="background:#f8fafc;border-left:4px solid #0ea5e9;padding:10px;margin-bottom:15px;font-size:14px;">
+      <strong>📌 Importante:</strong><br>
+      • Todas las hamburguesas vienen <strong>solas</strong>.<br>
+      • Los complementos y combos se piden <strong>por separado</strong>.<br>
+      • <strong>Simple</strong> = 1 carne &nbsp;|&nbsp; <strong>Doble</strong> = 2 carnes.
+    </div>
+
+    <!-- Hamburguesas -->
+    <h3 class="menu-category">🍔 Hamburguesas</h3>
+    
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/americanafinal.jpg">
+      <div>
+        <strong>Americana</strong>
+        <p>Carne de res, lechuga, tomate, pepinillos, cebolla, queso cheddar, salsa de la casa.</p>
+        
+        <div class="burger-variant">
+          <span class="variant-name">Simple: S/18.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-americana-simple',restaurant:'Barrio Burger',name:'Americana Simple',price:18})">+</button>
+            <span class="qty-number" id="qty-burger-americana-simple">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-americana-simple')">−</button>
+          </div>
+        </div>
+        
+        <div class="burger-variant">
+          <span class="variant-name">Doble: S/23.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-americana-doble',restaurant:'Barrio Burger',name:'Americana Doble',price:23})">+</button>
+            <span class="qty-number" id="qty-burger-americana-doble">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-americana-doble')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/baconfinal.jpg">
+      <div>
+        <strong>Bacon</strong>
+        <p>Carne de res, tocino ahumado, queso cheddar, salsa de la casa.</p>
+        
+        <div class="burger-variant">
+          <span class="variant-name">Simple: S/19.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-bacon-simple',restaurant:'Barrio Burger',name:'Bacon Simple',price:19})">+</button>
+            <span class="qty-number" id="qty-burger-bacon-simple">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-bacon-simple')">−</button>
+          </div>
+        </div>
+        
+        <div class="burger-variant">
+          <span class="variant-name">Doble: S/24.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-bacon-doble',restaurant:'Barrio Burger',name:'Bacon Doble',price:24})">+</button>
+            <span class="qty-number" id="qty-burger-bacon-doble">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-bacon-doble')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/barriocrispyfinal.jpg">
+      <div>
+        <strong>Barrio Crispy</strong>
+        <p>Carne de res, cebolla crispy, mermelada de tocino, queso cheddar, salsa de la casa.</p>
+        
+        <div class="burger-variant">
+          <span class="variant-name">Simple: S/21.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-crispy-simple',restaurant:'Barrio Burger',name:'Barrio Crispy Simple',price:21})">+</button>
+            <span class="qty-number" id="qty-burger-crispy-simple">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-crispy-simple')">−</button>
+          </div>
+        </div>
+        
+        <div class="burger-variant">
+          <span class="variant-name">Doble: S/26.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-crispy-doble',restaurant:'Barrio Burger',name:'Barrio Crispy Doble',price:26})">+</button>
+            <span class="qty-number" id="qty-burger-crispy-doble">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-crispy-doble')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/oklahomafinal.jpg">
+      <div>
+        <strong>Oklahoma</strong>
+        <p>Carne de res, tocino, queso americano, salsa de la casa.</p>
+        
+        <div class="burger-variant">
+          <span class="variant-name">Simple: S/18.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-oklahoma-simple',restaurant:'Barrio Burger',name:'Oklahoma Simple',price:18})">+</button>
+            <span class="qty-number" id="qty-burger-oklahoma-simple">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-oklahoma-simple')">−</button>
+          </div>
+        </div>
+        
+        <div class="burger-variant">
+          <span class="variant-name">Doble: S/23.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-oklahoma-doble',restaurant:'Barrio Burger',name:'Oklahoma Doble',price:23})">+</button>
+            <span class="qty-number" id="qty-burger-oklahoma-doble">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-oklahoma-doble')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/barrioburguerfinal.jpg">
+      <div>
+        <strong>Barrio Burger</strong>
+        <p>Carne de res, queso edam, lechuga, tomate, cebolla, tocino, huevo frito, salsa de la casa.</p>
+        
+        <div class="burger-variant">
+          <span class="variant-name">Simple: S/21.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-barrio-simple',restaurant:'Barrio Burger',name:'Barrio Burger Simple',price:21})">+</button>
+            <span class="qty-number" id="qty-burger-barrio-simple">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-barrio-simple')">−</button>
+          </div>
+        </div>
+        
+        <div class="burger-variant">
+          <span class="variant-name">Doble: S/26.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-barrio-doble',restaurant:'Barrio Burger',name:'Barrio Burger Doble',price:26})">+</button>
+            <span class="qty-number" id="qty-burger-barrio-doble">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-barrio-doble')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/triplebfinal.jpg">
+      <div>
+        <strong>Triple "B"</strong>
+        <p>Triple carne de res, triple queso cheddar, salsa de la casa.</p>
+        <div class="price-row">
+          <span>Triple: S/27.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'burger-triple-b',restaurant:'Barrio Burger',name:'Triple B',price:27})">+</button>
+            <span class="qty-number" id="qty-burger-triple-b">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('burger-triple-b')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPLEMENTOS – Barrio Burger -->
+<h3 class="menu-category">🍟 Complementos</h3>
+
+<!-- Papas Fritas -->
+<div class="menu-item">
+  <img onclick="openLightbox(this.src)" src="images/menus/papasfinalbb.jpg">
+  <div>
+    <strong>Papas Fritas</strong>
+    <p>200 gr de papas fritas con cremas.</p>
+    <div class="price">S/7.</div>
+    <div class="qty-controls">
+      <button class="qty-btn plus" onclick="addToCart({id:'bb-papas-fritas',restaurant:'Barrio Burger',name:'Papas Fritas',price:7})">+</button>
+      <span class="qty-number" id="qty-bb-papas-fritas">0</span>
+      <button class="qty-btn minus" onclick="removeFromCart('bb-papas-fritas')">−</button>
+    </div>
+  </div>
+</div>
+
+<!-- Aros de Cebolla -->
+<div class="menu-item">
+  <img onclick="openLightbox(this.src)" src="images/menus/arosfinalbb.jpg">
+  <div>
+    <strong>Aros de Cebolla Crispy</strong>
+    <p>4 aros de cebolla al panko con cremas.</p>
+    <div class="price">S/7.</div>
+    <div class="qty-controls">
+      <button class="qty-btn plus" onclick="addToCart({id:'bb-aros-cebolla',restaurant:'Barrio Burger',name:'Aros de Cebolla',price:7})">+</button>
+      <span class="qty-number" id="qty-bb-aros-cebolla">0</span>
+      <button class="qty-btn minus" onclick="removeFromCart('bb-aros-cebolla')">−</button>
+    </div>
+  </div>
+</div>
+
+<!-- Gaseosas -->
+<div class="menu-item">
+  <img onclick="openLightbox(this.src)" src="images/menus/gaseosas.jpg">
+  <div>
+    <strong>Gaseosas</strong>
+    <p>Coca Cola, Inka Cola, Sprite.</p>
+    <div class="price">S/6.</div>
+    <div class="qty-controls">
+      <button class="qty-btn plus" onclick="addToCart({id:'bb-gaseosa',restaurant:'Barrio Burger',name:'Gaseosa',price:6})">+</button>
+      <span class="qty-number" id="qty-bb-gaseosa">0</span>
+      <button class="qty-btn minus" onclick="removeFromCart('bb-gaseosa')">−</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cervezas -->
+<div class="menu-item">
+  <img onclick="openLightbox(this.src)" src="images/menus/cervezas.jpg">
+  <div>
+    <strong>Cervezas</strong>
+    <p>Pilsen, Cusqueña trigo.</p>
+    <div class="price">S/10.</div>
+    <div class="qty-controls">
+      <button class="qty-btn plus" onclick="addToCart({id:'bb-cerveza',restaurant:'Barrio Burger',name:'Cerveza',price:10})">+</button>
+      <span class="qty-number" id="qty-bb-cerveza">0</span>
+      <button class="qty-btn minus" onclick="removeFromCart('bb-cerveza')">−</button>
+    </div>
+  </div>
+</div>
+
+<!-- Combo 1 -->
+<div class="menu-item">
+  <img onclick="openLightbox(this.src)" src="images/menus/combo1.jpg">
+  <div>
+    <strong>Combo 1</strong>
+    <p>Papas fritas + Gaseosa.</p>
+    <div class="price">S/10.</div>
+    <div class="qty-controls">
+      <button class="qty-btn plus" onclick="addToCart({id:'bb-combo-1',restaurant:'Barrio Burger',name:'Combo 1',price:10})">+</button>
+      <span class="qty-number" id="qty-bb-combo-1">0</span>
+      <button class="qty-btn minus" onclick="removeFromCart('bb-combo-1')">−</button>
+    </div>
+  </div>
+</div>
+
+<!-- Combo 2 -->
+<div class="menu-item">
+  <img onclick="openLightbox(this.src)" src="images/menus/combo2finalbb.jpg">
+  <div>
+    <strong>Combo 2</strong>
+    <p>Aros de Cebolla + Cerveza.</p>
+    <div class="price">S/12.</div>
+    <div class="qty-controls">
+      <button class="qty-btn plus" onclick="addToCart({id:'bb-combo-2',restaurant:'Barrio Burger',name:'Combo 2',price:12})">+</button>
+      <span class="qty-number" id="qty-bb-combo-2">0</span>
+      <button class="qty-btn minus" onclick="removeFromCart('bb-combo-2')">−</button>
+    </div>
+  </div>
+</div>
+
+     <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
+  ← Volver a restaurantes
+</a>
+    
+  </div>
+</div>
+
+ <!-- Menú Café de Barrio -->
+<div class="card hidden menu-section" id="menu-cafe">
+  <div class="card-content">
+
+    <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
+      ← Volver a restaurantes
+    </a>
+
+    <h2>Menú – Café de Barrio</h2>
+
+    <!-- Aclaratoria -->
+    <div style="background:#f8fafc;border-left:4px solid #0ea5e9;padding:10px;margin-bottom:15px;font-size:14px;">
+      <strong>📌 Importante:</strong><br>
+      • Algunos productos tienen un extra de S/.1 o S/.2  por empaque.
+    </div>
+
+    <!-- CAFÉ -->
+    <h3 class="menu-category">☕ Café</h3>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/cafeespressofinal.jpg">
+      <div>
+        <strong>Espresso</strong>
+        <p>Un shot de sabor intenso y aroma profundo. 40 ML </p>
+        <div class="price">S/7.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-espresso',restaurant:'Café de Barrio',name:'Espresso',price:7})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-espresso">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-espresso')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/cafeamericanofinal.jpg">
+      <div>
+        <strong>Americano</strong>
+        <p>Espresso de calidad diluido con agua caliente. 180 ML </p>
+        <div class="price">S/7.50.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-americano',restaurant:'Café de Barrio',name:'Americano',price:7.5})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-americano">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-americano')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/cafecapuccinofinal.jpg">
+      <div>
+        <strong>Capuccino</strong>
+        <p>Un terció de espresso, un tercio de leche vaporizada y un tercio de espuma. 200 ML </p>
+        <div class="price">S/9.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-capuccino',restaurant:'Café de Barrio',name:'Capuccino',price:9})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-capuccino">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-capuccino')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/cafelattefinal.jpg">
+      <div>
+        <strong>Latte</strong>
+        <p>Espresso de calidad y leche fresca al vapor, coronado con una delicada espuma de leche. 250 ML </p>
+        <div class="price">S/9.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-latte',restaurant:'Café de Barrio',name:'Latte',price:9})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-latte">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-latte')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/cafeicedcapuccino.jpg">
+      <div>
+        <strong>Iced Capuccino</strong>
+        <p>Espresso de calidad, hielos, leche fresca al vapor, coronado con una delicada espuma de leche. 250 ML </p>
+        <div class="price">S/12.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-iced-capuccino',restaurant:'Café de Barrio',name:'Iced Capuccino',price:12})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-iced-capuccino">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-iced-capuccino')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SANGUCHES -->
+    <h3 class="menu-category">🥪 Sanguches</h3>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/sanguchepancetafinal.jpg">
+      <div>
+        <strong>Sanguche de Panceta</strong>
+        <p>Pan ciabatta, panceta ahumada, salsa asiatica.</p>
+        <div class="price">S/15.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-sanguche-panceta',restaurant:'Café de Barrio',name:'Sanguche de Panceta',price:15})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-sanguche-panceta">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-sanguche-panceta')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/sanguchepaltafinal.jpg">
+      <div>
+        <strong>Sanguche de Palta</strong>
+        <p>Pan ciabatta, Palta.</p>
+        <div class="price">S/7.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-sanguche-palta',restaurant:'Café de Barrio',name:'Sanguche de Palta',price:7})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-sanguche-palta">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-sanguche-palta')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/sanguchetriplepjqfinal.jpg">
+      <div>
+        <strong>Sanguche Triple Pollo, Jamón, Queso</strong>
+        <p>Pan en molde, pollo con mayonesa, jamón y queso.</p>
+        <div class="price">S/13.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-sanguche-triple',restaurant:'Café de Barrio',name:'Sanguche Triple Pollo, Jamón, Queso',price:13})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-sanguche-triple">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-sanguche-triple')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CROISSANT -->
+    <h3 class="menu-category">🥐 Croissant</h3>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/crossantmantequillafinal.jpg">
+      <div>
+        <strong>Croissant de Mantequilla</strong>
+        <p>Crujiente croissant sabor mantequilla.</p>
+        <div class="price">S/6.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-croissant-mantequilla',restaurant:'Café de Barrio',name:'Croissant de Mantequilla',price:6})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-croissant-mantequilla">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-croissant-mantequilla')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/crossantmanjarfinal.jpg">
+      <div>
+        <strong>Croissant de Manjar</strong>
+        <p>Crujiente croissant sabor mantequilla, relleno de manjar.</p>
+        <div class="price">S/12.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-croissant-manjar',restaurant:'Café de Barrio',name:'Croissant de Manjar',price:12})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-croissant-manjar">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-croissant-manjar')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/crossantpdfinal.jpg">
+      <div>
+        <strong>Croissant Pollo con Durazno</strong>
+        <p>Crujiente croissant sabor mantequilla, pollo con mayonesa y durazno.</p>
+        <div class="price">S/13.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-croissant-pollo-durazno',restaurant:'Café de Barrio',name:'Croissant Pollo con Durazno',price:13})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-croissant-pollo-durazno">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-croissant-pollo-durazno')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/crofflefinal.jpg">
+      <div>
+        <strong>Croffle</strong>
+        <p>Crujiente croissant sabor mantequilla, crema chantilli y jarabe de chocolate.</p>
+        <div class="price">S/12.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-croffle',restaurant:'Café de Barrio',name:'Croffle',price:12})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-croffle">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-croffle')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/wafflefrutasfinal.jpg">
+      <div>
+        <strong>Waffles con frutas</strong>
+        <p>Sabroso waffle con frutas y miel.</p>
+        <div class="price">S/20.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-waffles-frutas',restaurant:'Café de Barrio',name:'Waffles con frutas',price:20})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-waffles-frutas">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-waffles-frutas')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FRAPPES -->
+    <h3 class="menu-category">🧊 Frappes</h3>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/frappeoreofinal.jpg">
+      <div>
+        <strong>Frappe de Oreo</strong>
+        <p>Frappe de oreo, jarabe de chocolate y crema chantilli.</p>
+        <div class="price">S/18.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-frappe-oreo',restaurant:'Café de Barrio',name:'Frappe de Oreo',price:18})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-frappe-oreo">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-frappe-oreo')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/frappefresafinal.jpg">
+      <div>
+        <strong>Frappe de Fresa</strong>
+        <p>Frappe de fresa, jarabe de chocolate y crema chantilli.</p>
+        <div class="price">S/17.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-frappe-fresa',restaurant:'Café de Barrio',name:'Frappe de Fresa',price:17})">+</button>
+          <span class="qty-number" id="qty-cafe-barrio-frappe-fresa">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-frappe-fresa')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
+      ← Volver a restaurantes
+    </a>
+
+  </div>
+</div>
+
+  <!-- Menú 3 Empanadas -->
+<div class="card hidden menu-section" id="menu-empanadas">
+  <div class="card-content">
+
+    <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
+      ← Volver a restaurantes
+    </a>
+
+    <h2>Menú – 3 Empanadas</h2>
+
+    <!-- Categoría -->
+    <h3 class="menu-category">🥩 Empanadas de Carne</h3>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/empanadas3.jpg">
+      <div>
+        <strong>3 Empanadas</strong>
+        <p>Carne, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
+        <div class="price">S/15.</div>
+
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({
+            id: '3-emp-carne-3',
+            restaurant: '3 Empanadas',
+            name: '3 Empanadas de Carne',
+            price: 15
+          })">+</button>
+
+          <span class="qty-number" id="qty-3-emp-carne-3">0</span>
+
+          <button class="qty-btn minus" onclick="removeFromCart('3-emp-carne-3')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/empanadas6.jpg">
+      <div>
+        <strong>6 Empanadas</strong>
+        <p>Carne, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
+        <div class="price">S/25.</div>
+
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({
+            id: '3-emp-carne-6',
+            restaurant: '3 Empanadas',
+            name: '6 Empanadas de Carne',
+            price: 25
+          })">+</button>
+
+          <span class="qty-number" id="qty-3-emp-carne-6">0</span>
+
+          <button class="qty-btn minus" onclick="removeFromCart('3-emp-carne-6')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/empanadas12.jpg">
+      <div>
+        <strong>12 Empanadas</strong>
+        <p>Carne, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
+        <div class="price">S/45.</div>
+
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({
+            id: '3-emp-carne-12',
+            restaurant: '3 Empanadas',
+            name: '12 Empanadas de Carne',
+            price: 45
+          })">+</button>
+
+          <span class="qty-number" id="qty-3-emp-carne-12">0</span>
+
+          <button class="qty-btn minus" onclick="removeFromCart('3-emp-carne-12')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="menu-category">🐥 Empanadas de Pollo</h3>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/empanadas3.jpg">
+      <div>
+        <strong>3 Empanadas</strong>
+        <p>Pollo, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
+        <div class="price">S/15.</div>
+
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({
+            id: '3-emp-pollo-3',
+            restaurant: '3 Empanadas',
+            name: '3 Empanadas de Pollo',
+            price: 15
+          })">+</button>
+
+          <span class="qty-number" id="qty-3-emp-pollo-3">0</span>
+
+          <button class="qty-btn minus" onclick="removeFromCart('3-emp-pollo-3')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/empanadas6.jpg">
+      <div>
+        <strong>6 Empanadas</strong>
+        <p>Pollo, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
+        <div class="price">S/25.</div>
+
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({
+            id: '3-emp-pollo-6',
+            restaurant: '3 Empanadas',
+            name: '6 Empanadas de Pollo',
+            price: 25
+          })">+</button>
+
+          <span class="qty-number" id="qty-3-emp-pollo-6">0</span>
+
+          <button class="qty-btn minus" onclick="removeFromCart('3-emp-pollo-6')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/empanadas12.jpg">
+      <div>
+        <strong>12 Empanadas</strong>
+        <p>Pollo, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
+        <div class="price">S/45.</div>
+
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({
+            id: '3-emp-pollo-12',
+            restaurant: '3 Empanadas',
+            name: '12 Empanadas de Pollo',
+            price: 45
+          })">+</button>
+
+          <span class="qty-number" id="qty-3-emp-pollo-12">0</span>
+
+          <button class="qty-btn minus" onclick="removeFromCart('3-emp-pollo-12')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
+      ← Volver a restaurantes
+    </a>
+
+  </div>
+</div>
+
+  <!-- Menú Café Coral -->
+<div class="card hidden menu-section" id="menu-cafe-coral">
+  <div class="card-content">
+
+    <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
+      ← Volver a restaurantes
+    </a>
+
+    <h2>Menú – Café Coral</h2>
+
+    <!-- POSTRES -->
+    <h3 class="menu-category">🍰 Postres</h3>
+
+    <!-- 1 -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/tiramisu1.jpg">
+      <div>
+        <strong>Tiramisu Cake</strong>
+        <p>Descubre el equilibrio perfecto entre la intensidad de nuestro café de especialidad y la sedosidad del auténtico queso crema.</p>
+        <div class="price">S/16.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-tiramisu',restaurant:'Café Coral',name:'Tiramisu Cake',price:16})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-tiramisu">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-tiramisu')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/tortachocolate2.jpg">
+      <div>
+        <strong>Torta de Chocolate Trufada</strong>
+        <p>Cake de chocolate húmedo, relleno de trufa de chocolate y manjar blanco, envuelto en fudge y con un baño de trufa de chocolate.</p>
+        <div class="price">S/14.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-torta-choco',restaurant:'Café Coral',name:'Torta de Chocolate Trufada',price:14})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-torta-choco">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-torta-choco')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/tortazanahoria3.jpg">
+      <div>
+        <strong>Torta de Zanahoria</strong>
+        <p>Cake de zanahoria húmedo con pecanas y arándanos rojos, rellena de manjar blanco.</p>
+        <div class="price">S/14.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-torta-zanahoria',restaurant:'Café Coral',name:'Torta de Zanahoria',price:14})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-torta-zanahoria">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-torta-zanahoria')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/cheesecakefresa4.jpg">
+      <div>
+        <strong>Cheesecake de Fresa</strong>
+        <p>La tarta de queso definitiva: base de masa quebrada, relleno ultra cremoso y una generosa capa de fresas naturales en almíbar ligero.</p>
+        <div class="price">S/13.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-cheesecake-fresa',restaurant:'Café Coral',name:'Cheesecake de Fresa',price:13})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-cheesecake-fresa">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-cheesecake-fresa')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/cheesecakemaracuya5.jpg">
+      <div>
+        <strong>Cheesecake de Maracuya</strong>
+        <p>Tarta de queso cremosa con cobertura de maracuyá natural.</p>
+        <div class="price">S/13.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-cheesecake-maracuya',restaurant:'Café Coral',name:'Cheesecake de Maracuya',price:13})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-cheesecake-maracuya">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-cheesecake-maracuya')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/piedelimon6.jpg">
+      <div>
+        <strong>Pie de Limón</strong>
+        <p>El balance ideal entre la acidez vibrante del limón recién exprimido y el dulzor del merengue suizo flameado.</p>
+        <div class="price">S/13.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-pie-limon',restaurant:'Café Coral',name:'Pie de Limón',price:13})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-pie-limon">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-pie-limon')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/browniehelado7.jpg">
+      <div>
+        <strong>Brownie con Helado</strong>
+        <p>Disfruta de nuestro brownie de chocolate al 70%, con una bola de helado de vainilla.</p>
+        <div class="price">S/18.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-brownie-helado',restaurant:'Café Coral',name:'Brownie con Helado',price:18})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-brownie-helado">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-brownie-helado')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/croissantdulce8.jpg">
+      <div>
+        <strong>Croissant Dulce</strong>
+        <p>Croissant relleno de helado de vainilla, fresas y salsa de chocolate.</p>
+        <div class="price">S/20.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-croissant-dulce',restaurant:'Café Coral',name:'Croissant Dulce',price:20})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-croissant-dulce">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-croissant-dulce')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/brofle9.jpg">
+      <div>
+        <strong>Brofle</strong>
+        <p>Waffle con helado de vainilla, trozos de brownie y salsa de chocolate.</p>
+        <div class="price">S/30.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-brofle',restaurant:'Café Coral',name:'Brofle',price:30})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-brofle">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-brofle')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/wafflefrutas10.jpg">
+      <div>
+        <strong>Waffle con Frutas</strong>
+        <p>Waffle con fresas, plátano y miel de maple.</p>
+        <div class="price">S/28.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-waffle-frutas',restaurant:'Café Coral',name:'Waffle con Frutas',price:28})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-waffle-frutas">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-waffle-frutas')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HAMBURGUESAS -->
+    <h3 class="menu-category">🍔 Hamburguesas</h3>
+
+    <!-- 11 -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/hamburguesaclasica11.jpg">
+      <div>
+        <strong>Hamburguesa Clásica</strong>
+        <p>Pan brioche artesanal, carne, lechuga, tomate, queso cheddar y mayonesa de la casa, acompañado de papas fritas.</p>
+        <div class="price">S/28.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-hamburguesa-clasica',restaurant:'Café Coral',name:'Hamburguesa Clásica',price:28})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-hamburguesa-clasica">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-hamburguesa-clasica')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/hamburguesaroyal12.jpg">
+      <div>
+        <strong>Hamburguesa Royal</strong>
+        <p>Pan brioche artesanal, carne, doble queso cheddar, huevo, lechuga, tomate y mayonesa de la casa, acompañado de papas fritas.</p>
+        <div class="price">S/32.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-hamburguesa-royal',restaurant:'Café Coral',name:'Hamburguesa Royal',price:32})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-hamburguesa-royal">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-hamburguesa-royal')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13 -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/hamburguesacontocino13.jpg">
+      <div>
+        <strong>Hamburguesa con Tocino</strong>
+        <p>Pan brioche artesanal, carne, lechuga, tomate, queso cheddar, tocino, cebolla caramelizada y mayonesa de la casa, acompañado de papas fritas.</p>
+        <div class="price">S/32.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-hamburguesa-tocino',restaurant:'Café Coral',name:'Hamburguesa con Tocino',price:32})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-hamburguesa-tocino">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-hamburguesa-tocino')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14 -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/hamburguesaargenta14.jpg">
+      <div>
+        <strong>Hamburguesa Argenta</strong>
+        <p>Pan brioche artesanal, carne, chorizo campestre, chimichurri, lechuga, tomate y mayonesa de la casa acompañado de papas fritas.</p>
+        <div class="price">S/41.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-hamburguesa-argenta',restaurant:'Café Coral',name:'Hamburguesa Argenta',price:41})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-hamburguesa-argenta">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-hamburguesa-argenta')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 15 -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/clubsandwich15.jpg">
+      <div>
+        <strong>Club Sandwich</strong>
+        <p>Tres capas de pan de miga, lechuga, tomate, pollo a la plancha, tocino, huevo, jamón, queso edam y mayonesa de la casa acompañado de papas fritas.</p>
+        <div class="price">S/39.</div>
+        <div class="qty-controls">
+          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-club-sandwich',restaurant:'Café Coral',name:'Club Sandwich',price:39})">+</button>
+          <span class="qty-number" id="qty-cafe-coral-club-sandwich">0</span>
+          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-club-sandwich')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
+      ← Volver a restaurantes
+    </a>
+
+  </div>
+</div>
+
+<!-- Menú Masa -->
+<div class="card hidden menu-section" id="menu-masa">
+  <div class="card-content">
+
+    <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
+      ← Volver a restaurantes
+    </a>
+
+    <h2>Menú – Masa</h2>
+
+    <!-- PIZZAS CLÁSICAS -->
+    <h3 class="menu-category">🍕 Pizzas Clásicas</h3>
+
+    <!-- 1. Pepperoni -->
+    <div class="menu-item">
+      <div>
+        <strong>Pepperoni</strong>
+        <p>Salsa de tomate, queso mozzarella, salame.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/40.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-pepperoni-8',restaurant:'Masa',name:'Pepperoni 8p',price:40})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-pepperoni-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-pepperoni-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/55.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-pepperoni-12',restaurant:'Masa',name:'Pepperoni 12p',price:55})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-pepperoni-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-pepperoni-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Americana -->
+    <div class="menu-item">
+      <div>
+        <strong>Americana</strong>
+        <p>Salsa de tomate, queso mozzarella, jamón.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/40.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-americana-8',restaurant:'Masa',name:'Americana 8p',price:40})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-americana-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-americana-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/55.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-americana-12',restaurant:'Masa',name:'Americana 12p',price:55})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-americana-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-americana-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Hawaiana -->
+    <div class="menu-item">
+      <div>
+        <strong>Hawaiana</strong>
+        <p>Salsa de tomate, queso mozzarella, piña fresca y jamón.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/40.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-hawaiana-8',restaurant:'Masa',name:'Hawaiana 8p',price:40})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-hawaiana-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-hawaiana-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/55.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-hawaiana-12',restaurant:'Masa',name:'Hawaiana 12p',price:55})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-hawaiana-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-hawaiana-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Jamón & Champiñones -->
+    <div class="menu-item">
+      <div>
+        <strong>Jamón & Champiñones</strong>
+        <p>Salsa de tomate, queso mozzarella, champiñones y jamón.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/40.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-jamon-champi-8',restaurant:'Masa',name:'Jamón & Champiñones 8p',price:40})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-jamon-champi-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-jamon-champi-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/55.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-jamon-champi-12',restaurant:'Masa',name:'Jamón & Champiñones 12p',price:55})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-jamon-champi-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-jamon-champi-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PIZZAS VEGETARIANAS -->
+    <h3 class="menu-category">🥗 Pizzas Vegetarianas</h3>
+
+    <!-- 5. Margherita -->
+    <div class="menu-item">
+      <div>
+        <strong>Margherita</strong>
+        <p>Salsa de tomate, queso mozzarella, albahaca.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/40.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-margherita-8',restaurant:'Masa',name:'Margherita 8p',price:40})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-margherita-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-margherita-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/55.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-margherita-12',restaurant:'Masa',name:'Margherita 12p',price:55})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-margherita-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-margherita-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Marinara -->
+    <div class="menu-item">
+      <div>
+        <strong>Marinara</strong>
+        <p>Salsa de tomate, ajo, orégano, alcaparras.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/35.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-marinara-8',restaurant:'Masa',name:'Marinara 8p',price:35})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-marinara-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-marinara-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/50.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-marinara-12',restaurant:'Masa',name:'Marinara 12p',price:50})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-marinara-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-marinara-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Nápoli -->
+    <div class="menu-item">
+      <div>
+        <strong>Nápoli</strong>
+        <p>Salsa de tomate, queso mozzarella, anchoas, alcaparras, perejil, ajo y orégano.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/40.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-napoli-8',restaurant:'Masa',name:'Nápoli 8p',price:40})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-napoli-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-napoli-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/55.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-napoli-12',restaurant:'Masa',name:'Nápoli 12p',price:55})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-napoli-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-napoli-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. Vegetariana -->
+    <div class="menu-item">
+      <div>
+        <strong>Vegetariana</strong>
+        <p>Salsa de tomate, queso mozzarella, champiñones, aceitunas, verduras frescas del día.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/45.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-vegetariana-8',restaurant:'Masa',name:'Vegetariana 8p',price:45})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-vegetariana-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-vegetariana-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/60.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-vegetariana-12',restaurant:'Masa',name:'Vegetariana 12p',price:60})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-vegetariana-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-vegetariana-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. Mediterránea -->
+    <div class="menu-item">
+      <div>
+        <strong>Mediterránea</strong>
+        <p>Salsa de tomate, queso mozzarella, berenjenas, zucchini, pimentón, aceitunas, alcaparras, perejil.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/45.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-mediterranea-8',restaurant:'Masa',name:'Mediterránea 8p',price:45})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-mediterranea-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-mediterranea-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/60.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-mediterranea-12',restaurant:'Masa',name:'Mediterránea 12p',price:60})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-mediterranea-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-mediterranea-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PIZZAS ESPECIALES -->
+    <h3 class="menu-category">⭐ Pizzas Especiales</h3>
+
+    <!-- 10. Panorama -->
+    <div class="menu-item">
+      <div>
+        <strong>Panorama</strong>
+        <p>Salsa de tomate, queso mozzarella, pepperoni, tocino, champiñones, chorizo, rúcula.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/50.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-panorama-8',restaurant:'Masa',name:'Panorama 8p',price:50})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-panorama-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-panorama-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/65.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-panorama-12',restaurant:'Masa',name:'Panorama 12p',price:65})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-panorama-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-panorama-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. Italiana -->
+    <div class="menu-item">
+      <div>
+        <strong>Italiana</strong>
+        <p>Salsa de tomate, queso mozzarella, prosciutto, parmesano, rúcula.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/55.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-italiana-8',restaurant:'Masa',name:'Italiana 8p',price:55})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-italiana-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-italiana-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/70.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-italiana-12',restaurant:'Masa',name:'Italiana 12p',price:70})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-italiana-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-italiana-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12. 4 Quesos -->
+    <div class="menu-item">
+      <div>
+        <strong>4 Quesos</strong>
+        <p>Queso mozzarella, queso azul, queso parmesano, queso próvola.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/50.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-4quesos-8',restaurant:'Masa',name:'4 Quesos 8p',price:50})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-4quesos-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-4quesos-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/65.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-4quesos-12',restaurant:'Masa',name:'4 Quesos 12p',price:65})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-4quesos-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-4quesos-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13. Rústica -->
+    <div class="menu-item">
+      <div>
+        <strong>Rústica</strong>
+        <p>Salsa de tomate, queso mozzarella, queso azul, tocino, champiñones, cebolla.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/50.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-rustica-8',restaurant:'Masa',name:'Rústica 8p',price:50})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-rustica-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-rustica-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/65.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-rustica-12',restaurant:'Masa',name:'Rústica 12p',price:65})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-rustica-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-rustica-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14. Boscaiola -->
+    <div class="menu-item">
+      <div>
+        <strong>Boscaiola</strong>
+        <p>Salsa de tomate, queso mozzarella, chorizo, champiñones.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/50.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-boscaiola-8',restaurant:'Masa',name:'Boscaiola 8p',price:50})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-boscaiola-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-boscaiola-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/65.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-boscaiola-12',restaurant:'Masa',name:'Boscaiola 12p',price:65})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-boscaiola-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-boscaiola-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 15. Capricciosa -->
+    <div class="menu-item">
+      <div>
+        <strong>Capricciosa</strong>
+        <p>Salsa de tomate, queso mozzarella, jamón, alcachofas, champiñones, aceitunas.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/50.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-capricciosa-8',restaurant:'Masa',name:'Capricciosa 8p',price:50})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-capricciosa-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-capricciosa-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/65.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-capricciosa-12',restaurant:'Masa',name:'Capricciosa 12p',price:65})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-capricciosa-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-capricciosa-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Jamón & Champiñones -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/pizza-jamon-champi.jpg">
+      <div>
+        <strong>Jamón & Champiñones</strong>
+        <p>Queso mozzarella, jamón y champiñones.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 piezas: S/26.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-jamon-champi-8',restaurant:'Masa',name:'Jamón & Champiñones 8p',price:26})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-jamon-champi-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-jamon-champi-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 piezas: S/36.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-jamon-champi-12',restaurant:'Masa',name:'Jamón & Champiñones 12p',price:36})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-jamon-champi-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-jamon-champi-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Margherita -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/pizza-margherita.jpg">
+      <div>
+        <strong>Margherita</strong>
+        <p>Queso mozzarella, tomate fresco y albahaca.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 piezas: S/24.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-margherita-8',restaurant:'Masa',name:'Margherita 8p',price:24})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-margherita-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-margherita-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 piezas: S/34.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-margherita-12',restaurant:'Masa',name:'Margherita 12p',price:34})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-margherita-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-margherita-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Marinara -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/pizza-marinara.jpg">
+      <div>
+        <strong>Marinara</strong>
+        <p>Salsa de tomate, ajo, orégano y aceite de oliva.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 piezas: S/22.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-marinara-8',restaurant:'Masa',name:'Marinara 8p',price:22})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-marinara-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-marinara-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 piezas: S/30.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-marinara-12',restaurant:'Masa',name:'Marinara 12p',price:30})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-marinara-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-marinara-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Nápoli -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/pizza-napoli.jpg">
+      <div>
+        <strong>Nápoli</strong>
+        <p>Queso mozzarella, anchoas, aceitunas y orégano.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 piezas: S/27.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-napoli-8',restaurant:'Masa',name:'Nápoli 8p',price:27})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-napoli-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-napoli-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 piezas: S/37.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-napoli-12',restaurant:'Masa',name:'Nápoli 12p',price:37})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-napoli-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-napoli-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. Vegetariana -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/pizza-vegetariana.jpg">
+      <div>
+        <strong>Vegetariana</strong>
+        <p>Queso mozzarella, pimientos, champiñones, aceitunas y cebolla.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 piezas: S/26.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-vegetariana-8',restaurant:'Masa',name:'Vegetariana 8p',price:26})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-vegetariana-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-vegetariana-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 piezas: S/36.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-vegetariana-12',restaurant:'Masa',name:'Vegetariana 12p',price:36})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-vegetariana-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-vegetariana-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. Mediterránea -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/pizza-mediterranea.jpg">
+      <div>
+        <strong>Mediterránea</strong>
+        <p>Queso mozzarella, atún, aceitunas, tomate y cebolla.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 piezas: S/28.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-mediterranea-8',restaurant:'Masa',name:'Mediterránea 8p',price:28})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-mediterranea-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-mediterranea-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 piezas: S/38.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-mediterranea-12',restaurant:'Masa',name:'Mediterránea 12p',price:38})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-mediterranea-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-mediterranea-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. Panorama -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/pizza-panorama.jpg">
+      <div>
+        <strong>Panorama</strong>
+        <p>Queso mozzarella, pepperoni, champiñones, pimientos y cebolla.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 piezas: S/29.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-panorama-8',restaurant:'Masa',name:'Panorama 8p',price:29})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-panorama-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-panorama-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 piezas: S/39.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-panorama-12',restaurant:'Masa',name:'Panorama 12p',price:39})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-panorama-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-panorama-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. Italiana -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/pizza-italiana.jpg">
+      <div>
+        <strong>Italiana</strong>
+        <p>Queso mozzarella, salami italiano y aceitunas.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 piezas: S/27.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-italiana-8',restaurant:'Masa',name:'Italiana 8p',price:27})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-italiana-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-italiana-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 piezas: S/37.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-italiana-12',restaurant:'Masa',name:'Italiana 12p',price:37})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-italiana-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-italiana-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12. 4 Quesos -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/pizza-4quesos.jpg">
+      <div>
+        <strong>4 Quesos</strong>
+        <p>Queso mozzarella, gorgonzola, parmesano y ricotta.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 piezas: S/30.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-4quesos-8',restaurant:'Masa',name:'4 Quesos 8p',price:30})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-4quesos-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-4quesos-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 piezas: S/42.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-4quesos-12',restaurant:'Masa',name:'4 Quesos 12p',price:42})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-4quesos-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-4quesos-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13. Rústica -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/pizza-rustica.jpg">
+      <div>
+        <strong>Rústica</strong>
+        <p>Queso mozzarella, jamón, champiñones, pimientos y aceitunas.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 piezas: S/28.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-rustica-8',restaurant:'Masa',name:'Rústica 8p',price:28})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-rustica-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-rustica-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 piezas: S/38.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-rustica-12',restaurant:'Masa',name:'Rústica 12p',price:38})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-rustica-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-rustica-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14. Boscaiola -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/pizza-boscaiola.jpg">
+      <div>
+        <strong>Boscaiola</strong>
+        <p>Queso mozzarella, champiñones y jamón.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 piezas: S/26.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-boscaiola-8',restaurant:'Masa',name:'Boscaiola 8p',price:26})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-boscaiola-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-boscaiola-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 piezas: S/36.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-boscaiola-12',restaurant:'Masa',name:'Boscaiola 12p',price:36})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-boscaiola-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-boscaiola-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 15. Capricciosa -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/pizza-capricciosa.jpg">
+      <div>
+        <strong>Capricciosa</strong>
+        <p>Queso mozzarella, jamón, champiñones, alcachofas y aceitunas.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 piezas: S/29.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-capricciosa-8',restaurant:'Masa',name:'Capricciosa 8p',price:29})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-capricciosa-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-capricciosa-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 piezas: S/39.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pizza-capricciosa-12',restaurant:'Masa',name:'Capricciosa 12p',price:39})">+</button>
+            <span class="qty-number" id="qty-masa-pizza-capricciosa-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pizza-capricciosa-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
+      ← Volver a restaurantes
+    </a>
+
+  </div>
+</div>
+  
+<div style="display:none;">
+  Delivery en Máncora, comida a domicilio en Máncora, restaurantes en Máncora con delivery,
+  pedir comida por WhatsApp en Máncora, hamburguesas en Máncora delivery,
+  cafeterías en Máncora con envío.
+</div>
+  
+  <div class="footer">© 2026 Máncora Go! - Delivery en Máncora</div>
+</div>
+
+    <div id="floatingCart" class="floating-cart hidden">
+  <div class="cart-info">
+    <strong id="cartItemsCount">0 productos</strong>
+    <span id="cartTotal">Total: S/ 0</span>
+  </div>
+  <button class="cart-btn" onclick="openOrder()">Ver pedido</button>
+</div>
+
+  <!-- MODAL PEDIDO -->
+<div id="orderModal" class="modal hidden">
+  <div class="modal-content">
+    <h3 id="orderTitle">Tu pedido</h3>
+
+    <div id="orderItems"></div>
+
+    <div class="order-total">
+      Total productos: <strong id="orderTotal">S/0</strong>
+    </div>
+
+    <!-- UBICACIÓN DEL CLIENTE -->
+    <div class="location-section">
+      <div class="location-header">
+        <span class="location-icon">📍</span>
+        <span>Tu ubicación para delivery</span>
+      </div>
+      
+      <button class="location-btn map-btn full-width" onclick="openGoogleMapsPicker()">
+        🗺️ Elegir ubicación en el mapa
+      </button>
+      
+      <input type="hidden" id="clientLocation" value="">
+      
+      <div class="location-selected hidden" id="locationSelected">
+        <span id="locationDisplay"></span>
+        <button class="location-change-btn" onclick="openGoogleMapsPicker()">Cambiar</button>
+      </div>
+      
+      <div id="distanceInfo" class="distance-info hidden">
+        <p id="distanceText"></p>
+        <p id="deliveryPriceText" class="delivery-price"></p>
+      </div>
+    </div>
+
+    <div class="delivery-note">
+      📌 El precio de delivery se calcula según tu ubicación
+    </div>
+
+    <div class="order-total delivery-total">
+      Total con Delivery: <strong id="orderTotalWithDelivery">S/0</strong>
+    </div>
+
+    <button class="confirm-btn" onclick="enviarPedidoWhatsApp()">
+      ✅ Continuar
+    </button>
+
+<button class="empty-btn" onclick="vaciarCarrito()">
+  🗑️ Vaciar Pedido
+</button>
+    
+    <button class="close-btn" onclick="closeOrder()">
+      ❌ Cerrar</button>
+  </div>
+</div>
+
+<!-- MODAL PAGO YAPE -->
+<div id="paymentModal" class="modal hidden">
+  <div class="modal-content payment-modal">
+    <h3>💚 Pago con Yape</h3>
+    
+      <div class="payment-info">
+        
+        <div class="payment-total">
+          <span>Total a pagar:</span>
+          <strong id="paymentTotalAmount">S/0</strong>
+        </div>
+      
+      <div class="yape-section">
+        <p class="yape-title">📱 Yape</p>
+        
+        <div class="yape-details">
+          <div class="yape-detail-item">
+            <span class="yape-label">👤</span>
+            <span class="yape-value">David Justiniano S.</span>
+          </div>
+          <div class="yape-detail-item phone-item">
+            <span class="yape-label">📱</span>
+            <span class="yape-value">978742157</span>
+            <button class="copy-btn" onclick="copyToClipboard('978742157')">📋</button>
+          </div>
+        </div>
+        
+        <div class="yape-qr">
+          <img src="images/yape-qr.jpeg" alt="QR Yape" onerror="this.style.display='none';">
+        </div>
+      </div>
+      
+      <div class="payment-note">
+        ⚠️ IMPORTANTE: Después de pagar, envía el comprobante por WhatsApp
+      </div>
+    </div>
+    
+    <div class="payment-buttons">
+      <button class="payment-cancel-btn" onclick="goBackToOrder()">← Atrás</button>
+      <button class="payment-confirm-btn" onclick="confirmPaymentAndSend()">✅ Ya pagué - Enviar</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .payment-modal {
+    width: 95% !important;
+    max-width: 400px !important;
+    max-height: none !important;
+    overflow: hidden !important;
+    padding: 10px !important;
+  }
+  
+  .payment-info {
+    padding: 5px 0;
+  }
+  
+  .payment-instructions {
+    display: none;
+  }
+  
+  .payment-fields {
+    display: none;
+  }
+  
+  .payment-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: linear-gradient(135deg, var(--sand-light), var(--sand));
+    border-radius: var(--radius-md);
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  
+  .payment-total strong {
+    color: var(--coral);
+    font-size: 20px;
+  }
+  
+  .yape-section {
+    text-align: center;
+    padding: 10px;
+    background: white;
+    border-radius: var(--radius-md);
+    border: 2px dashed #22c55e;
+    margin-bottom: 8px;
+  }
+  
+  .yape-title {
+    margin: 0 0 8px;
+    font-weight: 700;
+    color: var(--text-dark);
+    font-size: 16px;
+  }
+  
+  .yape-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  
+  .yape-detail-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: #f0fdf4;
+    border-radius: var(--radius-sm);
+    border: 1px solid #bbf7d0;
+  }
+  
+  .yape-detail-item.phone-item {
+    background: #fef3c7;
+    border-color: #fcd34d;
+  }
+  
+  .yape-label {
+    width: 24px;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  .yape-value {
+    flex: 1;
+    text-align: right;
+    color: #15803d;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  
+  .copy-btn {
+    padding: 4px 8px;
+    background: #059669;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: 6px;
+  }
+  
+  .yape-label {
+    color: #166534;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  
+  .yape-value {
+    color: #15803d;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  
+  .yape-qr {
+    max-width: 140px;
+    margin: 0 auto 8px;
+  }
+  
+  .yape-qr img {
+    width: 100%;
+    border-radius: 8px;
+    border: 2px solid #22c55e;
+  }
+  
+  .yape-instructions {
+    display: none;
+  }
+  
+  .yape-number {
+    display: none;
+  }
+  
+  .payment-note {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-light);
+    padding: 6px;
+    background: var(--sand-light);
+    border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+  }
+  
+  .payment-buttons {
+    display: flex;
+    gap: 6px;
+  }
+  
+  .payment-cancel-btn {
+    flex: 1;
+    padding: 10px;
+    background: linear-gradient(135deg, var(--coral), #e55a5a);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  
+  .payment-confirm-btn {
+    flex: 2;
+    padding: 10px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 13px;
+  }
+</style>
+
+<!-- MAPA INTERACTIVO GOOGLE MAPS -->
+<div id="mapModal" class="modal hidden">
+  <div class="map-modal-content">
+    <h3>🗺️ Selecciona tu ubicación de entrega</h3>
+    <p class="map-instructions">👆 Arrastra el mapa o el marcador rojo a tu ubicación</p>
+    
+    <div id="mapContainer" class="map-container"></div>
+    
+    <div class="map-selected-coords">
+      <span id="selectedCoords">📍 Arrastra el marcador a tu ubicación</span>
+    </div>
+    
+    <div class="map-buttons">
+      <button class="map-cancel-btn" onclick="closeMapModal()">✖ Cancelar</button>
+      <button class="map-confirm-btn" onclick="confirmLocation()">✓ Confirmar Ubicación</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .map-embed-container {
+    display: none;
+  }
+
+  .map-help-text {
+    display: none;
+  }
+
+  .map-modal-content {
+    background: white;
+    width: 95%;
+    max-width: 450px;
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .map-modal-content h3 {
+    margin: 0 0 8px;
+    color: var(--text-dark);
+    text-align: center;
+    font-size: 1.1rem;
+  }
+
+  .map-instructions {
+    margin: 0 0 12px;
+    color: var(--text-light);
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .map-container {
+    width: 100%;
+    height: 350px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: 12px;
+    border: 3px solid var(--ocean);
+  }
+
+  .map-selected-coords {
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+    padding: 12px;
+    background: var(--sand-light);
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+  }
+
+  .map-buttons {
+    display: flex;
+    gap: 10px;
+    position: sticky;
+    bottom: 0;
+    background: white;
+    padding-top: 8px;
+  }
+  }
+
+  .map-cancel-btn {
+    flex: 1;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--coral), #e55a5a);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .map-confirm-btn {
+    flex: 2;
+    padding: 14px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    cursor: pointer;
+  }
+</style>
+
+<!-- LIGHTBOX IMAGE PREVIEW -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close">&times;</span>
+  <img id="lightboxImg" src="" alt="Imagen ampliada">
+</div>
+
+<script>
+  let lastRestaurantId = null;
+</script>
+
+<script>
+  function filterByCategory(category) {
+    const categoryMap = {
+      'hamburgesas': 'hamburguesas'
+    };
+    const normalizedCategory = categoryMap[category] || category;
+    
+    const restaurantsList = Array.from(document.querySelectorAll('#restaurants-list .card'));
+    const upcomingList = Array.from(document.querySelectorAll('#upcoming-list .card'));
+    const container = document.getElementById('categoryRestaurants');
+    const showAllBtn = document.getElementById('showAllBtn');
+    
+    container.innerHTML = '';
+    
+    const priorityOrder = {
+      'pollos': ['rest-kaisen', 'rest-3empanadas'],
+      'hamburguesas': ['rest-barrio-burguer', 'rest-cafe-coral'],
+      'cafe': ['rest-cafe-barrio'],
+      'postres': ['rest-cafe-coral', 'rest-cafe-barrio'],
+      'sandwiches': ['rest-cafe-barrio', 'rest-3empanadas'],
+      'chifa': ['rest-kaisen']
+    };
+    
+    const order = priorityOrder[normalizedCategory] || [];
+    const isFeaturedCategory = ['hamburguesas'].includes(normalizedCategory);
+    
+    let allCards = [];
+    
+    upcomingList.forEach(card => {
+      const restaurantCard = card.querySelector('.restaurant-card');
+      const id = restaurantCard?.id || '';
+      const categories = restaurantCard?.getAttribute('data-category') || '';
+      
+      if (categories.split(',').includes(normalizedCategory)) {
+        allCards.push({ card: card.outerHTML, id: id, isUpcoming: true });
+      }
+    });
+    
+    restaurantsList.forEach(card => {
+      const restaurantCard = card.querySelector('.restaurant-card');
+      const id = restaurantCard?.id || '';
+      const categories = restaurantCard?.getAttribute('data-category') || '';
+      const isFeatured = restaurantCard?.getAttribute('data-featured') === 'true';
+      
+      if (categories.split(',').includes(normalizedCategory)) {
+        allCards.push({ card: card.outerHTML, id: id, isFeatured: isFeatured, isUpcoming: false });
+      }
+    });
+    
+    allCards.sort((a, b) => {
+      const aIndex = order.indexOf(a.id);
+      const bIndex = order.indexOf(b.id);
+      const aInOrder = aIndex !== -1;
+      const bInOrder = bIndex !== -1;
+      
+      if (aInOrder && bInOrder) return aIndex - bIndex;
+      if (aInOrder) return -1;
+      if (bInOrder) return 1;
+      return 0;
+    });
+    
+    let html = '';
+    
+    const featuredCards = allCards.filter(c => c.isFeatured);
+    const nonFeaturedCards = allCards.filter(c => !c.isFeatured);
+    
+    if (isFeaturedCategory && featuredCards.length > 0) {
+      html += '<div class="featured-section"><h2 class="section-title-featured">🔥 DESTACADOS 🔥</h2>';
+      html += featuredCards.map(c => c.card).join('');
+      html += '</div>';
+    }
+    
+    if (nonFeaturedCards.length > 0) {
+      html += nonFeaturedCards.map(c => c.card).join('');
+    }
+    
+    if (!isFeaturedCategory && allCards.length > 0) {
+      html = allCards.map(c => c.card).join('');
+    }
+    
+    if (html) {
+      container.innerHTML = html;
+      showAllBtn.style.display = 'block';
+    } else {
+      container.innerHTML = '<p style="text-align:center;color:var(--text-light);padding:20px;">No hay restaurantes en esta categoría</p>';
+      showAllBtn.style.display = 'block';
+    }
+    
+    document.getElementById('restaurants-list').style.display = 'none';
+    document.getElementById('upcoming-list').style.display = 'none';
+  }
+  
+  function showAllRestaurants() {
+    document.getElementById('categoryRestaurants').innerHTML = '';
+    document.getElementById('showAllBtn').style.display = 'none';
+    document.getElementById('restaurants-list').style.display = 'block';
+    document.getElementById('upcoming-list').style.display = 'block';
+  }
+</script>
+
+<script>
+    function openMenu(menuId, restaurantId) {
+  // guardar el restaurante actual
+  lastRestaurantId = restaurantId;
+
+  // ocultar todos los menus
+  document.querySelectorAll('.menu-section')
+    .forEach(m => m.classList.add('hidden'));
+
+  const menu = document.getElementById(menuId);
+  menu.classList.remove('hidden');
+
+  menu.scrollIntoView({ behavior: 'smooth' });
+}
+
+    function closeMenus() {
+  document.querySelectorAll('.menu-section')
+    .forEach(m => m.classList.add('hidden'));
+
+  if (lastRestaurantId) {
+    const card = document.getElementById(lastRestaurantId);
+    if (card) {
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+}
+  
+  function pedirWhatsApp(nombreRestaurante) {
+    const telefono = "51978742157";
+    const mensaje = `Hola, quiero hacer un pedido del restaurante "${nombreRestaurante}".`;
+    const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, "_blank");
+  }
+  </script>
+  
+<script>
+function isCafeBarrioStatus() {
+  const now = new Date();
+  const day = now.getDay(); // 0 = domingo, 3 = miércoles
+  const minutes = now.getHours() * 60 + now.getMinutes();
+
+  // ❌ Miércoles cerrado todo el día
+  if (day === 3) return "closed-today";
+
+  const morningOpen = 9 * 60;
+  const morningClose = 12 * 60 + 30;
+
+  const eveningOpen = 18 * 60;
+  const eveningClose = 22 * 60; // 10:00 p.m.
+
+  const isOpen =
+    (minutes >= morningOpen && minutes < morningClose) ||
+    (minutes >= eveningOpen && minutes < eveningClose);
+
+  return isOpen ? "open" : "closed-now";
+}
+</script>
+
+  <script>
+function isCafeCoralStatus() {
+  const now = new Date();
+  const minutes = now.getHours() * 60 + now.getMinutes();
+
+  const open = 10 * 60;  // 10:00 a.m.
+  const close = 22 * 60; // 10:00 p.m.
+  const isOpen = minutes >= open && minutes < close;
+
+  return {
+    status: isOpen ? "open" : "closed-now",
+    schedule: "🕒 10:00 a.m. – 10:00 p.m."
+  };
+}
+</script>
+
+<script>
+function isBarrioBurguerStatus() {
+  const now = new Date();
+  const day = now.getDay(); // 0 = domingo, 2 = martes
+  const minutes = now.getHours() * 60 + now.getMinutes();
+
+  // ❌ Martes cerrado todo el día
+  if (day === 2) {
+    return {
+      status: "closed-today",
+      schedule: "🚫 Cerrado hoy",
+      message: "🚫 Cerrado por descanso"
+    };
+  }
+
+  const open = 16 * 60; // 4:00 p.m.
+  const close = 22 * 60; // 10:00 p.m.
+  const isOpen = minutes >= open && minutes < close;
+
+  return {
+    status: isOpen ? "open" : "closed-now",
+    schedule: "🕒 4:00 p.m. – 10:00 p.m."
+  };
+}
+</script>
+  
+<script>
+function checkRestaurantHours() {
+
+  const now = new Date();
+  const currentHour = now.getHours() + now.getMinutes() / 60;
+
+  const container = document.getElementById("restaurants-list");
+  if (!container) return;
+
+  const openRestaurants = [];
+  const closedRestaurants = [];
+
+  document.querySelectorAll(".restaurant-card").forEach(card => {
+    let isOpen = true;
+
+    const closedLabel = card.querySelector(".closed-label");
+    const scheduleLabel = card.querySelector(".schedule-label");
+
+    // 🍔 BARRIO BURGUER
+    if (card.dataset.special === "barrio-burguer") {
+      const status = isBarrioBurguerStatus();
+      isOpen = status.status === "open";
+
+      if (scheduleLabel) scheduleLabel.textContent = status.schedule;
+      if (!isOpen && closedLabel) closedLabel.textContent = status.message || "⛔ Cerrado ahora";
+    }
+
+    // ☕ CAFÉ DE BARRIO
+    else if (card.dataset.special === "cafe-barrio") {
+      const status = isCafeBarrioStatus();
+      isOpen = status === "open";
+
+      if (!isOpen && closedLabel) {
+        closedLabel.textContent =
+          status === "closed-today" ? "🚫 Cerrado hoy" : "⛔ Cerrado ahora";
+      }
+    }
+
+    // 🍰 CAFÉ CORAL
+    else if (card.dataset.special === "cafe-coral") {
+      const status = isCafeCoralStatus();
+      isOpen = status.status === "open";
+
+      if (scheduleLabel) scheduleLabel.textContent = status.schedule;
+      if (!isOpen && closedLabel) {
+        closedLabel.textContent = status.message || "⛔ Cerrado ahora";
+      }
+    }
+
+    // 🟢 RESTAURANTES NORMALES
+    else if (card.dataset.open && card.dataset.close) {
+      const open = parseFloat(card.dataset.open);
+      const close = parseFloat(card.dataset.close);
+      isOpen = !(currentHour < open || currentHour >= close);
+    }
+
+    // 🎯 ESTADO VISUAL
+    const cardWrapper = card.closest(".card");
+    const isFeatured = card.dataset.featured === "true";
+
+    if (!isOpen) {
+      card.style.pointerEvents = "none";
+      card.style.opacity = "0.55";
+      if (closedLabel) closedLabel.classList.remove("hidden");
+    } else {
+      card.style.pointerEvents = "auto";
+      card.style.opacity = "1";
+      if (closedLabel) closedLabel.classList.add("hidden");
+    }
+
+    if (!isFeatured && container.contains(cardWrapper)) {
+      if (isOpen) openRestaurants.push(cardWrapper);
+      else closedRestaurants.push(cardWrapper);
+    }
+  });
+
+  // 🔁 Reordenar
+  container.innerHTML = "";
+  openRestaurants.forEach(card => container.appendChild(card));
+  closedRestaurants.forEach(card => container.appendChild(card));
+}
+
+// Ejecutar
+checkRestaurantHours();
+setInterval(checkRestaurantHours, 60000);
+</script>
+
+  <script>
+  function openCart() {
+    alert("Aquí irá el detalle del pedido 👀");
+  }
+
+  // ⚠️ SOLO PARA PRUEBA VISUAL
+  function showCartDemo() {
+    document.getElementById("floatingCart").classList.remove("hidden");
+    document.getElementById("cart-count").textContent = "2 items";
+    document.getElementById("cart-total").textContent = "S/32";
+  }
+    
+</script>
+  
+  <script>
+function enviarPedidoWhatsApp() {
+  console.log("enviarPedidoWhatsApp called");
+  
+  // Validar que tenga ubicación
+  const clientLocationEl = document.getElementById("clientLocation");
+  console.log("clientLocation:", clientLocationEl ? clientLocationEl.value : "no element");
+  
+  if (!clientLocationEl || !clientLocationEl.value) {
+    alert("Por favor selecciona tu ubicación de entrega primero");
+    return;
+  }
+
+  // Calcular total con delivery
+  let subtotal = cart.reduce((sum, item) => sum + (item.qty * item.price), 0);
+  let totalWithDelivery = subtotal + (clientDeliveryPrice || 0);
+  console.log("totalWithDelivery:", totalWithDelivery);
+  
+  // Abrir modal de pago
+  document.getElementById("paymentTotalAmount").textContent = "S/ " + totalWithDelivery;
+  
+  const paymentModal = document.getElementById("paymentModal");
+  console.log("paymentModal:", paymentModal);
+  paymentModal.classList.remove("hidden");
+  paymentModal.style.display = "flex";
+  
+  // Cerrar modal de pedido
+  closeOrder();
+}
+
+function closePaymentModal() {
+  const paymentModal = document.getElementById("paymentModal");
+  paymentModal.classList.add("hidden");
+  paymentModal.style.display = "none";
+}
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(function() {
+    alert("📋 Teléfono copiado: " + text);
+  }, function(err) {
+    console.error('Error al copiar: ', err);
+  });
+}
+
+function goBackToOrder() {
+  closePaymentModal();
+  openOrder();
+}
+
+function confirmPaymentAndSend() {
+  // Cerrar modal de pago
+  closePaymentModal();
+  
+  // Enviar a WhatsApp
+  sendToWhatsApp();
+}
+
+function sendToWhatsApp() {
+  const telefonoDestino = "51978742157";
+  
+  // Obtener nombre del restaurante
+  const restaurante = cart.length > 0 ? cart[0].restaurant : "Máncora Go";
+  
+  let mensaje = `🛵 *Nuevo pedido - ${restaurante}*%0A%0A`;
+  mensaje += `*🍔 Pedido:*%0A`;
+  let total = 0;
+  cart.forEach(item => {
+    for (let i = 0; i < (item.qty || 1); i++) {
+      mensaje += `• ${item.name} - S/${item.price}%0A`;
+      total += item.price;
+    }
+  });
+
+  mensaje += `%0A-------------------%0A`;
+  mensaje += `💰 *Subtotal:* S/${total}%0A`;
+
+  if (typeof clientDeliveryPrice !== 'undefined' && clientDeliveryPrice > 0) {
+    mensaje += `🚚 *Delivery:* S/${clientDeliveryPrice}%0A`;
+    mensaje += `💵 *TOTAL A PAGAR:* S/${total + clientDeliveryPrice}%0A%0A`;
+  } else {
+    mensaje += `💵 *Total:* S/${total}%0A%0A`;
+  }
+
+  const clientLocationEl = document.getElementById("clientLocation");
+  if (clientLocationEl && clientLocationEl.value) {
+    // Convertir coordenadas a enlace de Google Maps
+    const coords = clientLocationEl.value.trim();
+    const coordsMatch = coords.match(/(-?\d+\.?\d*),\s*(-?\d+\.?\d*)/);
+    if (coordsMatch) {
+      const lat = coordsMatch[1];
+      const lng = coordsMatch[2];
+      const mapsLink = `https://www.google.com/maps?q=${lat},${lng}`;
+      mensaje += `📍 *Ubicación de entrega:*%0A${mapsLink}%0A%0A`;
+    }
+  }
+
+  mensaje += `━━━━━━━━━━━━━━━━━━━━%0A`;
+  mensaje += `✅ *Por favor enviar:*%0A`;
+  mensaje += `1. 📸 Comprobante de pago Yape%0A`;
+  mensaje += `2. 📍 Referencia de tu ubicación (Hotel, Hostal, Número, Etc.)%0A%0A`;
+  mensaje += `💚 Gracias por tu pedido!`;
+
+  const url = `https://wa.me/${telefonoDestino}?text=${mensaje}`;
+  window.open(url, "_blank");
+  
+  // Mostrar mensaje de confirmación
+  alert("📱 Se abrirá WhatsApp. Por favor:\n\n1. Envía el comprobante de pago\n2. Envía tu dirección de entrega\n\n¡Gracias por tu pedido! 😊");
+  
+  // Vaciar carrito después de enviar
+  setTimeout(() => {
+    vaciarCarrito();
+  }, 2000);
+}
+</script>
+
+  <script>
+function openCart() {
+  document.getElementById("cartModal").classList.remove("hidden");
+}
+
+function closeCart() {
+  document.getElementById("cartModal").classList.add("hidden");
+}
+</script>
+   
+<script>
+/* ======================
+   🛒 CARRITO GLOBAL
+====================== */
+let cart = [];
+
+/* ======================
+   ➕ AGREGAR PRODUCTO
+====================== */
+function addToCart(product) {
+
+  // 🟡 Si el carrito ya tiene productos
+  if (cart.length > 0) {
+    const currentRestaurant = cart[0].restaurant;
+
+    // ❌ Si intenta mezclar restaurantes
+    if (product.restaurant !== currentRestaurant) {
+      alert(
+        `⚠️ Solo puedes pedir de un restaurante a la vez.\n\n` +
+        `Tu carrito es de: ${currentRestaurant}\n` +
+        `Producto seleccionado: ${product.restaurant}`
+      );
+      return;
+    }
+  }
+
+  // ➕ Agregar normalmente
+  const existing = cart.find(item => item.id === product.id);
+
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ ...product, qty: 1 });
+  }
+
+  updateQty(product.id);
+  updateFloatingCart();
+}
+
+/* ======================
+   ➖ QUITAR PRODUCTO
+====================== */
+function removeFromCart(productId) {
+  const item = cart.find(i => i.id === productId);
+  if (!item) return;
+
+  item.qty--;
+
+  if (item.qty <= 0) {
+    cart = cart.filter(i => i.id !== productId);
+  }
+
+  updateQty(productId);
+  updateFloatingCart();
+}
+
+/* ======================
+   🔢 ACTUALIZAR NUMERITO
+====================== */
+function updateQty(productId) {
+  const item = cart.find(i => i.id === productId);
+  const qtyEl = document.getElementById("qty-" + productId);
+  if (!qtyEl) return;
+
+  qtyEl.textContent = item ? item.qty : 0;
+}
+
+/* ======================
+   🧾 CARRITO FLOTANTE
+====================== */
+function updateFloatingCart() {
+  const floating = document.getElementById("floatingCart");
+  const countEl = document.getElementById("cartItemsCount");
+  const totalEl = document.getElementById("cartTotal");
+
+  if (!floating || cart.length === 0) {
+    floating.classList.add("hidden");
+    floating.classList.remove("show");
+    return;
+  }
+
+  let totalItems = 0;
+  let totalPrice = 0;
+
+  cart.forEach(item => {
+    totalItems += item.qty;
+    totalPrice += item.price * item.qty;
+  });
+
+  countEl.textContent = `${totalItems} producto${totalItems > 1 ? "s" : ""}`;
+  totalEl.textContent = `Total: S/ ${totalPrice}`;
+
+  floating.classList.remove("hidden");
+  floating.classList.add("show");
+}
+</script>
+
+  <script>
+/* ======================
+   🧾 ABRIR PEDIDO
+====================== */
+function openOrder() {
+  console.log("openOrder called, cart length:", cart.length);
+  const title = document.getElementById("orderTitle");
+
+  if (cart.length > 0 && cart[0].restaurant) {
+    title.textContent = `Pedido – ${cart[0].restaurant}`;
+  } else {
+    title.textContent = "Tu pedido";
+  }
+  if (cart.length === 0) {
+    alert("Tu carrito está vacío");
+    return;
+  }
+
+  const modal = document.getElementById("orderModal");
+  const itemsContainer = document.getElementById("orderItems");
+  const totalEl = document.getElementById("orderTotal");
+
+  console.log("modal:", modal, "itemsContainer:", itemsContainer);
+
+  itemsContainer.innerHTML = "";
+  let total = 0;
+
+  cart.forEach(item => {
+    const row = document.createElement("div");
+    row.className = "order-item";
+    row.innerHTML = `
+      <span>${item.qty} × ${item.name}</span>
+      <strong>S/ ${item.qty * item.price}</strong>
+    `;
+    itemsContainer.appendChild(row);
+    total += item.qty * item.price;
+  });
+
+  totalEl.textContent = "S/ " + total;
+  
+  // Reset location
+  clientDeliveryPrice = 0;
+  document.getElementById("clientLocation").value = "";
+  document.getElementById("distanceInfo").classList.add("hidden");
+  document.getElementById("locationSelected").classList.add("hidden");
+  updateTotalWithDelivery(total);
+  
+  modal.classList.remove("hidden");
+  modal.style.display = "flex";
+}
+
+let clientDeliveryPrice = 0;
+
+function updateTotalWithDelivery(subtotal) {
+  const totalWithDelivery = subtotal + clientDeliveryPrice;
+  document.getElementById("orderTotalWithDelivery").textContent = "S/ " + totalWithDelivery;
+}
+
+function checkDeliveryPrice() {
+  const location = document.getElementById("clientLocation").value;
+  const distanceInfo = document.getElementById("distanceInfo");
+  const distanceText = document.getElementById("distanceText");
+  const deliveryPriceText = document.getElementById("deliveryPriceText");
+  
+  // Buscar coordenadas en el texto (varios formatos)
+  let coordMatch = location.match(/@(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+  
+  if (!coordMatch) {
+    coordMatch = location.match(/(-?\d+\.?\d*),\s*(-?\d+\.?\d*)/);
+  }
+  
+  if (!coordMatch && location.includes('google.com/maps')) {
+    // Para URLs de Google Maps, buscar en diferentes patrones
+    const urlPatterns = [
+      /\/maps\/place\/[^\/]+\/(-?\d+\.?\d*),(-?\d+\.?\d*)/,
+      /\/maps\/@(-?\d+\.?\d*),(-?\d+\.?\d*)/,
+      /query=(-?\d+\.?\d*),(-?\d+\.?\d*)/
+    ];
+    
+    for (const pattern of urlPatterns) {
+      coordMatch = location.match(pattern);
+      if (coordMatch) break;
+    }
+  }
+  
+  if (coordMatch) {
+    const clientLat = parseFloat(coordMatch[1]);
+    const clientLng = parseFloat(coordMatch[2]);
+    
+    // Calcular distancia usando Haversine
+    const restaurantCoords = {
+      'Barrio Burger': { lat: -4.107269, lng: -81.058158 },
+      'Café Coral': { lat: -4.107268, lng: -81.057695 },
+      'Café de Barrio': { lat: -4.107453, lng: -81.056745 },
+      '3 Empanadas': { lat: -4.109579, lng: -81.058479 }
+    };
+    
+    const restaurantName = cart[0]?.restaurant || 'Barrio Burger';
+    const restCoords = restaurantCoords[restaurantName] || restaurantCoords['Barrio Burger'];
+    
+    const distance = calculateDistance(restCoords.lat, restCoords.lng, clientLat, clientLng);
+    
+    // Calcular precio: S/5 base + S/2 por km
+    clientDeliveryPrice = Math.round((5 + (distance * 3.5)) * 10) / 10;
+    
+    distanceText.textContent = `📍 Distancia aproximada: ${distance.toFixed(1)} km`;
+    deliveryPriceText.textContent = `🚚 Costo delivery: S/ ${clientDeliveryPrice}`;
+    distanceInfo.classList.remove("hidden");
+    
+    // Actualizar total
+    let subtotal = cart.reduce((sum, item) => sum + (item.qty * item.price), 0);
+    updateTotalWithDelivery(subtotal);
+  } else {
+    distanceInfo.classList.add("hidden");
+    clientDeliveryPrice = 0;
+    let subtotal = cart.reduce((sum, item) => sum + (item.qty * item.price), 0);
+    updateTotalWithDelivery(subtotal);
+  }
+}
+
+function calculateDistance(lat1, lng1, lat2, lng2) {
+  const R = 6371; // Radio de la Tierra en km
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+            Math.sin(dLng/2) * Math.sin(dLng/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c;
+}
+
+function toRad(deg) {
+  return deg * (Math.PI/180);
+}
+
+function getCurrentLocation() {
+  // Intentar primero con geolocalización automática
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const coords = `${position.coords.latitude}, ${position.coords.longitude}`;
+        document.getElementById("clientLocation").value = coords;
+        checkDeliveryPrice();
+      },
+      (error) => {
+        // Si falla, abrir Google Maps
+        openGoogleMapsPicker();
+      }
+    );
+  } else {
+    openGoogleMapsPicker();
+  }
+}
+
+function openGoogleMapsPicker() {
+  // Abrir el modal con Google Maps
+  const mapModal = document.getElementById("mapModal");
+  mapModal.classList.remove("hidden");
+  mapModal.style.display = "flex";
+  
+  // Reinicializar el mapa si ya estaba creado (para resetear posición)
+  if (map) {
+    map.setCenter({ lat: -4.1086, lng: -81.0479 });
+    map.setZoom(16);
+    marker.setPosition({ lat: -4.1086, lng: -81.0479 });
+    selectedLat = -4.1086;
+    selectedLng = -81.0479;
+    updateCoordsDisplay();
+  } else {
+    // Inicializar el mapa después de que el modal esté visible
+    setTimeout(initMap, 100);
+  }
+}
+
+let map;
+let marker;
+let selectedLat = -4.1086;
+let selectedLng = -81.0479;
+
+function initMap() {
+  // Verificar si el mapa ya está inicializado
+  if (map) return;
+  
+  // Coordenadas de Máncora
+  const mancoraCenter = { lat: -4.1086, lng: -81.0479 };
+  
+  // Crear el mapa optimizado para móvil
+  map = new google.maps.Map(document.getElementById("mapContainer"), {
+    center: mancoraCenter,
+    zoom: 16,
+    mapTypeControl: false,
+    streetViewControl: false,
+    fullscreenControl: true,
+    zoomControl: true,
+    gestureHandling: 'greedy', // Permite zoom con un dedo en móvil
+    disableDefaultUI: false
+  });
+  
+  // Crear marcador arrastrable con icono rojo
+  marker = new google.maps.Marker({
+    position: mancoraCenter,
+    map: map,
+    draggable: true,
+    title: "Tu ubicación de entrega",
+    animation: google.maps.Animation.DROP
+  });
+  
+  // Actualizar coordenadas al mover el marcador
+  marker.addListener('dragend', function(event) {
+    selectedLat = event.latLng.lat();
+    selectedLng = event.latLng.lng();
+    updateCoordsDisplay();
+  });
+  
+  // Actualizar coordenadas al mover el mapa
+  map.addListener('center_changed', function() {
+    const center = map.getCenter();
+    selectedLat = center.lat();
+    selectedLng = center.lng();
+  });
+  
+  updateCoordsDisplay();
+}
+
+function updateCoordsDisplay() {
+  document.getElementById("selectedCoords").textContent = 
+    `📍 ${selectedLat.toFixed(6)}, ${selectedLng.toFixed(6)}`;
+}
+
+function closeMapModal() {
+  const mapModal = document.getElementById("mapModal");
+  mapModal.classList.add("hidden");
+  mapModal.style.display = "none";
+}
+
+function confirmLocation() {
+  // Establecer las coordenadas seleccionadas en el campo
+  const coords = `${selectedLat.toFixed(6)}, ${selectedLng.toFixed(6)}`;
+  document.getElementById("clientLocation").value = coords;
+  
+  // Mostrar la ubicación seleccionada visualmente
+  const locationSelected = document.getElementById("locationSelected");
+  const locationDisplay = document.getElementById("locationDisplay");
+  locationDisplay.textContent = `📍 ${selectedLat.toFixed(5)}, ${selectedLng.toFixed(5)}`;
+  locationSelected.classList.remove("hidden");
+  
+  checkDeliveryPrice();
+  closeMapModal();
+}
+
+/* ======================
+   ❌ CERRAR MODAL
+====================== */
+function closeOrder() {
+  const modal = document.getElementById("orderModal");
+  modal.classList.add("hidden");
+  modal.style.display = "none";
+}
+
+/* ======================
+   🔍 LIGHTBOX IMAGE
+====================== */
+function openLightbox(src) {
+  const lightbox = document.getElementById("lightbox");
+  const img = document.getElementById("lightboxImg");
+  img.src = src;
+  lightbox.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+
+function closeLightbox() {
+  document.getElementById("lightbox").classList.remove("active");
+  document.body.style.overflow = "";
+}
+
+/* ======================
+   📲 ENVIAR A WHATSAPP (con validación y modal de pago)
+====================== */
+function enviarPedidoWhatsApp() {
+  // Validar que tenga ubicación
+  const clientLocationEl = document.getElementById("clientLocation");
+  if (!clientLocationEl || !clientLocationEl.value) {
+    alert("Por favor selecciona tu ubicación de entrega primero");
+    return;
+  }
+
+  // Calcular total con delivery
+  let subtotal = cart.reduce((sum, item) => sum + (item.qty * item.price), 0);
+  let totalWithDelivery = subtotal + (clientDeliveryPrice || 0);
+  
+  // Abrir modal de pago
+  document.getElementById("paymentTotalAmount").textContent = "S/ " + totalWithDelivery;
+  
+  const paymentModal = document.getElementById("paymentModal");
+  paymentModal.classList.remove("hidden");
+  paymentModal.style.display = "flex";
+  
+  // Cerrar modal de pedido
+  closeOrder();
+}
+
+function canOpenRestaurant(restaurantName) {
+  if (cart.length === 0) return true;
+
+  const currentRestaurant = cart[0].restaurant;
+
+  if (restaurantName === currentRestaurant) return true;
+
+  alert(
+    `⚠️ Ya tienes un pedido en curso.\n\n` +
+    `Tu carrito es de: ${currentRestaurant}\n\n` +
+    `Finaliza o vacía el carrito para pedir en ${restaurantName}.`
+  );
+
+  return false;
+}
+
+    function vaciarCarrito() {
+  if (!confirm("⚠️ ¿Seguro que quieres vaciar el carrito?")) return;
+
+  cart = [];
+
+  // Resetear cantidades visibles
+  document.querySelectorAll(".qty-number").forEach(qty => {
+    qty.textContent = "0";
+  });
+
+  updateFloatingCart();
+  closeOrder();
+}
+    
+</script>
+
+  <script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/service-worker.js")
+      .then(() => console.log("Service Worker registrado"))
+      .catch(err => console.log("Error SW", err));
+  }
+</script>
+
+<script>
+/* === MODO EMERGENCIA BARRIO BURGUER === */
+const barrioEmergencyClosed = true; // 🔴 Cambiar a false mañana
+
+if (barrioEmergencyClosed) {
+
+  setTimeout(() => {
+
+    const rest = document.getElementById("restaurant-barrio-burguer");
+
+    if (rest) {
+
+      // Bloquear clicks
+      rest.style.pointerEvents = "none";
+      rest.style.opacity = "0.6";
+
+      // Forzar estado cerrado
+      rest.classList.add("closed");
+
+      // Cambiar badge
+      let badge = rest.querySelector(".restaurant-badge");
+      if (badge) {
+        badge.innerHTML = "CERRADO";
+        badge.style.background = "#dc2626";
+        badge.style.color = "#fff";
+      }
+
+      // Cambiar texto horario
+      let schedule = rest.querySelector(".restaurant-schedule");
+      if (schedule) {
+        schedule.innerHTML = "⛔ Cerrado por emergencia hoy";
+        schedule.style.color = "#dc2626";
+      }
+
+    }
+
+  }, 500); // Espera a que el sistema automático termine
+}
+</script>
+  
+</body>
+</html>
