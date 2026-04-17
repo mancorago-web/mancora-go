@@ -1250,7 +1250,7 @@ const appVersion = '2026.04.29';
           <div class="restaurant-name">🍝 Masa</div>
           <p>Pizzas & Pastas</p>
           <p class="schedule-label" style="font-size:14px;color:#16a34a;">
-  🕒 12:00 p.m. – 10:00 p.m.
+  🕒 5:00 p.m. – 10:00 p.m.
 </p>
        <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">
   ⛔ Cerrado ahora
@@ -3230,6 +3230,15 @@ function checkRestaurantHours() {
       if (!isOpen && closedLabel) closedLabel.textContent = status.message || "⛔ Cerrado ahora";
     }
 
+    // 🍝 MASA
+    else if (card.dataset.special === "masa") {
+      const status = isMasaStatus();
+      isOpen = status.status === "open";
+
+      if (scheduleLabel) scheduleLabel.textContent = status.schedule;
+      if (!isOpen && closedLabel) closedLabel.textContent = status.message || "⛔ Cerrado ahora";
+    }
+
     // ☕ CAFÉ DE BARRIO
     else if (card.dataset.special === "cafe-barrio") {
       const status = isCafeBarrioStatus();
@@ -3426,6 +3435,41 @@ function openCart() {
 
 function closeCart() {
   document.getElementById("cartModal").classList.add("hidden");
+}
+</script>
+
+<script>
+function isMasaStatus() {
+  const now = new Date();
+  const day = now.getDay(); // 0 = domingo, 2 = martes, 3 = miércoles
+  const minutes = now.getHours() * 60 + now.getMinutes();
+
+  // ❌ Martes cerrado todo el día
+  if (day === 2) {
+    return {
+      status: "closed-today",
+      schedule: "🚫 Cerrado hoy",
+      message: "🚫 Cerrado por descanso"
+    };
+  }
+
+  // ❌ Miércoles cerrado todo el día
+  if (day === 3) {
+    return {
+      status: "closed-today",
+      schedule: "🚫 Cerrado hoy",
+      message: "🚫 Cerrado por descanso"
+    };
+  }
+
+  const open = 17 * 60; // 5:00 p.m.
+  const close = 22 * 60; // 10:00 p.m.
+  const isOpen = minutes >= open && minutes < close;
+
+  return {
+    status: isOpen ? "open" : "closed-now",
+    schedule: "🕒 5:00 p.m. – 10:00 p.m."
+  };
 }
 </script>
    
