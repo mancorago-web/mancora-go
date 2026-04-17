@@ -2228,6 +2228,43 @@ const appVersion = '2026.05.07-FIX-HORARIOS';
 
     <h2>Menú – Masa</h2>
 
+    <!-- Promociones 2x1 -->
+    <h3 class="menu-category">🎉 Promociones 2x1</h3>
+
+    <!-- 1. Lasagna Boloñesa -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/masa-lasagna-bolonesa.png">
+      <div>
+        <strong>Lasagna Boloñesa</strong>
+        <p>Pasta fresca, carne molida, salsa de tomate, salsa bechamel.</p>
+        <div class="burger-variant">
+          <span class="variant-name">S/40.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-lasagna-bolonesa',restaurant:'Masa',name:'Lasagna Boloñesa',price:40})">+</button>
+            <span class="qty-number" id="qty-masa-lasagna-bolonesa">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-lasagna-bolonesa')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Lasagna Vegetariana -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/masa-lasagna-vegetariana.png">
+      <div>
+        <strong>Lasagna Vegetariana</strong>
+        <p>Pasta fresca, salsa bechamel, mix de verduras.</p>
+        <div class="burger-variant">
+          <span class="variant-name">S/40.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-lasagna-vegetariana',restaurant:'Masa',name:'Lasagna Vegetariana',price:40})">+</button>
+            <span class="qty-number" id="qty-masa-lasagna-vegetariana">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-lasagna-vegetariana')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Pizzas Clásicas -->
     <h3 class="menu-category">🍕 Pizzas Clásicas</h3>
 
