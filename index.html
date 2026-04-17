@@ -545,6 +545,27 @@ const appVersion = '2026.05.07-FIX-HORARIOS';
       background: linear-gradient(135deg, #f97316, #c2410c);
     }
 
+    .badge-promo {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      color: white;
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 10;
+      background: linear-gradient(135deg, #10b981, #059669);
+      animation: promoPulse 1s infinite;
+    }
+
+    @keyframes promoPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
     .badge-separator {
       margin: 10px 0 8px;
       height: 1px;
@@ -1192,12 +1213,12 @@ const appVersion = '2026.05.07-FIX-HORARIOS';
         onclick="openMenu('menu-masa', 'rest-masa')"
       >
         <img onclick="openLightbox(this.src)" src="images/masalogo.png">
+        <span id="masa-promo-badge" class="badge-promo hidden">
+          🎉 PROMO 2x1
+        </span>
         <div class="card-content">
           <span id="masa-new-badge" class="badge-new" style="background:#fef3c7;color:#92400e;border:1px solid #f59e0b;">
             🆕 NUEVO EN MANCORA GO!
-          </span>
-          <span id="masa-promo-badge" class="badge-new hidden" style="background:#10b981;color:white;border:1px solid #059669;">
-            🎉 PROMO 2x1
           </span>
           <div class="badge-separator"></div>
           <div class="restaurant-name">🍝 Masa</div>
