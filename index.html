@@ -1182,6 +1182,34 @@ const appVersion = '2026.04.29';
 
   <div id="restaurants-list">
 
+    <!-- Restaurante: Masa -->
+    <div class="card">
+      <div 
+        class="restaurant-card"
+        id="rest-masa"
+        data-special="masa"
+        data-category="pizzas,pastas"
+        onclick="openMenu('menu-masa', 'rest-masa')"
+      >
+        <img onclick="openLightbox(this.src)" src="images/masalogo.png">
+        <div class="card-content">
+          <span id="masa-new-badge" class="badge-new" style="background:#fef3c7;color:#92400e;border:1px solid #f59e0b;">
+            🆕 NUEVO EN MANCORA GO!
+          </span>
+          <div class="badge-separator"></div>
+          <div class="restaurant-name">🍝 Masa</div>
+          <p>Pizzas & Pastas</p>
+          <p class="schedule-label" style="font-size:14px;color:#16a34a;">
+  🕒 5:00 p.m. – 10:00 p.m.
+</p>
+       <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">
+  ⛔ Cerrado ahora
+</p>
+          <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
+        </div>
+      </div>
+    </div>
+
     <!-- Restaurante: Barrio Burger (cerrado) -->
     <div class="card">
       <div 
@@ -1247,34 +1275,6 @@ const appVersion = '2026.04.29';
           <p style="font-size:14px;color:#ca8a04;font-weight:700;">
             🕒 Solo por pedido <br> ⏳ 24 horas antes
           </p>
-          <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Restaurante: Masa -->
-    <div class="card">
-      <div 
-        class="restaurant-card"
-        id="rest-masa"
-        data-special="masa"
-        data-category="pizzas,pastas"
-        onclick="openMenu('menu-masa', 'rest-masa')"
-      >
-        <img onclick="openLightbox(this.src)" src="images/masalogo.png">
-        <div class="card-content">
-          <span id="masa-new-badge" class="badge-new" style="background:#fef3c7;color:#92400e;border:1px solid #f59e0b;">
-            🆕 NUEVO EN MANCORA GO!
-          </span>
-          <div class="badge-separator"></div>
-          <div class="restaurant-name">🍝 Masa</div>
-          <p>Pizzas & Pastas</p>
-          <p class="schedule-label" style="font-size:14px;color:#16a34a;">
-  🕒 5:00 p.m. – 10:00 p.m.
-</p>
-       <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">
-  ⛔ Cerrado ahora
-</p>
           <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
         </div>
       </div>
