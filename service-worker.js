@@ -1,4 +1,4 @@
-const CACHE_NAME = "mancora-go-v33";
+const CACHE_NAME = "mancora-go-v34";
 
 self.addEventListener("activate", event => {
   event.waitUntil(

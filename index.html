@@ -16,7 +16,24 @@
 <body>
     <!-- Version marker for cache busting -->
     <script>
-      const currentVersion = '2026.05.02';
+      const currentVersion = '2026.05.03';
+      
+      // Masa NUEVO badge - expires after 7 days from first load
+      const masaNewBadgeKey = 'masa-new-badge-date';
+      if (!localStorage.getItem(masaNewBadgeKey)) {
+        localStorage.setItem(masaNewBadgeKey, new Date().toISOString());
+      }
+      
+      const masaStartDate = new Date(localStorage.getItem(masaNewBadgeKey));
+      const masaEndDate = new Date(masaStartDate.getTime() + (7 * 24 * 60 * 60 * 1000)); // 7 days
+      const now = new Date();
+      const masaBadgeExpired = now > masaEndDate;
+      
+      // Show/hide Masa NUEVO badge
+      if (masaBadgeExpired) {
+        document.write('<style>#masa-new-badge { display: none !important; }</style>');
+      }
+      
       const savedVersion = localStorage.getItem('appVersion');
       
       if (savedVersion !== currentVersion) {
@@ -1246,6 +1263,9 @@ const appVersion = '2026.04.29';
       >
         <img onclick="openLightbox(this.src)" src="images/masalogo.png">
         <div class="card-content">
+          <span id="masa-new-badge" class="badge-new" style="background:#fef3c7;color:#92400e;border:1px solid #f59e0b;">
+            🆕 NUEVO EN MANCORA GO!
+          </span>
           <div class="badge-separator"></div>
           <div class="restaurant-name">🍝 Masa</div>
           <p>Pizzas & Pastas</p>
