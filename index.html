@@ -16,7 +16,7 @@
 <body>
     <!-- Version marker for cache busting -->
     <script>
-      const currentVersion = '2026.04.27';
+      const currentVersion = '2026.04.28';
       const savedVersion = localStorage.getItem('appVersion');
       
       if (savedVersion !== currentVersion) {
@@ -58,7 +58,7 @@
       }
       
       // Check for new version periodically
-const appVersion = '2026.04.27';
+const appVersion = '2026.04.28';
       setInterval(() => {
         fetch('/?v=' + Date.now())
           .then(() => {
@@ -2191,13 +2191,414 @@ const appVersion = '2026.04.27';
       </div>
     </div>
 
+<a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
+      ← Volver a restaurantes
+    </a>
+
+  </div>
+</div>
+
+<!-- Menú Masa -->
+<div class="card hidden menu-section" id="menu-masa">
+  <div class="card-content">
+
     <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
       ← Volver a restaurantes
     </a>
 
+    <h2>Menú – Masa</h2>
+
+    <!-- Pizzas Clásicas -->
+    <h3 class="menu-category">🍕 Pizzas Clásicas</h3>
+
+    <!-- 1. Pepperoni -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/masa-pepperoni.jpg">
+      <div>
+        <strong>Pepperoni</strong>
+        <p>Salsa de tomate, queso mozzarella, salame.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/40.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pepperoni-8',restaurant:'Masa',name:'Pepperoni 8p',price:40})">+</button>
+            <span class="qty-number" id="qty-masa-pepperoni-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pepperoni-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/55.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pepperoni-12',restaurant:'Masa',name:'Pepperoni 12p',price:55})">+</button>
+            <span class="qty-number" id="qty-masa-pepperoni-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pepperoni-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Americana -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/masa-americana.jpg">
+      <div>
+        <strong>Americana</strong>
+        <p>Salsa de tomate, queso mozzarella, jamón.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/40.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-americana-8',restaurant:'Masa',name:'Americana 8p',price:40})">+</button>
+            <span class="qty-number" id="qty-masa-americana-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-americana-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/55.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-americana-12',restaurant:'Masa',name:'Americana 12p',price:55})">+</button>
+            <span class="qty-number" id="qty-masa-americana-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-americana-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Hawaiana -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/masa-hawaiana.jpg">
+      <div>
+        <strong>Hawaiana</strong>
+        <p>Salsa de tomate, queso mozzarella, piña fresca y jamón.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/40.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-hawaiana-8',restaurant:'Masa',name:'Hawaiana 8p',price:40})">+</button>
+            <span class="qty-number" id="qty-masa-hawaiana-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-hawaiana-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/55.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-hawaiana-12',restaurant:'Masa',name:'Hawaiana 12p',price:55})">+</button>
+            <span class="qty-number" id="qty-masa-hawaiana-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-hawaiana-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Jamón & Champiñones -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/masa-jamonychampi.jpg">
+      <div>
+        <strong>Jamón & Champiñones</strong>
+        <p>Salsa de tomate, queso mozzarella, champiñones y jamón.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/40.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-jamonychampi-8',restaurant:'Masa',name:'Jamón & Champiñones 8p',price:40})">+</button>
+            <span class="qty-number" id="qty-masa-jamonychampi-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-jamonychampi-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/55.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-jamonychampi-12',restaurant:'Masa',name:'Jamón & Champiñones 12p',price:55})">+</button>
+            <span class="qty-number" id="qty-masa-jamonychampi-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-jamonychampi-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pizzas Vegetarianas -->
+    <h3 class="menu-category">🥗 Pizzas Vegetarianas</h3>
+
+    <!-- 5. Margherita -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/masa-margherita.jpg">
+      <div>
+        <strong>Margherita</strong>
+        <p>Salsa de tomate, queso mozzarella, albahaca.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/40.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-margherita-8',restaurant:'Masa',name:'Margherita 8p',price:40})">+</button>
+            <span class="qty-number" id="qty-masa-margherita-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-margherita-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/55.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-margherita-12',restaurant:'Masa',name:'Margherita 12p',price:55})">+</button>
+            <span class="qty-number" id="qty-masa-margherita-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-margherita-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Marinara -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/masa-marinara.jpg">
+      <div>
+        <strong>Marinara</strong>
+        <p>Salsa de tomate, ajo, orégano, alcaparras.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/35.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-marinara-8',restaurant:'Masa',name:'Marinara 8p',price:35})">+</button>
+            <span class="qty-number" id="qty-masa-marinara-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-marinara-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/50.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-marinara-12',restaurant:'Masa',name:'Marinara 12p',price:50})">+</button>
+            <span class="qty-number" id="qty-masa-marinara-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-marinara-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Nápoli -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/masa-napoli.jpg">
+      <div>
+        <strong>Nápoli</strong>
+        <p>Salsa de tomate, queso mozzarella, anchoas, alcaparras, perejil, ajo y orégano.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/40.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-napoli-8',restaurant:'Masa',name:'Nápoli 8p',price:40})">+</button>
+            <span class="qty-number" id="qty-masa-napoli-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-napoli-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/55.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-napoli-12',restaurant:'Masa',name:'Nápoli 12p',price:55})">+</button>
+            <span class="qty-number" id="qty-masa-napoli-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-napoli-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. Vegetariana -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/masa-vegetariana.jpg">
+      <div>
+        <strong>Vegetariana</strong>
+        <p>Salsa de tomate, queso mozzarella, champiñones, aceitunas, verduras frescas del día.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/45.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-vegetariana-8',restaurant:'Masa',name:'Vegetariana 8p',price:45})">+</button>
+            <span class="qty-number" id="qty-masa-vegetariana-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-vegetariana-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/60.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-vegetariana-12',restaurant:'Masa',name:'Vegetariana 12p',price:60})">+</button>
+            <span class="qty-number" id="qty-masa-vegetariana-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-vegetariana-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. Mediterránea -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/masa-mediterranea.jpg">
+      <div>
+        <strong>Mediterránea</strong>
+        <p>Salsa de tomate, queso mozzarella, berenjenas, zucchini, pimentón, aceitunas, alcaparras, perejil.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/45.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-mediterranea-8',restaurant:'Masa',name:'Mediterránea 8p',price:45})">+</button>
+            <span class="qty-number" id="qty-masa-mediterranea-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-mediterranea-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/60.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-mediterranea-12',restaurant:'Masa',name:'Mediterránea 12p',price:60})">+</button>
+            <span class="qty-number" id="qty-masa-mediterranea-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-mediterranea-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pizzas Especiales -->
+    <h3 class="menu-category">⭐ Pizzas Especiales</h3>
+
+    <!-- 10. Panorama -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/masa-panorama.jpg">
+      <div>
+        <strong>Panorama</strong>
+        <p>Salsa de tomate, queso mozzarella, pepperoni, tocino, champiñones, chorizo, rúcula.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/50.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-panorama-8',restaurant:'Masa',name:'Panorama 8p',price:50})">+</button>
+            <span class="qty-number" id="qty-masa-panorama-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-panorama-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/65.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-panorama-12',restaurant:'Masa',name:'Panorama 12p',price:65})">+</button>
+            <span class="qty-number" id="qty-masa-panorama-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-panorama-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. Italiana -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/masa-italiana.jpg">
+      <div>
+        <strong>Italiana</strong>
+        <p>Salsa de tomate, queso mozzarella, prosciutto, parmesano, rúcula.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/55.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-italiana-8',restaurant:'Masa',name:'Italiana 8p',price:55})">+</button>
+            <span class="qty-number" id="qty-masa-italiana-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-italiana-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/70.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-italiana-12',restaurant:'Masa',name:'Italiana 12p',price:70})">+</button>
+            <span class="qty-number" id="qty-masa-italiana-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-italiana-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12. 4 Quesos -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/masa-4quesos.jpg">
+      <div>
+        <strong>4 Quesos</strong>
+        <p>Queso mozzarella, queso azul, queso parmesano, queso próvola.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/50.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-4quesos-8',restaurant:'Masa',name:'4 Quesos 8p',price:50})">+</button>
+            <span class="qty-number" id="qty-masa-4quesos-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-4quesos-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/65.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-4quesos-12',restaurant:'Masa',name:'4 Quesos 12p',price:65})">+</button>
+            <span class="qty-number" id="qty-masa-4quesos-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-4quesos-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13. Rústica -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/masa-rustica.jpg">
+      <div>
+        <strong>Rústica</strong>
+        <p>Salsa de tomate, queso mozzarella, queso azul, tocino, champiñones, cebolla.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/50.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-rustica-8',restaurant:'Masa',name:'Rústica 8p',price:50})">+</button>
+            <span class="qty-number" id="qty-masa-rustica-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-rustica-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/65.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-rustica-12',restaurant:'Masa',name:'Rústica 12p',price:65})">+</button>
+            <span class="qty-number" id="qty-masa-rustica-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-rustica-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14. Boscaiola -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/masa-boscaiola.jpg">
+      <div>
+        <strong>Boscaiola</strong>
+        <p>Salsa de tomate, queso mozzarella, chorizo, champignones.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/50.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-boscaiola-8',restaurant:'Masa',name:'Boscaiola 8p',price:50})">+</button>
+            <span class="qty-number" id="qty-masa-boscaiola-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-boscaiola-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/65.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-boscaiola-12',restaurant:'Masa',name:'Boscaiola 12p',price:65})">+</button>
+            <span class="qty-number" id="qty-masa-boscaiola-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-boscaiola-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 15. Capricciosa -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/masa-caprichosa.jpg">
+      <div>
+        <strong>Capricciosa</strong>
+        <p>Salsa de tomate, queso mozzarella, jamón, alcachofas, champiñones, aceitunas.</p>
+        <div class="burger-variant">
+          <span class="variant-name">8 pzas: S/50.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-caprichosa-8',restaurant:'Masa',name:'Capricciosa 8p',price:50})">+</button>
+            <span class="qty-number" id="qty-masa-caprichosa-8">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-caprichosa-8')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">12 pzas: S/65.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-caprichosa-12',restaurant:'Masa',name:'Capricciosa 12p',price:65})">+</button>
+            <span class="qty-number" id="qty-masa-caprichosa-12">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-caprichosa-12')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
+      ← Volver a restaurantes
+    </a>
+
+  </div>
 </div>
-</div>
-  
+   
 <div style="display:none;">
   Delivery en Máncora, comida a domicilio en Máncora, restaurantes en Máncora con delivery,
   pedir comida por WhatsApp en Máncora, hamburguesas en Máncora delivery,
