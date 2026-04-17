@@ -75,7 +75,7 @@
       }
       
       // Check for new version periodically
-const appVersion = '2026.04.29';
+const appVersion = '2026.05.03';
       setInterval(() => {
         fetch('/?v=' + Date.now())
           .then(() => {
@@ -85,7 +85,7 @@ const appVersion = '2026.04.29';
             }
           })
           .catch(() => {});
-      }, 30000);
+      }, 300000); // Check every 5 minutes
     </script>
   
   <link rel="manifest" href="/manifest.json">
