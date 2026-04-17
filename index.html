@@ -1226,7 +1226,7 @@ const appVersion = '2026.05.03';
           <div class="restaurant-name">🍔 Barrio Burger</div>
           <p>Hamburguesas Artesanales</p>
           <p class="schedule-label" style="font-size:14px;color:#16a34a;">🕒 4:00 p.m. – 10:00 p.m.</p>
-          <p class="closed-label" style="color:#dc2626;font-weight:700;margin-top:6px;">⛔ Cerrado ahora</p>
+          <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">⛔ Cerrado ahora</p>
           <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
         </div>
       </div>
@@ -3247,7 +3247,14 @@ function checkRestaurantHours() {
       isOpen = status.status === "open";
 
       if (scheduleLabel) scheduleLabel.textContent = status.schedule;
-      if (!isOpen && closedLabel) closedLabel.textContent = status.message || "⛔ Cerrado ahora";
+      if (closedLabel) {
+        if (!isOpen) {
+          closedLabel.textContent = status.message || "⛔ Cerrado ahora";
+          closedLabel.classList.remove('hidden');
+        } else {
+          closedLabel.classList.add('hidden');
+        }
+      }
     }
 
     // 🍝 MASA
@@ -3256,7 +3263,14 @@ function checkRestaurantHours() {
       isOpen = status.status === "open";
 
       if (scheduleLabel) scheduleLabel.textContent = status.schedule;
-      if (!isOpen && closedLabel) closedLabel.textContent = status.message || "⛔ Cerrado ahora";
+      if (closedLabel) {
+        if (!isOpen) {
+          closedLabel.textContent = status.message || "⛔ Cerrado ahora";
+          closedLabel.classList.remove('hidden');
+        } else {
+          closedLabel.classList.add('hidden');
+        }
+      }
     }
 
     // ☕ CAFÉ DE BARRIO
@@ -3264,9 +3278,13 @@ function checkRestaurantHours() {
       const status = isCafeBarrioStatus();
       isOpen = status === "open";
 
-      if (!isOpen && closedLabel) {
-        closedLabel.textContent =
-          status === "closed-today" ? "🚫 Cerrado hoy" : "⛔ Cerrado ahora";
+      if (closedLabel) {
+        if (!isOpen) {
+          closedLabel.textContent = status === "closed-today" ? "🚫 Cerrado hoy" : "⛔ Cerrado ahora";
+          closedLabel.classList.remove('hidden');
+        } else {
+          closedLabel.classList.add('hidden');
+        }
       }
     }
 
@@ -3276,8 +3294,13 @@ function checkRestaurantHours() {
       isOpen = status.status === "open";
 
       if (scheduleLabel) scheduleLabel.textContent = status.schedule;
-      if (!isOpen && closedLabel) {
-        closedLabel.textContent = status.message || "⛔ Cerrado ahora";
+      if (closedLabel) {
+        if (!isOpen) {
+          closedLabel.textContent = status.message || "⛔ Cerrado ahora";
+          closedLabel.classList.remove('hidden');
+        } else {
+          closedLabel.classList.add('hidden');
+        }
       }
     }
 
