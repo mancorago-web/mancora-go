@@ -3699,7 +3699,8 @@ function checkDeliveryPrice() {
       'Barrio Burger': { lat: -4.107269, lng: -81.058158 },
       'Café Coral': { lat: -4.107268, lng: -81.057695 },
       'Café de Barrio': { lat: -4.107453, lng: -81.056745 },
-      '3 Empanadas': { lat: -4.109579, lng: -81.058479 }
+      '3 Empanadas': { lat: -4.109579, lng: -81.058479 },
+      'Masa': { lat: -4.109000, lng: -81.058000 }
     };
     
     const restaurantName = cart[0]?.restaurant || 'Barrio Burger';
@@ -3707,8 +3708,10 @@ function checkDeliveryPrice() {
     
     const distance = calculateDistance(restCoords.lat, restCoords.lng, clientLat, clientLng);
     
-    // Calcular precio: S/5 base + S/2 por km
-    clientDeliveryPrice = Math.round((5 + (distance * 3.5)) * 10) / 10;
+    // Calcular precio: S/5 base + S/3.5 por km
+    // Extra S/3 para Masa (zona difícil de acceso)
+    const masaExtraFee = restaurantName === 'Masa' ? 3 : 0;
+    clientDeliveryPrice = Math.round((5 + (distance * 3.5) + masaExtraFee) * 10) / 10;
     
     distanceText.textContent = `📍 Distancia aproximada: ${distance.toFixed(1)} km`;
     deliveryPriceText.textContent = `🚚 Costo delivery: S/ ${clientDeliveryPrice}`;
