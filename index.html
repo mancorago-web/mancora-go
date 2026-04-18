@@ -1588,11 +1588,102 @@ const appVersion = '2026.05.15-FIX';
   </div>
 </div>
 </div>
-</div>
+    </div>
 
-<a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
-  ← Volver a restaurantes
-</a>
+    <!-- Bebidas -->
+    <h3 class="menu-category">🥤 Bebidas</h3>
+
+    <!-- 1. Coca Cola -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/coca-cola.jpg">
+      <div>
+        <strong>Coca Cola</strong>
+        <div class="burger-variant">
+          <span class="variant-name">1.5L: S/15.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-coca-1.5l',restaurant:'Masa',name:'Coca Cola 1.5L',price:15})">+</button>
+            <span class="qty-number" id="qty-masa-coca-1.5l">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-coca-1.5l')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">600ml: S/6.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-coca-600ml',restaurant:'Masa',name:'Coca Cola 600ml',price:6})">+</button>
+            <span class="qty-number" id="qty-masa-coca-600ml">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-coca-600ml')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Inka Cola -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/inka-cola.jpg">
+      <div>
+        <strong>Inka Cola</strong>
+        <div class="burger-variant">
+          <span class="variant-name">1.5L: S/15.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-inka-1.5l',restaurant:'Masa',name:'Inka Cola 1.5L',price:15})">+</button>
+            <span class="qty-number" id="qty-masa-inka-1.5l">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-inka-1.5l')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">600ml: S/6.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-inka-600ml',restaurant:'Masa',name:'Inka Cola 600ml',price:6})">+</button>
+            <span class="qty-number" id="qty-masa-inka-600ml">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-inka-600ml')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Corona Personal -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/corona.jpg">
+      <div>
+        <strong>Corona Personal</strong>
+        <div class="burger-variant">
+          <span class="variant-name">S/8.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-corona',restaurant:'Masa',name:'Corona Personal',price:8})">+</button>
+            <span class="qty-number" id="qty-masa-corona">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-corona')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Cusqueña Personal -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/cusquena.jpg">
+      <div>
+        <strong>Cusqueña Personal</strong>
+        <div class="burger-variant">
+          <span class="variant-name">Trigo: S/8.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-cusquena-trigo',restaurant:'Masa',name:'Cusqueña Trigo',price:8})">+</button>
+            <span class="qty-number" id="qty-masa-cusquena-trigo">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-cusquena-trigo')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">Dorada: S/8.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-cusquena-dorada',restaurant:'Masa',name:'Cusqueña Dorada',price:8})">+</button>
+            <span class="qty-number" id="qty-masa-cusquena-dorada">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-cusquena-dorada')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
+      ← Volver a restaurantes
+    </a>
 
 </div>
 </div>
