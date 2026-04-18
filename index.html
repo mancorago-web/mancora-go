@@ -1213,9 +1213,6 @@ const appVersion = '2026.05.15-FIX';
         onclick="openMenu('menu-masa', 'rest-masa')"
       >
         <img onclick="openLightbox(this.src)" src="images/masalogo.png">
-        <span id="masa-promo-badge" class="badge-promo hidden">
-          🎉 PROMO 2x1
-        </span>
         <div class="card-content">
           <span id="masa-new-badge" class="badge-new" style="background:#fef3c7;color:#92400e;border:1px solid #f59e0b;">
             🆕 NUEVO EN MANCORA GO!
@@ -2932,14 +2929,6 @@ function checkRestaurantHours() {
           closedLabel.classList.remove('hidden');
         } else {
           closedLabel.classList.add('hidden');
-        }
-      }
-      const promoBadge = card.closest(".card").querySelector("#masa-promo-badge");
-      if (promoBadge) {
-        if (status.promoBudget && isOpen) {
-          promoBadge.classList.remove("hidden");
-        } else {
-          promoBadge.classList.add("hidden");
         }
       }
     }
