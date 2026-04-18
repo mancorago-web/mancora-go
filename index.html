@@ -3268,13 +3268,17 @@ const appVersion = '2026.05.10-VER';
 
 <script>
     function openMenu(menuId, restaurantId) {
+  console.log("openMenu called:", menuId, restaurantId);
   lastRestaurantId = restaurantId;
 
   document.querySelectorAll('.menu-section')
     .forEach(m => m.classList.add('hidden'));
 
   const menu = document.getElementById(menuId);
+  console.log("menu element:", menu);
+  console.log("menu classes before:", menu?.className);
   menu.classList.remove('hidden');
+  console.log("menu classes after:", menu?.className);
 
   if (menuId === 'menu-masa') {
     const promoSection = document.getElementById('masa-promo-section');
