@@ -1589,750 +1589,6 @@ const appVersion = '2026.05.15-FIX';
 </div>
 </div>
 </div>
-
-    <!-- Bebidas -->
-    <h3 class="menu-category">🥤 Bebidas</h3>
-
-    <!-- 1. Coca Cola -->
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/coca-cola.jpg">
-      <div>
-        <strong>Coca Cola</strong>
-        <div class="burger-variant">
-          <span class="variant-name">1.5L: S/15.</span>
-          <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'masa-coca-1.5l',restaurant:'Masa',name:'Coca Cola 1.5L',price:15})">+</button>
-            <span class="qty-number" id="qty-masa-coca-1.5l">0</span>
-            <button class="qty-btn minus" onclick="removeFromCart('masa-coca-1.5l')">−</button>
-          </div>
-        </div>
-        <div class="burger-variant">
-          <span class="variant-name">600ml: S/6.</span>
-          <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'masa-coca-600ml',restaurant:'Masa',name:'Coca Cola 600ml',price:6})">+</button>
-            <span class="qty-number" id="qty-masa-coca-600ml">0</span>
-            <button class="qty-btn minus" onclick="removeFromCart('masa-coca-600ml')">−</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2. Inka Cola -->
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/inka-cola.jpg">
-      <div>
-        <strong>Inka Cola</strong>
-        <div class="burger-variant">
-          <span class="variant-name">1.5L: S/15.</span>
-          <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'masa-inka-1.5l',restaurant:'Masa',name:'Inka Cola 1.5L',price:15})">+</button>
-            <span class="qty-number" id="qty-masa-inka-1.5l">0</span>
-            <button class="qty-btn minus" onclick="removeFromCart('masa-inka-1.5l')">−</button>
-          </div>
-        </div>
-        <div class="burger-variant">
-          <span class="variant-name">600ml: S/6.</span>
-          <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'masa-inka-600ml',restaurant:'Masa',name:'Inka Cola 600ml',price:6})">+</button>
-            <span class="qty-number" id="qty-masa-inka-600ml">0</span>
-            <button class="qty-btn minus" onclick="removeFromCart('masa-inka-600ml')">−</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. Corona Personal -->
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/corona.jpg">
-      <div>
-        <strong>Corona Personal</strong>
-        <div class="burger-variant">
-          <span class="variant-name">S/8.</span>
-          <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'masa-corona',restaurant:'Masa',name:'Corona Personal',price:8})">+</button>
-            <span class="qty-number" id="qty-masa-corona">0</span>
-            <button class="qty-btn minus" onclick="removeFromCart('masa-corona')">−</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4. Cusqueña Personal -->
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/cusquena.jpg">
-      <div>
-        <strong>Cusqueña Personal</strong>
-        <div class="burger-variant">
-          <span class="variant-name">Trigo: S/8.</span>
-          <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'masa-cusquena-trigo',restaurant:'Masa',name:'Cusqueña Trigo',price:8})">+</button>
-            <span class="qty-number" id="qty-masa-cusquena-trigo">0</span>
-            <button class="qty-btn minus" onclick="removeFromCart('masa-cusquena-trigo')">−</button>
-          </div>
-        </div>
-        <div class="burger-variant">
-          <span class="variant-name">Dorada: S/8.</span>
-          <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'masa-cusquena-dorada',restaurant:'Masa',name:'Cusqueña Dorada',price:8})">+</button>
-            <span class="qty-number" id="qty-masa-cusquena-dorada">0</span>
-            <button class="qty-btn minus" onclick="removeFromCart('masa-cusquena-dorada')">−</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
-  ← Volver a restaurantes
-</a>
-
-</div>
-</div>
-
-<!-- Menú Café de Barrio -->
-<div class="card hidden menu-section" id="menu-cafe">
-  <div class="card-content">
-
-    <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
-      ← Volver a restaurantes
-    </a>
-
-    <h2>Menú – Café de Barrio</h2>
-
-    <!-- Aclaratoria -->
-    <div style="background:#f8fafc;border-left:4px solid #0ea5e9;padding:10px;margin-bottom:15px;font-size:14px;">
-      <strong>📌 Importante:</strong><br>
-      • Algunos productos tienen un extra de S/.1 o S/.2  por empaque.
-    </div>
-
-    <!-- CAFÉ -->
-    <h3 class="menu-category">☕ Café</h3>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/cafeespressofinal.jpg">
-      <div>
-        <strong>Espresso</strong>
-        <p>Un shot de sabor intenso y aroma profundo. 40 ML </p>
-        <div class="price">S/7.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-espresso',restaurant:'Café de Barrio',name:'Espresso',price:7})">+</button>
-          <span class="qty-number" id="qty-cafe-barrio-espresso">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-espresso')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/cafeamericanofinal.jpg">
-      <div>
-        <strong>Americano</strong>
-        <p>Espresso de calidad diluido con agua caliente. 180 ML </p>
-        <div class="price">S/7.50.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-americano',restaurant:'Café de Barrio',name:'Americano',price:7.5})">+</button>
-          <span class="qty-number" id="qty-cafe-barrio-americano">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-americano')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/cafecapuccinofinal.jpg">
-      <div>
-        <strong>Capuccino</strong>
-        <p>Un terció de espresso, un tercio de leche vaporizada y un tercio de espuma. 200 ML </p>
-        <div class="price">S/9.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-capuccino',restaurant:'Café de Barrio',name:'Capuccino',price:9})">+</button>
-          <span class="qty-number" id="qty-cafe-barrio-capuccino">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-capuccino')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/cafelattefinal.jpg">
-      <div>
-        <strong>Latte</strong>
-        <p>Espresso de calidad y leche fresca al vapor, coronado con una delicada espuma de leche. 250 ML </p>
-        <div class="price">S/9.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-latte',restaurant:'Café de Barrio',name:'Latte',price:9})">+</button>
-          <span class="qty-number" id="qty-cafe-barrio-latte">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-latte')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/cafeicedcapuccino.jpg">
-      <div>
-        <strong>Iced Capuccino</strong>
-        <p>Espresso de calidad, hielos, leche fresca al vapor, coronado con una delicada espuma de leche. 250 ML </p>
-        <div class="price">S/12.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-iced-capuccino',restaurant:'Café de Barrio',name:'Iced Capuccino',price:12})">+</button>
-          <span class="qty-number" id="qty-cafe-barrio-iced-capuccino">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-iced-capuccino')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- SANGUCHES -->
-    <h3 class="menu-category">🥪 Sanguches</h3>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/sanguchepancetafinal.jpg">
-      <div>
-        <strong>Sanguche de Panceta</strong>
-        <p>Pan ciabatta, panceta ahumada, salsa asiatica.</p>
-        <div class="price">S/15.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-sanguche-panceta',restaurant:'Café de Barrio',name:'Sanguche de Panceta',price:15})">+</button>
-          <span class="qty-number" id="qty-cafe-barrio-sanguche-panceta">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-sanguche-panceta')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/sanguchepaltafinal.jpg">
-      <div>
-        <strong>Sanguche de Palta</strong>
-        <p>Pan ciabatta, Palta.</p>
-        <div class="price">S/7.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-sanguche-palta',restaurant:'Café de Barrio',name:'Sanguche de Palta',price:7})">+</button>
-          <span class="qty-number" id="qty-cafe-barrio-sanguche-palta">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-sanguche-palta')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/sanguchetriplepjqfinal.jpg">
-      <div>
-        <strong>Sanguche Triple Pollo, Jamón, Queso</strong>
-        <p>Pan en molde, pollo con mayonesa, jamón y queso.</p>
-        <div class="price">S/13.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-sanguche-triple',restaurant:'Café de Barrio',name:'Sanguche Triple Pollo, Jamón, Queso',price:13})">+</button>
-          <span class="qty-number" id="qty-cafe-barrio-sanguche-triple">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-sanguche-triple')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- CROISSANT -->
-    <h3 class="menu-category">🥐 Croissant</h3>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/crossantmantequillafinal.jpg">
-      <div>
-        <strong>Croissant de Mantequilla</strong>
-        <p>Crujiente croissant sabor mantequilla.</p>
-        <div class="price">S/6.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-croissant-mantequilla',restaurant:'Café de Barrio',name:'Croissant de Mantequilla',price:6})">+</button>
-          <span class="qty-number" id="qty-cafe-barrio-croissant-mantequilla">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-croissant-mantequilla')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/crossantmanjarfinal.jpg">
-      <div>
-        <strong>Croissant de Manjar</strong>
-        <p>Crujiente croissant sabor mantequilla, relleno de manjar.</p>
-        <div class="price">S/12.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-croissant-manjar',restaurant:'Café de Barrio',name:'Croissant de Manjar',price:12})">+</button>
-          <span class="qty-number" id="qty-cafe-barrio-croissant-manjar">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-croissant-manjar')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/crossantpdfinal.jpg">
-      <div>
-        <strong>Croissant Pollo con Durazno</strong>
-        <p>Crujiente croissant sabor mantequilla, pollo con mayonesa y durazno.</p>
-        <div class="price">S/13.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-croissant-pollo-durazno',restaurant:'Café de Barrio',name:'Croissant Pollo con Durazno',price:13})">+</button>
-          <span class="qty-number" id="qty-cafe-barrio-croissant-pollo-durazno">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-croissant-pollo-durazno')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/crofflefinal.jpg">
-      <div>
-        <strong>Croffle</strong>
-        <p>Crujiente croissant sabor mantequilla, crema chantilli y jarabe de chocolate.</p>
-        <div class="price">S/12.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-croffle',restaurant:'Café de Barrio',name:'Croffle',price:12})">+</button>
-          <span class="qty-number" id="qty-cafe-barrio-croffle">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-croffle')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/wafflefrutasfinal.jpg">
-      <div>
-        <strong>Waffles con frutas</strong>
-        <p>Sabroso waffle con frutas y miel.</p>
-        <div class="price">S/20.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-waffles-frutas',restaurant:'Café de Barrio',name:'Waffles con frutas',price:20})">+</button>
-          <span class="qty-number" id="qty-cafe-barrio-waffles-frutas">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-waffles-frutas')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- FRAPPES -->
-    <h3 class="menu-category">🧊 Frappes</h3>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/frappeoreofinal.jpg">
-      <div>
-        <strong>Frappe de Oreo</strong>
-        <p>Frappe de oreo, jarabe de chocolate y crema chantilli.</p>
-        <div class="price">S/18.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-frappe-oreo',restaurant:'Café de Barrio',name:'Frappe de Oreo',price:18})">+</button>
-          <span class="qty-number" id="qty-cafe-barrio-frappe-oreo">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-frappe-oreo')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/frappefresafinal.jpg">
-      <div>
-        <strong>Frappe de Fresa</strong>
-        <p>Frappe de fresa, jarabe de chocolate y crema chantilli.</p>
-        <div class="price">S/17.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-barrio-frappe-fresa',restaurant:'Café de Barrio',name:'Frappe de Fresa',price:17})">+</button>
-          <span class="qty-number" id="qty-cafe-barrio-frappe-fresa">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-barrio-frappe-fresa')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
-      ← Volver a restaurantes
-    </a>
-
-  </div>
-</div>
-
-  <!-- Menú 3 Empanadas -->
-<div class="card hidden menu-section" id="menu-empanadas">
-  <div class="card-content">
-
-    <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
-      ← Volver a restaurantes
-    </a>
-
-    <h2>Menú – 3 Empanadas</h2>
-
-    <!-- Categoría -->
-    <h3 class="menu-category">🥩 Empanadas de Carne</h3>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/empanadas3.jpg">
-      <div>
-        <strong>3 Empanadas</strong>
-        <p>Carne, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
-        <div class="price">S/15.</div>
-
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({
-            id: '3-emp-carne-3',
-            restaurant: '3 Empanadas',
-            name: '3 Empanadas de Carne',
-            price: 15
-          })">+</button>
-
-          <span class="qty-number" id="qty-3-emp-carne-3">0</span>
-
-          <button class="qty-btn minus" onclick="removeFromCart('3-emp-carne-3')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/empanadas6.jpg">
-      <div>
-        <strong>6 Empanadas</strong>
-        <p>Carne, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
-        <div class="price">S/25.</div>
-
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({
-            id: '3-emp-carne-6',
-            restaurant: '3 Empanadas',
-            name: '6 Empanadas de Carne',
-            price: 25
-          })">+</button>
-
-          <span class="qty-number" id="qty-3-emp-carne-6">0</span>
-
-          <button class="qty-btn minus" onclick="removeFromCart('3-emp-carne-6')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/empanadas12.jpg">
-      <div>
-        <strong>12 Empanadas</strong>
-        <p>Carne, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
-        <div class="price">S/45.</div>
-
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({
-            id: '3-emp-carne-12',
-            restaurant: '3 Empanadas',
-            name: '12 Empanadas de Carne',
-            price: 45
-          })">+</button>
-
-          <span class="qty-number" id="qty-3-emp-carne-12">0</span>
-
-          <button class="qty-btn minus" onclick="removeFromCart('3-emp-carne-12')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <h3 class="menu-category">🐥 Empanadas de Pollo</h3>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/empanadas3.jpg">
-      <div>
-        <strong>3 Empanadas</strong>
-        <p>Pollo, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
-        <div class="price">S/15.</div>
-
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({
-            id: '3-emp-pollo-3',
-            restaurant: '3 Empanadas',
-            name: '3 Empanadas de Pollo',
-            price: 15
-          })">+</button>
-
-          <span class="qty-number" id="qty-3-emp-pollo-3">0</span>
-
-          <button class="qty-btn minus" onclick="removeFromCart('3-emp-pollo-3')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/empanadas6.jpg">
-      <div>
-        <strong>6 Empanadas</strong>
-        <p>Pollo, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
-        <div class="price">S/25.</div>
-
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({
-            id: '3-emp-pollo-6',
-            restaurant: '3 Empanadas',
-            name: '6 Empanadas de Pollo',
-            price: 25
-          })">+</button>
-
-          <span class="qty-number" id="qty-3-emp-pollo-6">0</span>
-
-          <button class="qty-btn minus" onclick="removeFromCart('3-emp-pollo-6')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/empanadas12.jpg">
-      <div>
-        <strong>12 Empanadas</strong>
-        <p>Pollo, cebolla(picadillo), huevo duro y aceituna verde, al horno.</p>
-        <div class="price">S/45.</div>
-
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({
-            id: '3-emp-pollo-12',
-            restaurant: '3 Empanadas',
-            name: '12 Empanadas de Pollo',
-            price: 45
-          })">+</button>
-
-          <span class="qty-number" id="qty-3-emp-pollo-12">0</span>
-
-          <button class="qty-btn minus" onclick="removeFromCart('3-emp-pollo-12')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
-      ← Volver a restaurantes
-    </a>
-
-  </div>
-</div>
-
-  <!-- Menú Café Coral -->
-<div class="card hidden menu-section" id="menu-cafe-coral">
-  <div class="card-content">
-
-    <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
-      ← Volver a restaurantes
-    </a>
-
-    <h2>Menú – Café Coral</h2>
-
-    <!-- POSTRES -->
-    <h3 class="menu-category">🍰 Postres</h3>
-
-    <!-- 1 -->
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/tiramisu1.jpg">
-      <div>
-        <strong>Tiramisu Cake</strong>
-        <p>Descubre el equilibrio perfecto entre la intensidad de nuestro café de especialidad y la sedosidad del auténtico queso crema.</p>
-        <div class="price">S/16.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-tiramisu',restaurant:'Café Coral',name:'Tiramisu Cake',price:16})">+</button>
-          <span class="qty-number" id="qty-cafe-coral-tiramisu">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-tiramisu')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2 -->
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/tortachocolate2.jpg">
-      <div>
-        <strong>Torta de Chocolate Trufada</strong>
-        <p>Cake de chocolate húmedo, relleno de trufa de chocolate y manjar blanco, envuelto en fudge y con un baño de trufa de chocolate.</p>
-        <div class="price">S/14.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-torta-choco',restaurant:'Café Coral',name:'Torta de Chocolate Trufada',price:14})">+</button>
-          <span class="qty-number" id="qty-cafe-coral-torta-choco">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-torta-choco')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3 -->
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/tortazanahoria3.jpg">
-      <div>
-        <strong>Torta de Zanahoria</strong>
-        <p>Cake de zanahoria húmedo con pecanas y arándanos rojos, rellena de manjar blanco.</p>
-        <div class="price">S/14.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-torta-zanahoria',restaurant:'Café Coral',name:'Torta de Zanahoria',price:14})">+</button>
-          <span class="qty-number" id="qty-cafe-coral-torta-zanahoria">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-torta-zanahoria')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4 -->
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/cheesecakefresa4.jpg">
-      <div>
-        <strong>Cheesecake de Fresa</strong>
-        <p>La tarta de queso definitiva: base de masa quebrada, relleno ultra cremoso y una generosa capa de fresas naturales en almíbar ligero.</p>
-        <div class="price">S/13.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-cheesecake-fresa',restaurant:'Café Coral',name:'Cheesecake de Fresa',price:13})">+</button>
-          <span class="qty-number" id="qty-cafe-coral-cheesecake-fresa">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-cheesecake-fresa')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 5 -->
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/cheesecakemaracuya5.jpg">
-      <div>
-        <strong>Cheesecake de Maracuya</strong>
-        <p>Tarta de queso cremosa con cobertura de maracuyá natural.</p>
-        <div class="price">S/13.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-cheesecake-maracuya',restaurant:'Café Coral',name:'Cheesecake de Maracuya',price:13})">+</button>
-          <span class="qty-number" id="qty-cafe-coral-cheesecake-maracuya">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-cheesecake-maracuya')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 6 -->
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/piedelimon6.jpg">
-      <div>
-        <strong>Pie de Limón</strong>
-        <p>El balance ideal entre la acidez vibrante del limón recién exprimido y el dulzor del merengue suizo flameado.</p>
-        <div class="price">S/13.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-pie-limon',restaurant:'Café Coral',name:'Pie de Limón',price:13})">+</button>
-          <span class="qty-number" id="qty-cafe-coral-pie-limon">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-pie-limon')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 7 -->
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/browniehelado7.jpg">
-      <div>
-        <strong>Brownie con Helado</strong>
-        <p>Disfruta de nuestro brownie de chocolate al 70%, con una bola de helado de vainilla.</p>
-        <div class="price">S/18.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-brownie-helado',restaurant:'Café Coral',name:'Brownie con Helado',price:18})">+</button>
-          <span class="qty-number" id="qty-cafe-coral-brownie-helado">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-brownie-helado')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 8 -->
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/croissantdulce8.jpg">
-      <div>
-        <strong>Croissant Dulce</strong>
-        <p>Croissant relleno de helado de vainilla, fresas y salsa de chocolate.</p>
-        <div class="price">S/20.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-croissant-dulce',restaurant:'Café Coral',name:'Croissant Dulce',price:20})">+</button>
-          <span class="qty-number" id="qty-cafe-coral-croissant-dulce">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-croissant-dulce')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 9 -->
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/brofle9.jpg">
-      <div>
-        <strong>Brofle</strong>
-        <p>Waffle con helado de vainilla, trozos de brownie y salsa de chocolate.</p>
-        <div class="price">S/30.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-brofle',restaurant:'Café Coral',name:'Brofle',price:30})">+</button>
-          <span class="qty-number" id="qty-cafe-coral-brofle">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-brofle')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 10 -->
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/wafflefrutas10.jpg">
-      <div>
-        <strong>Waffle con Frutas</strong>
-        <p>Waffle con fresas, plátano y miel de maple.</p>
-        <div class="price">S/28.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-waffle-frutas',restaurant:'Café Coral',name:'Waffle con Frutas',price:28})">+</button>
-          <span class="qty-number" id="qty-cafe-coral-waffle-frutas">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-waffle-frutas')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- HAMBURGUESAS -->
-    <h3 class="menu-category">🍔 Hamburguesas</h3>
-
-    <!-- 11 -->
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/hamburguesaclasica11.jpg">
-      <div>
-        <strong>Hamburguesa Clásica</strong>
-        <p>Pan brioche artesanal, carne, lechuga, tomate, queso cheddar y mayonesa de la casa, acompañado de papas fritas.</p>
-        <div class="price">S/28.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-hamburguesa-clasica',restaurant:'Café Coral',name:'Hamburguesa Clásica',price:28})">+</button>
-          <span class="qty-number" id="qty-cafe-coral-hamburguesa-clasica">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-hamburguesa-clasica')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 12 -->
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/hamburguesaroyal12.jpg">
-      <div>
-        <strong>Hamburguesa Royal</strong>
-        <p>Pan brioche artesanal, carne, doble queso cheddar, huevo, lechuga, tomate y mayonesa de la casa, acompañado de papas fritas.</p>
-        <div class="price">S/32.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-hamburguesa-royal',restaurant:'Café Coral',name:'Hamburguesa Royal',price:32})">+</button>
-          <span class="qty-number" id="qty-cafe-coral-hamburguesa-royal">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-hamburguesa-royal')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 13 -->
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/hamburguesacontocino13.jpg">
-      <div>
-        <strong>Hamburguesa con Tocino</strong>
-        <p>Pan brioche artesanal, carne, lechuga, tomate, queso cheddar, tocino, cebolla caramelizada y mayonesa de la casa, acompañado de papas fritas.</p>
-        <div class="price">S/32.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-hamburguesa-tocino',restaurant:'Café Coral',name:'Hamburguesa con Tocino',price:32})">+</button>
-          <span class="qty-number" id="qty-cafe-coral-hamburguesa-tocino">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-hamburguesa-tocino')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 14 -->
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/hamburguesaargenta14.jpg">
-      <div>
-        <strong>Hamburguesa Argenta</strong>
-        <p>Pan brioche artesanal, carne, chorizo campestre, chimichurri, lechuga, tomate y mayonesa de la casa acompañado de papas fritas.</p>
-        <div class="price">S/41.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-hamburguesa-argenta',restaurant:'Café Coral',name:'Hamburguesa Argenta',price:41})">+</button>
-          <span class="qty-number" id="qty-cafe-coral-hamburguesa-argenta">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-hamburguesa-argenta')">−</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 15 -->
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/clubsandwich15.jpg">
-      <div>
-        <strong>Club Sandwich</strong>
-        <p>Tres capas de pan de miga, lechuga, tomate, pollo a la plancha, tocino, huevo, jamón, queso edam y mayonesa de la casa acompañado de papas fritas.</p>
-        <div class="price">S/39.</div>
-        <div class="qty-controls">
-          <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-club-sandwich',restaurant:'Café Coral',name:'Club Sandwich',price:39})">+</button>
-          <span class="qty-number" id="qty-cafe-coral-club-sandwich">0</span>
-          <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-club-sandwich')">−</button>
-        </div>
-</div>
-    </div>
-
-    <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
-      ← Volver a restaurantes
-    </a>
-
-  </div>
 </div>
 
 <!-- Menú Masa -->
@@ -2855,6 +2111,97 @@ const appVersion = '2026.05.15-FIX';
             <button class="qty-btn plus" onclick="addToCart({id:'masa-lasagna-vegetariana-permanente',restaurant:'Masa',name:'Lasagna Vegetariana',price:40})">+</button>
             <span class="qty-number" id="qty-masa-lasagna-vegetariana-permanente">0</span>
             <button class="qty-btn minus" onclick="removeFromCart('masa-lasagna-vegetariana-permanente')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bebidas -->
+    <h3 class="menu-category">🥤 Bebidas</h3>
+
+    <!-- 1. Coca Cola -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/coca-cola.jpg">
+      <div>
+        <strong>Coca Cola</strong>
+        <div class="burger-variant">
+          <span class="variant-name">1.5L: S/15.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-coca-1.5l',restaurant:'Masa',name:'Coca Cola 1.5L',price:15})">+</button>
+            <span class="qty-number" id="qty-masa-coca-1.5l">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-coca-1.5l')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">600ml: S/6.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-coca-600ml',restaurant:'Masa',name:'Coca Cola 600ml',price:6})">+</button>
+            <span class="qty-number" id="qty-masa-coca-600ml">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-coca-600ml')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Inka Cola -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/inka-cola.jpg">
+      <div>
+        <strong>Inka Cola</strong>
+        <div class="burger-variant">
+          <span class="variant-name">1.5L: S/15.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-inka-1.5l',restaurant:'Masa',name:'Inka Cola 1.5L',price:15})">+</button>
+            <span class="qty-number" id="qty-masa-inka-1.5l">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-inka-1.5l')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">600ml: S/6.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-inka-600ml',restaurant:'Masa',name:'Inka Cola 600ml',price:6})">+</button>
+            <span class="qty-number" id="qty-masa-inka-600ml">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-inka-600ml')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Corona Personal -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/corona.jpg">
+      <div>
+        <strong>Corona Personal</strong>
+        <div class="burger-variant">
+          <span class="variant-name">S/8.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-corona',restaurant:'Masa',name:'Corona Personal',price:8})">+</button>
+            <span class="qty-number" id="qty-masa-corona">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-corona')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Cusqueña Personal -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/cusquena.jpg">
+      <div>
+        <strong>Cusqueña Personal</strong>
+        <div class="burger-variant">
+          <span class="variant-name">Trigo: S/8.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-cusquena-trigo',restaurant:'Masa',name:'Cusqueña Trigo',price:8})">+</button>
+            <span class="qty-number" id="qty-masa-cusquena-trigo">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-cusquena-trigo')">−</button>
+          </div>
+        </div>
+        <div class="burger-variant">
+          <span class="variant-name">Dorada: S/8.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-cusquena-dorada',restaurant:'Masa',name:'Cusqueña Dorada',price:8})">+</button>
+            <span class="qty-number" id="qty-masa-cusquena-dorada">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-cusquena-dorada')">−</button>
           </div>
         </div>
       </div>
