@@ -3304,6 +3304,16 @@ function isMasaStatus() {
   const day = now.getDay();
   const minutes = now.getHours() * 60 + now.getMinutes();
 
+  // MODO PRUEBA: siempre abierto
+  const testMode = true;
+  if (testMode) {
+    return {
+      status: "open",
+      schedule: "🕒 5:00 p.m. – 10:00 p.m.",
+      promoBudget: (day === 5 || day === 1) ? "🎉 PROMO 2x1" : null
+    };
+  }
+
   if (day === 2) {
     return {
       status: "closed-today",
