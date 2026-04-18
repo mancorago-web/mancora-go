@@ -3288,12 +3288,11 @@ function openMenu(menuId, restaurantId) {
     menuContent.style.opacity = '1';
   }
 
-  var menuTitle = menu.querySelector('h2');
+var menuTitle = menu.querySelector('h2');
   if (menuTitle) {
     menuTitle.scrollIntoView({ behavior: 'smooth', block: 'center' });
     console.log("scrolled to menu title");
   }
-}
 
   if (menuId === 'menu-masa') {
     const promoSection = document.getElementById('masa-promo-section');
@@ -3306,11 +3305,9 @@ function openMenu(menuId, restaurantId) {
       }
     }
   }
-
-  menu.scrollIntoView({ behavior: 'smooth' });
 }
 
-    function closeMenus() {
+function closeMenus() {
   document.querySelectorAll('.menu-section')
     .forEach(m => m.classList.add('hidden'));
 
