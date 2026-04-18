@@ -3268,24 +3268,55 @@ const appVersion = '2026.05.10-VER';
 
 <script>
 function openMenu(menuId, restaurantId) {
-  alert("Menu HTML: " + menu.innerHTML.substring(0, 200));
-  console.log("Menu HTML:", menu.innerHTML.substring(0, 500));
   console.log("openMenu called:", menuId, restaurantId);
   lastRestaurantId = restaurantId;
 
+  // Hide all menus first
   document.querySelectorAll('.menu-section').forEach(m => {
     m.style.display = 'none';
     m.classList.add('hidden');
     m.style.visibility = 'hidden';
   });
 
-  var menu = document.querySelector('#' + menuId);
+  // Find and show the specific menu
+  var menu = document.getElementById(menuId);
   console.log("menu element:", menu);
+  
+  if (!menu) {
+    alert("No se encontró el menú: " + menuId);
+    return;
+  }
+  
   menu.classList.remove('hidden');
   menu.style.display = 'block';
   menu.style.visibility = 'visible';
   menu.style.opacity = '1';
   menu.style.zIndex = '9999';
+  
+  var menuContent = menu.querySelector('.card-content');
+  if (menuContent) {
+    menuContent.style.display = 'block';
+    menuContent.style.visibility = 'visible';
+    menuContent.style.opacity = '1';
+  }
+
+  var menuTitle = menu.querySelector('h2');
+  if (menuTitle) {
+    menuTitle.scrollIntoView({ behavior: 'auto', block: 'start' });
+  }
+
+  if (menuId === 'menu-masa') {
+    const promoSection = document.getElementById('masa-promo-section');
+    if (promoSection) {
+      const peruDay = getPeruTime().getDay();
+      if (peruDay === 5) {
+        promoSection.classList.remove('hidden');
+      } else {
+        promoSection.classList.add('hidden');
+      }
+    }
+  }
+}
   
   var menuContent = menu.querySelector('.card-content');
   if (menuContent) {
