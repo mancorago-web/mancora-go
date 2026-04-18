@@ -3268,7 +3268,8 @@ const appVersion = '2026.05.10-VER';
 
 <script>
 function openMenu(menuId, restaurantId) {
-  alert("Abriendo menú: " + menuId);
+  alert("Menu HTML: " + menu.innerHTML.substring(0, 200));
+  console.log("Menu HTML:", menu.innerHTML.substring(0, 500));
   console.log("openMenu called:", menuId, restaurantId);
   lastRestaurantId = restaurantId;
 
