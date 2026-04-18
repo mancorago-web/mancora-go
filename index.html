@@ -3280,6 +3280,9 @@ const appVersion = '2026.05.10-VER';
   menu.classList.remove('hidden');
   console.log("menu classes after:", menu?.className);
 
+  menu.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  console.log("scrolled to menu");
+
   if (menuId === 'menu-masa') {
     const promoSection = document.getElementById('masa-promo-section');
     if (promoSection) {
