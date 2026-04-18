@@ -3281,6 +3281,7 @@ function openMenu(menuId, restaurantId) {
   // Find and show the specific menu
   var menu = document.getElementById(menuId);
   console.log("menu element:", menu);
+  console.log("menu innerHTML length:", menu ? menu.innerHTML.length : 0);
   
   if (!menu) {
     alert("No se encontró el menú: " + menuId);
@@ -3292,6 +3293,7 @@ function openMenu(menuId, restaurantId) {
   menu.style.visibility = 'visible';
   menu.style.opacity = '1';
   menu.style.zIndex = '9999';
+  console.log("menu display set to block");
   
   var menuContent = menu.querySelector('.card-content');
   if (menuContent) {
