@@ -3276,15 +3276,13 @@ const appVersion = '2026.05.10-VER';
 
   const menu = document.getElementById(menuId);
   console.log("menu element:", menu);
-  console.log("menu classes before:", menu?.className);
   menu.classList.remove('hidden');
-  menu.style.display = 'block !important';
-  menu.style.visibility = 'visible !important';
-  menu.style.opacity = '1 !important';
-  console.log("menu styles after:", menu.style.cssText);
-
-  window.scrollTo(0, menu.offsetTop);
-  console.log("scrolled to menu, offset:", menu.offsetTop);
+  
+  const menuTitle = menu.querySelector('h2');
+  if (menuTitle) {
+    menuTitle.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    console.log("scrolled to menu title");
+  }
 
   if (menuId === 'menu-masa') {
     const promoSection = document.getElementById('masa-promo-section');
