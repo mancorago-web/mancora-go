@@ -3317,31 +3317,6 @@ function openMenu(menuId, restaurantId) {
     }
   }
 }
-  
-  var menuContent = menu.querySelector('.card-content');
-  if (menuContent) {
-    menuContent.style.display = 'block';
-    menuContent.style.visibility = 'visible';
-    menuContent.style.opacity = '1';
-  }
-
-  var menuTitle = menu.querySelector('h2');
-  if (menuTitle) {
-    menuTitle.scrollIntoView({ behavior: 'auto', block: 'start' });
-    console.log("scrolled to menu title");
-  }
-
-  if (menuId === 'menu-masa') {
-    const promoSection = document.getElementById('masa-promo-section');
-    if (promoSection) {
-      const peruDay = getPeruTime().getDay();
-      if (peruDay === 5) {
-        promoSection.classList.remove('hidden');
-      } else {
-        promoSection.classList.add('hidden');
-      }
-    }
-  }
 }
 
 function closeMenus() {
