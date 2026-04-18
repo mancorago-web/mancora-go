@@ -3268,18 +3268,23 @@ const appVersion = '2026.05.10-VER';
 
 <script>
 function openMenu(menuId, restaurantId) {
+  alert("Abriendo menú: " + menuId);
   console.log("openMenu called:", menuId, restaurantId);
   lastRestaurantId = restaurantId;
 
   document.querySelectorAll('.menu-section').forEach(m => {
     m.style.display = 'none';
     m.classList.add('hidden');
+    m.style.visibility = 'hidden';
   });
 
   var menu = document.querySelector('#' + menuId);
   console.log("menu element:", menu);
   menu.classList.remove('hidden');
   menu.style.display = 'block';
+  menu.style.visibility = 'visible';
+  menu.style.opacity = '1';
+  menu.style.zIndex = '9999';
   
   var menuContent = menu.querySelector('.card-content');
   if (menuContent) {
@@ -3288,9 +3293,9 @@ function openMenu(menuId, restaurantId) {
     menuContent.style.opacity = '1';
   }
 
-var menuTitle = menu.querySelector('h2');
+  var menuTitle = menu.querySelector('h2');
   if (menuTitle) {
-    menuTitle.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    menuTitle.scrollIntoView({ behavior: 'auto', block: 'start' });
     console.log("scrolled to menu title");
   }
 
