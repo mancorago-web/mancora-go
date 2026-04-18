@@ -3278,6 +3278,7 @@ const appVersion = '2026.05.10-VER';
   console.log("menu element:", menu);
   console.log("menu classes before:", menu?.className);
   menu.classList.remove('hidden');
+  menu.style.display = 'block';
   console.log("menu classes after:", menu?.className);
 
   menu.scrollIntoView({ behavior: 'smooth', block: 'start' });
