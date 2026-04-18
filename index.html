@@ -3385,7 +3385,9 @@ function isMasaStatus() {
 
   // MODO PRUEBA: siempre abierto
   const testMode = true;
+  console.log("Masa testMode:", testMode);
   if (testMode) {
+    console.log("Masa returning OPEN");
     return {
       status: "open",
       schedule: "🕒 5:00 p.m. – 10:00 p.m.",
