@@ -2292,6 +2292,60 @@ const appVersion = '2026.05.07-FIX-HORARIOS';
       </div>
     </div>
 
+    <!-- Entradas -->
+    <h3 class="menu-category">🥖 Entradas</h3>
+
+    <!-- 1. Pan de ajo -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/masa-pan-ajo.png">
+      <div>
+        <strong>Pan de ajo</strong>
+        <p>Pan casero, ajo, aceite de oliva y orégano.</p>
+        <div class="burger-variant">
+          <span class="variant-name">S/15.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-pan-ajo',restaurant:'Masa',name:'Pan de ajo',price:15})">+</button>
+            <span class="qty-number" id="qty-masa-pan-ajo">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-pan-ajo')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Bruschetta -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/masa-bruschetta.png">
+      <div>
+        <strong>Bruschetta</strong>
+        <p>Pan casero, tomate fresco, ajo, albahaca y aceite de oliva.</p>
+        <div class="burger-variant">
+          <span class="variant-name">S/20.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-bruschetta',restaurant:'Masa',name:'Bruschetta',price:20})">+</button>
+            <span class="qty-number" id="qty-masa-bruschetta">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-bruschetta')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Crostini Misti -->
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/menus/masa-crostini-misti.png">
+      <div>
+        <strong>Crostini Misti</strong>
+        <p>Pan casero, Berenjena, zucchini, champiñones con queso mozzarella y queso azul.</p>
+        <div class="burger-variant">
+          <span class="variant-name">S/25.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'masa-crostini-misti',restaurant:'Masa',name:'Crostini Misti',price:25})">+</button>
+            <span class="qty-number" id="qty-masa-crostini-misti">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('masa-crostini-misti')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Pizzas Clásicas -->
     <h3 class="menu-category">🍕 Pizzas Clásicas</h3>
 
