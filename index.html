@@ -3267,22 +3267,33 @@ const appVersion = '2026.05.10-VER';
 </script>
 
 <script>
-    function openMenu(menuId, restaurantId) {
+function openMenu(menuId, restaurantId) {
   console.log("openMenu called:", menuId, restaurantId);
   lastRestaurantId = restaurantId;
 
-  document.querySelectorAll('.menu-section')
-    .forEach(m => m.classList.add('hidden'));
+  document.querySelectorAll('.menu-section').forEach(m => {
+    m.style.display = 'none';
+    m.classList.add('hidden');
+  });
 
-  const menu = document.getElementById(menuId);
+  var menu = document.querySelector('#' + menuId);
   console.log("menu element:", menu);
   menu.classList.remove('hidden');
+  menu.style.display = 'block';
   
-  const menuTitle = menu.querySelector('h2');
+  var menuContent = menu.querySelector('.card-content');
+  if (menuContent) {
+    menuContent.style.display = 'block';
+    menuContent.style.visibility = 'visible';
+    menuContent.style.opacity = '1';
+  }
+
+  var menuTitle = menu.querySelector('h2');
   if (menuTitle) {
     menuTitle.scrollIntoView({ behavior: 'smooth', block: 'center' });
     console.log("scrolled to menu title");
   }
+}
 
   if (menuId === 'menu-masa') {
     const promoSection = document.getElementById('masa-promo-section');
