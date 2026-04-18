@@ -3278,11 +3278,13 @@ const appVersion = '2026.05.10-VER';
   console.log("menu element:", menu);
   console.log("menu classes before:", menu?.className);
   menu.classList.remove('hidden');
-  menu.style.display = 'block';
-  console.log("menu classes after:", menu?.className);
+  menu.style.display = 'block !important';
+  menu.style.visibility = 'visible !important';
+  menu.style.opacity = '1 !important';
+  console.log("menu styles after:", menu.style.cssText);
 
-  menu.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  console.log("scrolled to menu");
+  window.scrollTo(0, menu.offsetTop);
+  console.log("scrolled to menu, offset:", menu.offsetTop);
 
   if (menuId === 'menu-masa') {
     const promoSection = document.getElementById('masa-promo-section');
