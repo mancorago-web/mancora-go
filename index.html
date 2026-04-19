@@ -3403,8 +3403,11 @@ function openMenu(menuId, restaurantId) {
 }
 
 function closeMenus() {
-  document.querySelectorAll('.menu-section')
-    .forEach(m => m.classList.add('hidden'));
+  document.querySelectorAll('.menu-section').forEach(m => {
+    m.style.display = 'none';
+    m.classList.add('hidden');
+    m.style.visibility = 'hidden';
+  });
 
   document.getElementById('restaurants-list').style.display = 'block';
   document.getElementById('upcoming-list').style.display = 'block';
