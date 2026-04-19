@@ -281,7 +281,7 @@ const appVersion = '2026.05.15-FIX';
       color: var(--text-dark);
     }
 
-    .menu-item {
+.menu-item {
       display: flex;
       gap: 14px;
       align-items: center;
@@ -292,6 +292,8 @@ const appVersion = '2026.05.15-FIX';
       margin: 0 -10px;
       padding-left: 10px;
       padding-right: 10px;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .menu-item:hover {
@@ -2079,7 +2081,7 @@ const appVersion = '2026.05.15-FIX';
       </div>
     </div>
 
-    <div class="menu-item">
+<div class="menu-item">
       <img onclick="openLightbox(this.src)" src="images/menus/cheesecakefresa4.jpg">
       <div>
         <strong>Cheesecake de Fresa</strong>
@@ -2090,6 +2092,7 @@ const appVersion = '2026.05.15-FIX';
             <button class="qty-btn plus" onclick="addToCart({id:'cafe-coral-cheesecake-fresa',restaurant:'Café Coral',name:'Cheesecake de Fresa',price:13})">+</button>
             <span class="qty-number" id="qty-cafe-coral-cheesecake-fresa">0</span>
             <button class="qty-btn minus" onclick="removeFromCart('cafe-coral-cheesecake-fresa')">−</button>
+          </div>
         </div>
       </div>
     </div>
