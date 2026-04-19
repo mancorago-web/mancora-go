@@ -3458,18 +3458,33 @@ function isCafeBarrioStatus() {
   const day = now.getDay();
   const minutes = now.getHours() * 60 + now.getMinutes();
 
-  if (day === 3) return "closed-today";
+  // Cerrado temporalmente
+  return {
+    status: "closed-today",
+    schedule: "🚫 Cerrado",
+    message: "🚫 Temporalmente cerrado"
+  };
 
-  const morningOpen = 9 * 60;
-  const morningClose = 12 * 60 + 30;
-  const eveningOpen = 18 * 60;
-  const eveningClose = 22 * 60;
+  if (day === 2) {
+    return {
+      status: "closed-today",
+      schedule: "🚫 Cerrado hoy",
+      message: "🚫 Cerrado por descanso"
+    };
+  }
 
-  const isOpen =
-    (minutes >= morningOpen && minutes < morningClose) ||
-    (minutes >= eveningOpen && minutes < eveningClose);
+  const openMorning = 9 * 60;
+  const closeMorning = 12.5 * 60;
+  const openEvening = 18 * 60;
+  const closeEvening = 22 * 60;
+  const isOpenMorning = minutes >= openMorning && minutes < closeMorning;
+  const isOpenEvening = minutes >= openEvening && minutes < closeEvening;
+  const isOpen = isOpenMorning || isOpenEvening;
 
-  return isOpen ? "open" : "closed-now";
+  return {
+    status: isOpen ? "open" : "closed-now",
+    schedule: isOpenMorning ? "🕒 9:00 a.m. – 12:30 p.m." : "🕒 6:00 p.m. – 10:00 p.m."
+  };
 }
 
 function isCafeCoralStatus() {
