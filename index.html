@@ -1214,9 +1214,6 @@ const appVersion = '2026.05.15-FIX';
         onclick="openMenu('menu-masa', 'rest-masa')"
       >
         <img onclick="openLightbox(this.src)" src="images/masalogo.png">
-        <span id="masa-promo-badge" class="badge-promo hidden">
-          🎉 PROMO 2x1
-        </span>
         <div class="card-content">
           <span id="masa-new-badge" class="badge-new" style="background:#fef3c7;color:#92400e;border:1px solid #f59e0b;">
             🆕 NUEVO EN MANCORA GO!
@@ -3389,8 +3386,7 @@ function isMasaStatus() {
     console.log("Masa returning OPEN");
     return {
       status: "open",
-      schedule: "🕒 5:00 p.m. – 10:00 p.m.",
-      promoBudget: (day === 5 || day === 1) ? "🎉 PROMO 2x1" : null
+      schedule: "🕒 5:00 p.m. – 10:00 p.m."
     };
   }
 
@@ -3406,12 +3402,9 @@ function isMasaStatus() {
   const close = 22 * 60;
   const isOpen = minutes >= open && minutes < close;
 
-  const promoBudget = (day === 5 || day === 1) ? "🎉 PROMO 2x1" : null;
-
   return {
     status: isOpen ? "open" : "closed-now",
-    schedule: "🕒 5:00 p.m. – 10:00 p.m.",
-    promoBudget: promoBudget
+    schedule: "🕒 5:00 p.m. – 10:00 p.m."
   };
 }
 </script>
@@ -3462,14 +3455,6 @@ function checkRestaurantHours() {
           closedLabel.classList.remove('hidden');
         } else {
           closedLabel.classList.add('hidden');
-        }
-      }
-      const promoBadge = card.closest(".card").querySelector("#masa-promo-badge");
-      if (promoBadge) {
-        if (status.promoBudget && isOpen) {
-          promoBadge.classList.remove("hidden");
-        } else {
-          promoBadge.classList.add("hidden");
         }
       }
     }
