@@ -3491,6 +3491,13 @@ function isBarrioBurguerStatus() {
   const day = now.getDay();
   const minutes = now.getHours() * 60 + now.getMinutes();
 
+  // Cerrado temporalmente
+  return {
+    status: "closed-today",
+    schedule: "🚫 Cerrado",
+    message: "🚫 Temporalmente cerrado"
+  };
+
   if (day === 2) {
     return {
       status: "closed-today",
