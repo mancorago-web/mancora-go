@@ -3412,7 +3412,14 @@ function closeMenus() {
   document.getElementById('restaurants-list').style.display = 'block';
   document.getElementById('upcoming-list').style.display = 'block';
 
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (lastRestaurantId) {
+    const card = document.getElementById(lastRestaurantId);
+    if (card) {
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  } else {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }
   
   function pedirWhatsApp(nombreRestaurante) {
