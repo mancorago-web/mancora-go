@@ -3406,12 +3406,10 @@ function closeMenus() {
   document.querySelectorAll('.menu-section')
     .forEach(m => m.classList.add('hidden'));
 
-  if (lastRestaurantId) {
-    const card = document.getElementById(lastRestaurantId);
-    if (card) {
-      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
+  document.getElementById('restaurants-list').style.display = 'block';
+  document.getElementById('upcoming-list').style.display = 'block';
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
   
   function pedirWhatsApp(nombreRestaurante) {
