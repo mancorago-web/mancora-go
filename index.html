@@ -3637,7 +3637,8 @@ function isCafeCoralStatus() {
    
 <script>
 function checkRestaurantHours() {
-
+  console.log("=== EJECUTANDO checkRestaurantHours ===");
+  
   const now = getPeruTime();
   const currentHour = now.getHours() + now.getMinutes() / 60;
 
@@ -3656,6 +3657,7 @@ function checkRestaurantHours() {
     // 🍔 BARRIO BURGUER
     if (card.dataset.special === "barrio-burguer") {
       const status = isBarrioBurguerStatus();
+      console.log("BarrioBurguer status:", status);
       isOpen = status.status === "open";
 
       if (scheduleLabel) scheduleLabel.textContent = status.schedule;
@@ -3672,6 +3674,7 @@ function checkRestaurantHours() {
     // 🍝 MASA
     else if (card.dataset.special === "masa") {
       const status = isMasaStatus();
+      console.log("Masa status:", status);
       isOpen = status.status === "open";
 
       if (scheduleLabel) scheduleLabel.textContent = status.schedule;
@@ -3688,6 +3691,7 @@ function checkRestaurantHours() {
     // ☕ CAFÉ DE BARRIO
     else if (card.dataset.special === "cafe-barrio") {
       const status = isCafeBarrioStatus();
+      console.log("CafeBarrio status:", status);
       isOpen = status.status === "open";
 
       if (scheduleLabel) scheduleLabel.textContent = status.schedule;
