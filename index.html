@@ -3450,7 +3450,9 @@ console.log("=== CARGANDO FUNCIONES DE HORARIO ===");
 function getPeruTime() {
   const now = new Date();
   const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-  return new Date(utc - (5 * 3600000)); // PET = UTC-5
+  const peruDate = new Date(utc - (5 * 3600000)); // PET = UTC-5
+  console.log("getPeruTime:", peruDate.getHours(), ":", peruDate.getMinutes());
+  return peruDate;
 }
 
 function isCafeBarrioStatus() {
@@ -3643,6 +3645,7 @@ function checkRestaurantHours() {
     // 🍔 BARRIO BURGUER
     if (card.dataset.special === "barrio-burguer") {
       const status = isBarrioBurguerStatus();
+      console.log("BarrioBurguer status:", status);
       isOpen = status.status === "open";
 
       if (scheduleLabel) scheduleLabel.textContent = status.schedule;
@@ -3659,6 +3662,7 @@ function checkRestaurantHours() {
     // 🍝 MASA
     else if (card.dataset.special === "masa") {
       const status = isMasaStatus();
+      console.log("Masa status:", status);
       isOpen = status.status === "open";
 
       if (scheduleLabel) scheduleLabel.textContent = status.schedule;
@@ -3675,6 +3679,7 @@ function checkRestaurantHours() {
     // ☕ CAFÉ DE BARRIO
     else if (card.dataset.special === "cafe-barrio") {
       const status = isCafeBarrioStatus();
+      console.log("CafeBarrio status:", status);
       isOpen = status.status === "open";
 
       if (scheduleLabel) scheduleLabel.textContent = status.schedule;
