@@ -2269,10 +2269,10 @@ const appVersion = '2026.05.15-FIX';
 
     <h2>Menú – Masa</h2>
 
-    <!-- Promociones 2x1 -->
-    <div id="masa-promo-section">
+    <!-- Promo Friday - Lasagna 2x1 -->
+    <div id="masa-promo-friday" class="hidden">
       <h3 class="menu-category">🎉 Promociones 2x1</h3>
-      <p style="font-size:12px;color:#dc2626;margin-top:4px;font-weight:600;">Promoción de 2x1 en Lasagna Boloñesa y Vegetariana, solo días LUNES y VIERNES</p>
+      <p style="font-size:12px;color:#dc2626;margin-top:4px;font-weight:600;">2x1 en Lasagna Boloñesa y Vegetariana, solo día VIERNES</p>
 
       <div class="menu-item">
         <img onclick="openLightbox(this.src)" src="images/menus/masa-lasagna-bolonesa.jpg">
@@ -2301,6 +2301,44 @@ const appVersion = '2026.05.15-FIX';
               <button class="qty-btn plus" onclick="addToCart({id:'masa-lasagna-vegetariana',restaurant:'Masa',name:'Lasagna Vegetariana',price:50})">+</button>
               <span class="qty-number" id="qty-masa-lasagna-vegetariana">0</span>
               <button class="qty-btn minus" onclick="removeFromCart('masa-lasagna-vegetariana')">−</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Promo Monday - Pizza 2x1 -->
+    <div id="masa-promo-monday" class="hidden">
+      <h3 class="menu-category">🎉 Promociones 2x1</h3>
+      <p style="font-size:12px;color:#dc2626;margin-top:4px;font-weight:600;">2x1 en Pizzas Clásicas (8 pzs), solo día LUNES</p>
+
+      <div class="menu-item">
+        <img onclick="openLightbox(this.src)" src="images/menus/masa-pepperoni.png">
+        <div>
+          <strong>Pepperoni</strong>
+          <p>Salsa de tomate, queso mozzarella, salame.</p>
+          <div class="burger-variant">
+            <span class="variant-name">8 pzas: S/40.</span>
+            <div class="qty-controls">
+              <button class="qty-btn plus" onclick="addToCart({id:'masa-pepperoni-8',restaurant:'Masa',name:'Pepperoni 8p',price:40})">+</button>
+              <span class="qty-number" id="qty-masa-pepperoni-8">0</span>
+              <button class="qty-btn minus" onclick="removeFromCart('masa-pepperoni-8')">−</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <img onclick="openLightbox(this.src)" src="images/menus/masa-americana.png">
+        <div>
+          <strong>Americana</strong>
+          <p>Salsa de tomate, jamón, queso.</p>
+          <div class="burger-variant">
+            <span class="variant-name">8 pzas: S/40.</span>
+            <div class="qty-controls">
+              <button class="qty-btn plus" onclick="addToCart({id:'masa-americana-8',restaurant:'Masa',name:'Americana 8p',price:40})">+</button>
+              <span class="qty-number" id="qty-masa-americana-8">0</span>
+              <button class="qty-btn minus" onclick="removeFromCart('masa-americana-8')">−</button>
             </div>
           </div>
         </div>
@@ -3402,15 +3440,15 @@ function openMenu(menuId, restaurantId) {
   }
 
   if (menuId === 'menu-masa') {
-    const promoSection = document.getElementById('masa-promo-section');
-    if (promoSection) {
-      const peruDay = getPeruTime().getDay();
-      // Mostrar lunes (1) y Viernes (5)
-      if (peruDay === 1 || peruDay === 5) {
-        promoSection.classList.remove('hidden');
-      } else {
-        promoSection.classList.add('hidden');
-      }
+    const promoFriday = document.getElementById('masa-promo-friday');
+    const promoMonday = document.getElementById('masa-promo-monday');
+    const peruDay = getPeruTime().getDay();
+
+    if (promoFriday) {
+      promoFriday.classList.toggle('hidden', peruDay !== 5);
+    }
+    if (promoMonday) {
+      promoMonday.classList.toggle('hidden', peruDay !== 1);
     }
   }
 }
