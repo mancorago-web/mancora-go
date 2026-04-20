@@ -1217,6 +1217,9 @@ const appVersion = '2026.05.15-FIX';
       >
         <img onclick="openLightbox(this.src)" src="images/masalogo.png">
         <div class="card-content">
+          <span id="masa-promo-badge" class="hidden" style="background:#dc2626;color:#fff;font-weight:700;font-size:12px;padding:4px 8px;border-radius:4px;display:inline-block;margin-bottom:4px;">
+            🎉 2x1 LUNES
+          </span>
           <span id="masa-new-badge" class="badge-new" style="background:#fef3c7;color:#92400e;border:1px solid #f59e0b;">
             🆕 NUEVO EN MANCORA GO!
           </span>
@@ -3646,6 +3649,17 @@ function checkRestaurantHours() {
     else if (card.dataset.special === "masa") {
       const status = isMasaStatus();
       isOpen = status.status === "open";
+
+      // Mostrar badge promo 2x1 los dias lunes (1) y viernes (5)
+      const peruDay = getPeruTime().getDay();
+      const promoBadge = card.querySelector('#masa-promo-badge');
+      if (promoBadge) {
+        if (peruDay === 1 || peruDay === 5) {
+          promoBadge.classList.remove('hidden');
+        } else {
+          promoBadge.classList.add('hidden');
+        }
+      }
 
       if (scheduleLabel) scheduleLabel.textContent = status.schedule;
       if (closedLabel) {
