@@ -3528,9 +3528,6 @@ function isBarrioBurguerStatus() {
 }
 
 function isMasaStatus() {
-  // FORZAR CERRADO PARA PRUEBA
-  return { status: "closed-now", schedule: "🕒 5:00 p.m. – 10:00 p.m." };
-
   const now = getPeruTime();
   const day = now.getDay();
   const minutes = now.getHours() * 60 + now.getMinutes();
@@ -3554,9 +3551,6 @@ function isMasaStatus() {
 }
 
 function isBarrioBurguerStatus() {
-  // FORZAR CERRADO PARA PRUEBA
-  return { status: "closed-now", schedule: "🕒 4:00 p.m. – 10:00 p.m." };
-
   const now = getPeruTime();
   const day = now.getDay();
   const minutes = now.getHours() * 60 + now.getMinutes();
@@ -3580,9 +3574,6 @@ function isBarrioBurguerStatus() {
 }
 
 function isCafeBarrioStatus() {
-  // FORZAR CERRADO PARA PRUEBA
-  return { status: "closed-now", schedule: "🕒 9:00 a.m. – 12:30 p.m." };
-
   const now = getPeruTime();
   const day = now.getDay();
   const minutes = now.getHours() * 60 + now.getMinutes();
@@ -3610,9 +3601,6 @@ function isCafeBarrioStatus() {
 }
 
 function isCafeCoralStatus() {
-  // FORZAR CERRADO PARA PRUEBA
-  return { status: "closed-now", schedule: "🕒 10:00 a.m. – 10:00 p.m." };
-
   const now = getPeruTime();
   const minutes = now.getHours() * 60 + now.getMinutes();
 
@@ -3637,8 +3625,6 @@ function isCafeCoralStatus() {
    
 <script>
 function checkRestaurantHours() {
-  console.log("=== EJECUTANDO checkRestaurantHours ===");
-  
   const now = getPeruTime();
   const currentHour = now.getHours() + now.getMinutes() / 60;
 
@@ -3657,7 +3643,6 @@ function checkRestaurantHours() {
     // 🍔 BARRIO BURGUER
     if (card.dataset.special === "barrio-burguer") {
       const status = isBarrioBurguerStatus();
-      console.log("BarrioBurguer status:", status);
       isOpen = status.status === "open";
 
       if (scheduleLabel) scheduleLabel.textContent = status.schedule;
@@ -3674,7 +3659,6 @@ function checkRestaurantHours() {
     // 🍝 MASA
     else if (card.dataset.special === "masa") {
       const status = isMasaStatus();
-      console.log("Masa status:", status);
       isOpen = status.status === "open";
 
       if (scheduleLabel) scheduleLabel.textContent = status.schedule;
@@ -3691,7 +3675,6 @@ function checkRestaurantHours() {
     // ☕ CAFÉ DE BARRIO
     else if (card.dataset.special === "cafe-barrio") {
       const status = isCafeBarrioStatus();
-      console.log("CafeBarrio status:", status);
       isOpen = status.status === "open";
 
       if (scheduleLabel) scheduleLabel.textContent = status.schedule;
