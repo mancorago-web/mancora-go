@@ -3604,11 +3604,12 @@ function checkRestaurantHours() {
     // ☕ CAFÉ DE BARRIO
     else if (card.dataset.special === "cafe-barrio") {
       const status = isCafeBarrioStatus();
-      isOpen = status === "open";
+      isOpen = status.status === "open";
 
+      if (scheduleLabel) scheduleLabel.textContent = status.schedule;
       if (closedLabel) {
         if (!isOpen) {
-          closedLabel.textContent = status === "closed-today" ? "🚫 Cerrado hoy" : "⛔ Cerrado ahora";
+          closedLabel.textContent = status.message || "⛔ Cerrado ahora";
           closedLabel.classList.remove('hidden');
         } else {
           closedLabel.classList.add('hidden');
