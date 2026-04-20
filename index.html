@@ -3644,8 +3644,6 @@ function checkRestaurantHours() {
     const cardWrapper = card.closest(".card");
     const isFeatured = card.dataset.featured === "true";
 
-    console.log("Checking:", card.id, "isOpen:", isOpen);
-
     if (!isOpen) {
       card.style.pointerEvents = "none";
       card.style.opacity = "0.55";
@@ -3667,21 +3665,6 @@ function checkRestaurantHours() {
   openRestaurants.forEach(card => container.appendChild(card));
   closedRestaurants.forEach(card => container.appendChild(card));
 }
-
-// Debug
-(function() {
-  const peru = getPeruTime();
-  const local = new Date();
-  console.log("=== DEBUG HORARIOS ===");
-  console.log("Hora local:", local.toLocaleTimeString());
-  console.log("Hora Perú:", peru.toLocaleTimeString());
-  console.log("Día semana (0=dom):", peru.getDay());
-  console.log("Hora Perú:", peru.getHours(), "min:", peru.getMinutes());
-  console.log("isMasaStatus():", isMasaStatus());
-  console.log("isBarrioBurguerStatus():", isBarrioBurguerStatus());
-  console.log("isCafeBarrioStatus():", isCafeBarrioStatus());
-  console.log("isCafeCoralStatus():", isCafeCoralStatus());
-})();
 
 // Ejecutar
 checkRestaurantHours();
