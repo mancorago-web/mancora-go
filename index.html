@@ -3655,6 +3655,7 @@ function checkRestaurantHours() {
       const promoBadge = card.querySelector('#masa-promo-badge');
       if (promoBadge) {
         if (peruDay === 1 || peruDay === 5) {
+          promoBadge.textContent = peruDay === 1 ? "🎉 2x1 LUNES" : "🎉 2x1 VIERNES";
           promoBadge.classList.remove('hidden');
         } else {
           promoBadge.classList.add('hidden');
