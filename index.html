@@ -3644,6 +3644,8 @@ function checkRestaurantHours() {
     const cardWrapper = card.closest(".card");
     const isFeatured = card.dataset.featured === "true";
 
+    console.log("Checking:", card.id, "isOpen:", isOpen);
+
     if (!isOpen) {
       card.style.pointerEvents = "none";
       card.style.opacity = "0.55";
