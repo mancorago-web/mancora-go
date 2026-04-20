@@ -2272,7 +2272,7 @@ const appVersion = '2026.05.15-FIX';
     <!-- Promociones 2x1 -->
     <div id="masa-promo-section">
       <h3 class="menu-category">🎉 Promociones 2x1</h3>
-      <p style="font-size:12px;color:#dc2626;margin-top:4px;font-weight:600;">Promoción de 2x1 en Lasagna Boloñesa y Vegetariana, solo día VIERNES</p>
+      <p style="font-size:12px;color:#dc2626;margin-top:4px;font-weight:600;">Promoción de 2x1 en Lasagna Boloñesa y Vegetariana, solo días LUNES y VIERNES</p>
 
       <div class="menu-item">
         <img onclick="openLightbox(this.src)" src="images/menus/masa-lasagna-bolonesa.jpg">
@@ -3405,7 +3405,8 @@ function openMenu(menuId, restaurantId) {
     const promoSection = document.getElementById('masa-promo-section');
     if (promoSection) {
       const peruDay = getPeruTime().getDay();
-      if (peruDay === 5) {
+      // Mostrar lunes (1) y Viernes (5)
+      if (peruDay === 1 || peruDay === 5) {
         promoSection.classList.remove('hidden');
       } else {
         promoSection.classList.add('hidden');
