@@ -1217,7 +1217,8 @@ const appVersion = '2026.05.15-FIX';
       >
         <img onclick="openLightbox(this.src)" src="images/masalogo.png">
         <div class="card-content">
-          <div id="masa-promo-badge" class="hidden badge-promo" style="background:linear-gradient(135deg,#dc2626,#b91c1c);">
+          <!-- Masa promo badge hidden by default, controlled by JS -->
+          <div id="masa-promo-badge" class="hidden" style="display:none;background:linear-gradient(135deg,#dc2626,#b91c1c);">
             🎉 2x1 LUNES
           </div>
           <span id="masa-new-badge" class="badge-new" style="background:#fef3c7;color:#92400e;border:1px solid #f59e0b;">
@@ -3658,8 +3659,14 @@ function checkRestaurantHours() {
         if (peruDay === 1 || peruDay === 5) {
           promoBadge.textContent = peruDay === 1 ? "🎉 2x1 LUNES" : "🎉 2x1 VIERNES";
           promoBadge.classList.remove('hidden');
+          promoBadge.style.display = 'inline-block';
+          promoBadge.style.position = 'absolute';
+          promoBadge.style.top = '12px';
+          promoBadge.style.right = '12px';
+          promoBadge.style.zIndex = '10';
         } else {
           promoBadge.classList.add('hidden');
+          promoBadge.style.display = 'none';
         }
       }
 
