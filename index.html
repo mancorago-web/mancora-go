@@ -3551,14 +3551,13 @@ function isBarrioBurguerStatus() {
   const day = now.getDay();
   const minutes = now.getHours() * 60 + now.getMinutes();
 
-  // Temporal: no descansa hoy (Martes) - solo esta semana
-  // if (day === 2) {
-  //   return {
-  //     status: "closed-today",
-  //     schedule: "🚫 Cerrado hoy",
-  //     message: "🚫 Cerrado por descanso"
-  //   };
-  // }
+  if (day === 2) {
+    return {
+      status: "closed-today",
+      schedule: "🚫 Cerrado hoy",
+      message: "🚫 Cerrado por descanso"
+    };
+  }
 
   const open = 16 * 60;
   const close = 22 * 60;
