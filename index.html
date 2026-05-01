@@ -2312,7 +2312,7 @@ const appVersion = '2026.05.15-FIX';
     <!-- Promo Monday - Pizza 2x1 -->
     <div id="masa-promo-monday" class="hidden">
       <h3 class="menu-category">🎉 Promo 2x1 PIZZAS</h3>
-      <p style="font-size:13px;color:#dc2626;margin-top:4px;font-weight:700;text-align:center;background:#fee2e2;padding:8px;border-radius:8px;">🍕 2x1 en CUALQUIER PIZZA de 8 pzas | Solo día LUNES</p>
+      <p style="font-size:13px;color:#dc2626;margin-top:4px;font-weight:700;text-align:center;background:#fee2e2;padding:8px;border-radius:8px;">🍕 Durante toda esta semana, 2x1 en todas nuestras Pizzas de 8 piezas</p>
     </div>
 
     <!-- Entradas -->
@@ -3412,13 +3412,16 @@ function openMenu(menuId, restaurantId) {
   if (menuId === 'menu-masa') {
     const promoFriday = document.getElementById('masa-promo-friday');
     const promoMonday = document.getElementById('masa-promo-monday');
-    const peruDay = getPeruTime().getDay();
+    const now = getPeruTime();
+    const promoStart = new Date(Date.UTC(2026, 4, 1)); // Mayo 1
+    const promoEnd = new Date(Date.UTC(2026, 4, 7, 23, 59, 59)); // Mayo 7
+    const isActive = now >= promoStart && now <= promoEnd;
 
     if (promoFriday) {
-      promoFriday.classList.toggle('hidden', peruDay !== 5);
+      promoFriday.classList.add('hidden');
     }
     if (promoMonday) {
-      promoMonday.classList.toggle('hidden', peruDay !== 1);
+      promoMonday.classList.toggle('hidden', !isActive);
     }
   }
 }
@@ -3585,12 +3588,14 @@ function checkRestaurantHours() {
       const status = isMasaStatus();
       isOpen = status.status === "open";
 
-      // Mostrar badge promo 2x1 los dias lunes (1) y viernes (5)
-      const peruDay = getPeruTime().getDay();
+      // Promo 2x1 PIZZAS por 7 dias (1-7 mayo 2026)
+      const now = getPeruTime();
+      const promoStart = new Date(Date.UTC(2026, 4, 1)); // Mayo 1
+      const promoEnd = new Date(Date.UTC(2026, 4, 7, 23, 59, 59)); // Mayo 7
       const promoBadge = card.querySelector('#masa-promo-badge');
       if (promoBadge) {
-        if (peruDay === 1 || peruDay === 5) {
-          promoBadge.textContent = peruDay === 1 ? "🎉 2x1 LUNES" : "🎉 2x1 VIERNES";
+        if (now >= promoStart && now <= promoEnd) {
+          promoBadge.textContent = "🎉 2x1 PIZZAS";
           promoBadge.classList.remove('hidden');
         } else {
           promoBadge.classList.add('hidden');
