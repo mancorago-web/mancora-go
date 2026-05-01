@@ -3460,9 +3460,6 @@ function getPeruTime() {
 }
 
 function isCafeBarrioStatus() {
-  // FORZAR CERRADO PARA PRUEBA
-  return { status: "closed-now", schedule: "🕒 9:00 a.m. – 12:30 p.m. / 6:00 p.m. – 10:00 p.m." };
-
   const now = getPeruTime();
   const day = now.getDay();
   const minutes = now.getHours() * 60 + now.getMinutes();
@@ -3504,9 +3501,6 @@ function isCafeCoralStatus() {
 }
 
 function isBarrioBurguerStatus() {
-  // FORZAR CERRADO PARA PRUEBA
-  return { status: "closed-now", schedule: "🕒 4:00 p.m. – 10:00 p.m." };
-
   const now = getPeruTime();
   const day = now.getDay();
   const minutes = now.getHours() * 60 + now.getMinutes();
