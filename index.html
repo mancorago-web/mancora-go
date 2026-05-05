@@ -3416,14 +3416,17 @@ function openMenu(menuId, restaurantId) {
   }
 
   if (menuId === 'menu-burger') {
-    // Solo por hoy (Martes 5 de mayo 2026): deshabilitar hamburguesas dobles
+    // Solo por hoy (Martes 6 de mayo 2026): deshabilitar hamburguesas dobles y Triple B
     const today = getPeruTime();
     const isTuesday = today.getDay() === 2; // Martes
     if (isTuesday) {
-      menu.querySelectorAll('.qty-controls').forEach(controls => {
-        const variant = controls.closest('.burger-variant');
-        if (variant && variant.querySelector('.variant-name').textContent.includes('Doble')) {
-          controls.querySelectorAll('button').forEach(btn => btn.disabled = true);
+      menu.querySelectorAll('.burger-variant').forEach(variant => {
+        const variantName = variant.querySelector('.variant-name').textContent;
+        const controls = variant.querySelector('.qty-controls');
+        if (variantName.includes('Doble') || variantName.includes('Triple')) {
+          if (controls) {
+            controls.querySelectorAll('button').forEach(btn => btn.disabled = true);
+          }
           variant.classList.add('disabled-doble');
         }
       });
