@@ -534,6 +534,12 @@ const appVersion = '2026.05.15-FIX';
       cursor: pointer;
     }
 
+    .disabled-doble {
+      opacity: 0.4;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+
     .badge-top-1 {
       background: linear-gradient(135deg, var(--sun-yellow), var(--sun-orange));
       color: var(--text-dark);
@@ -3407,6 +3413,21 @@ function openMenu(menuId, restaurantId) {
   var menuTitle = menu.querySelector('h2');
   if (menuTitle) {
     menuTitle.scrollIntoView({ behavior: 'auto', block: 'start' });
+  }
+
+  if (menuId === 'menu-burger') {
+    // Solo por hoy (Martes 5 de mayo 2026): deshabilitar hamburguesas dobles
+    const today = getPeruTime();
+    const isTuesday = today.getDay() === 2; // Martes
+    if (isTuesday) {
+      menu.querySelectorAll('.qty-controls').forEach(controls => {
+        const variant = controls.closest('.burger-variant');
+        if (variant && variant.querySelector('.variant-name').textContent.includes('Doble')) {
+          controls.querySelectorAll('button').forEach(btn => btn.disabled = true);
+          variant.classList.add('disabled-doble');
+        }
+      });
+    }
   }
 
   if (menuId === 'menu-masa') {
