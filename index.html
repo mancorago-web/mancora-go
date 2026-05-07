@@ -2270,50 +2270,6 @@ const appVersion = '2026.05.15-FIX';
 
     <h2>Menú – Masa</h2>
 
-    <!-- Promo Friday - Lasagna 2x1 -->
-    <div id="masa-promo-friday" class="hidden">
-      <h3 class="menu-category">🎉 Promociones 2x1</h3>
-      <p style="font-size:12px;color:#dc2626;margin-top:4px;font-weight:600;">2x1 en Lasagna Boloñesa y Vegetariana, solo día VIERNES</p>
-
-      <div class="menu-item">
-        <img onclick="openLightbox(this.src)" src="images/menus/masa-lasagna-bolonesa.jpg">
-        <div>
-          <strong>Lasagna Boloñesa</strong>
-          <p>Pasta fresca, carne molida, salsa de tomate, salsa bechamel.</p>
-          <div class="burger-variant">
-            <span class="variant-name">S/50.</span>
-            <div class="qty-controls">
-              <button class="qty-btn plus" onclick="addToCart({id:'masa-lasagna-bolonesa',restaurant:'Masa',name:'Lasagna Boloñesa',price:50})">+</button>
-              <span class="qty-number" id="qty-masa-lasagna-bolonesa">0</span>
-              <button class="qty-btn minus" onclick="removeFromCart('masa-lasagna-bolonesa')">−</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <img onclick="openLightbox(this.src)" src="images/menus/masa-lasagna-vegetariana.jpg">
-        <div>
-          <strong>Lasagna Vegetariana</strong>
-          <p>Pasta fresca, salsa bechamel, mix de verduras.</p>
-          <div class="burger-variant">
-            <span class="variant-name">S/50.</span>
-            <div class="qty-controls">
-              <button class="qty-btn plus" onclick="addToCart({id:'masa-lasagna-vegetariana',restaurant:'Masa',name:'Lasagna Vegetariana',price:50})">+</button>
-              <span class="qty-number" id="qty-masa-lasagna-vegetariana">0</span>
-              <button class="qty-btn minus" onclick="removeFromCart('masa-lasagna-vegetariana')">−</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Promo Monday - Pizza 2x1 -->
-    <div id="masa-promo-monday" class="hidden">
-      <h3 class="menu-category">🎉 Promo 2x1 PIZZAS</h3>
-      <p style="font-size:13px;color:#dc2626;margin-top:4px;font-weight:700;text-align:center;background:#fee2e2;padding:8px;border-radius:8px;">🍕 Durante toda esta semana, 2x1 en todas nuestras Pizzas de 8 piezas</p>
-    </div>
-
     <!-- Entradas -->
     <h3 class="menu-category">🥖 Entradas</h3>
 
@@ -3426,20 +3382,6 @@ function openMenu(menuId, restaurantId) {
     }
   }
 
-  if (menuId === 'menu-masa') {
-    const promoFriday = document.getElementById('masa-promo-friday');
-    const promoMonday = document.getElementById('masa-promo-monday');
-    const now = getPeruTime();
-    const promoStart = new Date(Date.UTC(2026, 4, 1)); // Mayo 1
-    const promoEnd = new Date(Date.UTC(2026, 4, 7, 23, 59, 59)); // Mayo 7
-    const isActive = now >= promoStart && now <= promoEnd;
-
-    if (promoFriday) {
-      promoFriday.classList.add('hidden');
-    }
-    if (promoMonday) {
-      promoMonday.classList.toggle('hidden', !isActive);
-    }
   }
 }
 
@@ -3605,18 +3547,9 @@ function checkRestaurantHours() {
       const status = isMasaStatus();
       isOpen = status.status === "open";
 
-      // Promo 2x1 PIZZAS por 7 dias (1-7 mayo 2026)
-      const now = getPeruTime();
-      const promoStart = new Date(Date.UTC(2026, 4, 1)); // Mayo 1
-      const promoEnd = new Date(Date.UTC(2026, 4, 7, 23, 59, 59)); // Mayo 7
       const promoBadge = card.querySelector('#masa-promo-badge');
       if (promoBadge) {
-        if (now >= promoStart && now <= promoEnd) {
-          promoBadge.textContent = "🎉 2x1 PIZZAS";
-          promoBadge.classList.remove('hidden');
-        } else {
-          promoBadge.classList.add('hidden');
-        }
+        promoBadge.classList.add('hidden');
       }
 
       if (scheduleLabel) scheduleLabel.textContent = status.schedule;
