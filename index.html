@@ -1176,52 +1176,19 @@ const appVersion = '2026.05.15-FIX';
   <div class="featured-section">
     <h2 class="section-title-featured">🔥 DESTACADOS 🔥</h2>
 
-    <!-- Restaurante Destacado: Cafe Coral -->
+    <!-- Restaurante Destacado: Masa -->
     <div class="card featured-card">
-  <div 
-    class="restaurant-card"
-    id="rest-cafe-coral"
-    data-special="cafe-coral"
-    data-featured="true"
-    data-category="hamburguesas,cafe,postres,sandwiches"
-    onclick="openMenu('menu-cafe-coral', 'rest-cafe-coral')"
-  >
-    <img onclick="openLightbox(this.src)" src="images/cafecorallogofinal.png">
-    <div class="card-content">
-      
-      <div class="featured-badge">⭐ DESTACADO</div> <div class="badge-top badge-top-2">🥈 TOP 2 - Pedidos</div>
-
-      <div class="badge-separator"></div>
-      
-      <div class="restaurant-name">🍰 Café Coral</div>
-      <p>Postres & Hamburguesas</p>
-      <p class="schedule-label" style="font-size:14px;color:#16a34a;">
-  🕒 10:00 a.m. – 10:00 p.m.
-</p>
-       <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">
-  ⛔ Cerrado ahora
-</p>
-       <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
-</div>
-    </div>
-  </div>
-
-<h2 class="section-title">🍽️ RESTAURANTES 🍽️</h2>
-
-  <div id="restaurants-list">
-
-    <!-- Restaurante: Masa -->
-    <div class="card">
       <div 
         class="restaurant-card"
         id="rest-masa"
         data-special="masa"
+        data-featured="true"
         data-category="pizzas,pastas"
         onclick="openMenu('menu-masa', 'rest-masa')"
       >
         <img onclick="openLightbox(this.src)" src="images/masalogo.png">
         <div class="card-content">
-          <!-- Masa promo badge hidden by default, controlled by JS -->
+          <div class="featured-badge">⭐ DESTACADO</div>
           <div id="masa-promo-badge" class="hidden badge-promo" style="background:linear-gradient(135deg,#dc2626,#b91c1c);">
             🎉 2x1 LUNES
           </div>
@@ -1237,6 +1204,32 @@ const appVersion = '2026.05.15-FIX';
        <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">
   ⛔ Cerrado ahora
 </p>
+          <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
+        </div>
+      </div>
+    </div>
+
+<h2 class="section-title">🍽️ RESTAURANTES 🍽️</h2>
+
+  <div id="restaurants-list">
+
+    <!-- Restaurante: Cafe Coral -->
+    <div class="card">
+      <div 
+        class="restaurant-card"
+        id="rest-cafe-coral"
+        data-special="cafe-coral"
+        data-category="hamburguesas,cafe,postres,sandwiches"
+        onclick="openMenu('menu-cafe-coral', 'rest-cafe-coral')"
+      >
+        <img onclick="openLightbox(this.src)" src="images/cafecorallogofinal.png">
+        <div class="card-content">
+          <div class="badge-top badge-top-2">🥈 TOP 2 - Pedidos</div>
+          <div class="badge-separator"></div>
+          <div class="restaurant-name">🍰 Café Coral</div>
+          <p>Postres & Hamburguesas</p>
+          <p class="schedule-label" style="font-size:14px;color:#16a34a;">🕒 10:00 a.m. – 10:00 p.m.</p>
+          <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">⛔ Cerrado ahora</p>
           <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
         </div>
       </div>
