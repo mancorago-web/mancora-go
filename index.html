@@ -1189,9 +1189,6 @@ const appVersion = '2026.05.15-FIX';
         <img onclick="openLightbox(this.src)" src="images/masalogo.png">
         <div class="card-content">
           <div class="featured-badge">⭐ DESTACADO</div>
-          <div id="masa-promo-badge" class="hidden badge-promo" style="background:linear-gradient(135deg,#dc2626,#b91c1c);">
-            🎉 2x1 LUNES
-          </div>
           <span id="masa-new-badge" class="badge-new" style="background:#fef3c7;color:#92400e;border:1px solid #f59e0b;">
             🆕 NUEVO EN MANCORA GO!
           </span>
@@ -2270,101 +2267,6 @@ const appVersion = '2026.05.15-FIX';
 
     <h2>Menú – Masa</h2>
 
-    <!-- Promo Friday - Lasagna 2x1 -->
-    <div id="masa-promo-friday" class="hidden">
-      <h3 class="menu-category">🎉 Promociones 2x1</h3>
-      <p style="font-size:12px;color:#dc2626;margin-top:4px;font-weight:600;">2x1 en Lasagna Boloñesa y Vegetariana, solo día VIERNES</p>
-
-      <div class="menu-item">
-        <img onclick="openLightbox(this.src)" src="images/menus/masa-lasagna-bolonesa.jpg">
-        <div>
-          <strong>Lasagna Boloñesa</strong>
-          <p>Pasta fresca, carne molida, salsa de tomate, salsa bechamel.</p>
-          <div class="burger-variant">
-            <span class="variant-name">S/50.</span>
-            <div class="qty-controls">
-              <button class="qty-btn plus" onclick="addToCart({id:'masa-lasagna-bolonesa',restaurant:'Masa',name:'Lasagna Boloñesa',price:50})">+</button>
-              <span class="qty-number" id="qty-masa-lasagna-bolonesa">0</span>
-              <button class="qty-btn minus" onclick="removeFromCart('masa-lasagna-bolonesa')">−</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <img onclick="openLightbox(this.src)" src="images/menus/masa-lasagna-vegetariana.jpg">
-        <div>
-          <strong>Lasagna Vegetariana</strong>
-          <p>Pasta fresca, salsa bechamel, mix de verduras.</p>
-          <div class="burger-variant">
-            <span class="variant-name">S/50.</span>
-            <div class="qty-controls">
-              <button class="qty-btn plus" onclick="addToCart({id:'masa-lasagna-vegetariana',restaurant:'Masa',name:'Lasagna Vegetariana',price:50})">+</button>
-              <span class="qty-number" id="qty-masa-lasagna-vegetariana">0</span>
-              <button class="qty-btn minus" onclick="removeFromCart('masa-lasagna-vegetariana')">−</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Promo Monday - Pizza 2x1 -->
-    <div id="masa-promo-monday" class="hidden">
-      <h3 class="menu-category">🎉 Promo 2x1 PIZZAS</h3>
-      <p style="font-size:13px;color:#dc2626;margin-top:4px;font-weight:700;text-align:center;background:#fee2e2;padding:8px;border-radius:8px;">🍕 2x1 en CUALQUIER PIZZA de 8 pzas | Solo día LUNES</p>
-    </div>
-
-    <!-- Entradas -->
-    <h3 class="menu-category">🥖 Entradas</h3>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/masa-pan-ajo.jpg">
-      <div>
-        <strong>Pan de ajo</strong>
-        <p>Pan casero, ajo, aceite de oliva y orégano.</p>
-        <div class="burger-variant">
-          <span class="variant-name">S/15.</span>
-          <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'masa-pan-ajo',restaurant:'Masa',name:'Pan de ajo',price:15})">+</button>
-            <span class="qty-number" id="qty-masa-pan-ajo">0</span>
-            <button class="qty-btn minus" onclick="removeFromCart('masa-pan-ajo')">−</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/masa-bruschetta.jpg">
-      <div>
-        <strong>Bruschetta</strong>
-        <p>Pan casero, tomate fresco, ajo, albahaca y aceite de oliva.</p>
-        <div class="burger-variant">
-          <span class="variant-name">S/20.</span>
-          <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'masa-bruschetta',restaurant:'Masa',name:'Bruschetta',price:20})">+</button>
-            <span class="qty-number" id="qty-masa-bruschetta">0</span>
-            <button class="qty-btn minus" onclick="removeFromCart('masa-bruschetta')">−</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/masa-crostini-misti.jpg">
-      <div>
-        <strong>Crostini Misti</strong>
-        <p>Pan casero, Berenjena, zucchini, champiñones con queso mozzarella y queso azul.</p>
-        <div class="burger-variant">
-          <span class="variant-name">S/30.</span>
-          <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'masa-crostini-misti',restaurant:'Masa',name:'Crostini Misti',price:30})">+</button>
-            <span class="qty-number" id="qty-masa-crostini-misti">0</span>
-            <button class="qty-btn minus" onclick="removeFromCart('masa-crostini-misti')">−</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Pizzas Clásicas -->
     <h3 class="menu-category">🍕 Pizzas Clásicas</h3>
 
@@ -2729,128 +2631,6 @@ const appVersion = '2026.05.15-FIX';
             <button class="qty-btn plus" onclick="addToCart({id:'masa-caprichosa-12',restaurant:'Masa',name:'Capricciosa 12p',price:65})">+</button>
             <span class="qty-number" id="qty-masa-caprichosa-12">0</span>
             <button class="qty-btn minus" onclick="removeFromCart('masa-caprichosa-12')">−</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Lasagnas -->
-    <h3 class="menu-category">🍝 Lasagnas</h3>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/masa-lasagna-bolonesa.jpg">
-      <div>
-        <strong>Lasagna Boloñesa</strong>
-        <p>Pasta fresca, carne molida, salsa de tomate, salsa bechamel.</p>
-        <div class="burger-variant">
-          <span class="variant-name">S/40.</span>
-          <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'masa-lasagna-bolonesa-permanente',restaurant:'Masa',name:'Lasagna Boloñesa',price:40})">+</button>
-            <span class="qty-number" id="qty-masa-lasagna-bolonesa-permanente">0</span>
-            <button class="qty-btn minus" onclick="removeFromCart('masa-lasagna-bolonesa-permanente')">−</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/masa-lasagna-vegetariana.jpg">
-      <div>
-        <strong>Lasagna Vegetariana</strong>
-        <p>Pasta fresca, salsa bechamel, mix de verduras.</p>
-        <div class="burger-variant">
-          <span class="variant-name">S/40.</span>
-          <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'masa-lasagna-vegetariana-permanente',restaurant:'Masa',name:'Lasagna Vegetariana',price:40})">+</button>
-            <span class="qty-number" id="qty-masa-lasagna-vegetariana-permanente">0</span>
-            <button class="qty-btn minus" onclick="removeFromCart('masa-lasagna-vegetariana-permanente')">−</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bebidas -->
-    <h3 class="menu-category">🥤 Bebidas</h3>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/coca-cola.jpg">
-      <div>
-        <strong>Coca Cola</strong>
-        <div class="burger-variant">
-          <span class="variant-name">1.5L: S/15.</span>
-          <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'masa-coca-1.5l',restaurant:'Masa',name:'Coca Cola 1.5L',price:15})">+</button>
-            <span class="qty-number" id="qty-masa-coca-1.5l">0</span>
-            <button class="qty-btn minus" onclick="removeFromCart('masa-coca-1.5l')">−</button>
-          </div>
-        </div>
-        <div class="burger-variant">
-          <span class="variant-name">600ml: S/6.</span>
-          <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'masa-coca-600ml',restaurant:'Masa',name:'Coca Cola 600ml',price:6})">+</button>
-            <span class="qty-number" id="qty-masa-coca-600ml">0</span>
-            <button class="qty-btn minus" onclick="removeFromCart('masa-coca-600ml')">−</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/inka-cola.jpg">
-      <div>
-        <strong>Inka Cola</strong>
-        <div class="burger-variant">
-          <span class="variant-name">1.5L: S/15.</span>
-          <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'masa-inka-1.5l',restaurant:'Masa',name:'Inka Cola 1.5L',price:15})">+</button>
-            <span class="qty-number" id="qty-masa-inka-1.5l">0</span>
-            <button class="qty-btn minus" onclick="removeFromCart('masa-inka-1.5l')">−</button>
-          </div>
-        </div>
-        <div class="burger-variant">
-          <span class="variant-name">600ml: S/6.</span>
-          <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'masa-inka-600ml',restaurant:'Masa',name:'Inka Cola 600ml',price:6})">+</button>
-            <span class="qty-number" id="qty-masa-inka-600ml">0</span>
-            <button class="qty-btn minus" onclick="removeFromCart('masa-inka-600ml')">−</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/corona.jpg">
-      <div>
-        <strong>Corona Personal</strong>
-        <div class="burger-variant">
-          <span class="variant-name">S/8.</span>
-          <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'masa-corona',restaurant:'Masa',name:'Corona Personal',price:8})">+</button>
-            <span class="qty-number" id="qty-masa-corona">0</span>
-            <button class="qty-btn minus" onclick="removeFromCart('masa-corona')">−</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img onclick="openLightbox(this.src)" src="images/menus/cusquena.jpg">
-      <div>
-        <strong>Cusqueña Personal</strong>
-        <div class="burger-variant">
-          <span class="variant-name">Trigo: S/8.</span>
-          <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'masa-cusquena-trigo',restaurant:'Masa',name:'Cusqueña Trigo',price:8})">+</button>
-            <span class="qty-number" id="qty-masa-cusquena-trigo">0</span>
-            <button class="qty-btn minus" onclick="removeFromCart('masa-cusquena-trigo')">−</button>
-          </div>
-        </div>
-        <div class="burger-variant">
-          <span class="variant-name">Dorada: S/8.</span>
-          <div class="qty-controls">
-            <button class="qty-btn plus" onclick="addToCart({id:'masa-cusquena-dorada',restaurant:'Masa',name:'Cusqueña Dorada',price:8})">+</button>
-            <span class="qty-number" id="qty-masa-cusquena-dorada">0</span>
-            <button class="qty-btn minus" onclick="removeFromCart('masa-cusquena-dorada')">−</button>
           </div>
         </div>
       </div>
@@ -3425,19 +3205,6 @@ function openMenu(menuId, restaurantId) {
       });
     }
   }
-
-  if (menuId === 'menu-masa') {
-    const promoFriday = document.getElementById('masa-promo-friday');
-    const promoMonday = document.getElementById('masa-promo-monday');
-    const peruDay = getPeruTime().getDay();
-
-    if (promoFriday) {
-      promoFriday.classList.toggle('hidden', peruDay !== 5);
-    }
-    if (promoMonday) {
-      promoMonday.classList.toggle('hidden', peruDay !== 1);
-    }
-  }
 }
 
 function closeMenus() {
@@ -3601,18 +3368,6 @@ function checkRestaurantHours() {
     else if (card.dataset.special === "masa") {
       const status = isMasaStatus();
       isOpen = status.status === "open";
-
-      // Mostrar badge promo 2x1 los dias lunes (1) y viernes (5)
-      const peruDay = getPeruTime().getDay();
-      const promoBadge = card.querySelector('#masa-promo-badge');
-      if (promoBadge) {
-        if (peruDay === 1 || peruDay === 5) {
-          promoBadge.textContent = peruDay === 1 ? "🎉 2x1 LUNES" : "🎉 2x1 VIERNES";
-          promoBadge.classList.remove('hidden');
-        } else {
-          promoBadge.classList.add('hidden');
-        }
-      }
 
       if (scheduleLabel) scheduleLabel.textContent = status.schedule;
       if (closedLabel) {
