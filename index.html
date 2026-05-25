@@ -3285,9 +3285,6 @@ function isCafeCoralStatus() {
 }
 
 function isBarrioBurguerStatus() {
-  // FORZAR CERRADO HOY
-  return { status: "closed-now", schedule: "🕒 4:00 p.m. – 10:00 p.m." };
-
   const now = getPeruTime();
   const day = now.getDay();
   const minutes = now.getHours() * 60 + now.getMinutes();
