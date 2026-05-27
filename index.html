@@ -11,12 +11,12 @@
   <meta http-equiv="Expires" content="0">
   
   <!-- Version marker for cache busting -->
-  <meta name="version" content="2026.04.22">
+  <meta name="version" content="2026.05.27-KAYSEN">
 </head>
 <body>
     <!-- Version marker for cache busting -->
     <script>
-      const currentVersion = '2026.05.15-FIX';
+      const currentVersion = '2026.05.27-KAYSEN';
       
       // Masa NUEVO badge - expires after 7 days from first load
       const masaNewBadgeKey = 'masa-new-badge-date';
@@ -75,7 +75,7 @@
       }
       
       // Check for new version periodically
-const appVersion = '2026.05.15-FIX';
+const appVersion = '2026.05.27-KAYSEN';
       setInterval(() => {
         fetch('/?v=' + Date.now())
           .then(() => {
@@ -1302,27 +1302,31 @@ const appVersion = '2026.05.15-FIX';
       </div>
     </div>
     
+    <!-- Restaurante: Kay Sen -->
+    <div class="card">
+      <div 
+        class="restaurant-card"
+        id="rest-kaisen"
+        data-special="kaisen"
+        data-category="chifa,pollos"
+        onclick="openMenu('menu-kaisen', 'rest-kaisen')"
+      >
+        <img onclick="openLightbox(this.src)" src="images/kaisenlogofinal.png">
+        <div class="card-content">
+          <div class="restaurant-name">🍜 Kay Sen</div>
+          <p>Chifa & Broaster</p>
+          <p class="schedule-label" style="font-size:14px;color:#16a34a;">🕒 7:30 p.m. – 11:30 p.m.</p>
+          <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">⛔ Cerrado ahora</p>
+          <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
+        </div>
+      </div>
+    </div>
+    
   </div>
 
   <h2 class="section-title">🚀 PRÓXIMAMENTE 🚀</h2>
 
   <div id="upcoming-list">
-
-    <!-- Restaurante Próximamente: Kay Sen -->
-    <div class="card upcoming-card">
-      <div class="restaurant-card upcoming" id="rest-kaisen" data-category="pollos,chifa">
-        <img onclick="openLightbox(this.src)" src="images/kaisenlogofinal.png">
-        <div class="card-content">
-          <div class="badge-construction">🚧 En construcción</div>
-          <div class="badge-separator"></div>
-          <div class="restaurant-name">🍜 Kay Sen</div>
-          <p>Chifa & Broaster</p>
-          <p class="upcoming-label">
-            🚀 Próximamente en Máncora Go
-          </p>
-        </div>
-      </div>
-    </div>
 
   </div>
 
@@ -2643,6 +2647,230 @@ const appVersion = '2026.05.15-FIX';
   </div>
 </div>
 
+<!-- Menú Kay Sen -->
+<div class="card hidden menu-section" id="menu-kaisen">
+  <div class="card-content">
+
+    <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
+      ← Volver a restaurantes
+    </a>
+
+    <h2>Menú – Kay Sen</h2>
+
+    <!-- Wantanes -->
+    <h3 class="menu-category">🥟 Wantanes</h3>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/kaisenlogofinal.png">
+      <div>
+        <strong>Wantan de pollo</strong>
+        <p>Wantanes fritos rellenos de pollo.</p>
+        <div class="burger-variant">
+          <span class="variant-name">S/15.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'kaisen-wantan-pollo',restaurant:'Kay Sen',name:'Wantan de pollo',price:15})">+</button>
+            <span class="qty-number" id="qty-kaisen-wantan-pollo">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('kaisen-wantan-pollo')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chaufas -->
+    <h3 class="menu-category">🍚 Chaufas</h3>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/kaisenlogofinal.png">
+      <div>
+        <strong>Chaufa pollo</strong>
+        <p>Arroz chaufa con pollo.</p>
+        <div class="burger-variant">
+          <span class="variant-name">S/15.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'kaisen-chaufa-pollo',restaurant:'Kay Sen',name:'Chaufa pollo',price:15})">+</button>
+            <span class="qty-number" id="qty-kaisen-chaufa-pollo">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('kaisen-chaufa-pollo')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/kaisenlogofinal.png">
+      <div>
+        <strong>Chaufa especial</strong>
+        <p>Arroz chaufa especial con pollo, huevo, verduras.</p>
+        <div class="burger-variant">
+          <span class="variant-name">S/20.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'kaisen-chaufa-especial',restaurant:'Kay Sen',name:'Chaufa especial',price:20})">+</button>
+            <span class="qty-number" id="qty-kaisen-chaufa-especial">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('kaisen-chaufa-especial')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aeropuertos -->
+    <h3 class="menu-category">✈️ Aeropuertos</h3>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/kaisenlogofinal.png">
+      <div>
+        <strong>Aeropuerto pollo</strong>
+        <p>Aeropuerto tradicional con pollo.</p>
+        <div class="burger-variant">
+          <span class="variant-name">S/18.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'kaisen-aeropuerto-pollo',restaurant:'Kay Sen',name:'Aeropuerto pollo',price:18})">+</button>
+            <span class="qty-number" id="qty-kaisen-aeropuerto-pollo">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('kaisen-aeropuerto-pollo')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/kaisenlogofinal.png">
+      <div>
+        <strong>Aeropuerto especial</strong>
+        <p>Aeropuerto especial con pollo, huevo, verduras.</p>
+        <div class="burger-variant">
+          <span class="variant-name">S/22.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'kaisen-aeropuerto-especial',restaurant:'Kay Sen',name:'Aeropuerto especial',price:22})">+</button>
+            <span class="qty-number" id="qty-kaisen-aeropuerto-especial">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('kaisen-aeropuerto-especial')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tallarines -->
+    <h3 class="menu-category">🍝 Tallarines</h3>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/kaisenlogofinal.png">
+      <div>
+        <strong>Tallarín con pollo</strong>
+        <p>Tallarín saltado con pollo.</p>
+        <div class="burger-variant">
+          <span class="variant-name">S/18.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'kaisen-tallarin-pollo',restaurant:'Kay Sen',name:'Tallarín con pollo',price:18})">+</button>
+            <span class="qty-number" id="qty-kaisen-tallarin-pollo">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('kaisen-tallarin-pollo')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/kaisenlogofinal.png">
+      <div>
+        <strong>Tallarín taypa</strong>
+        <p>Tallarín taypa con pollo, verduras, huevo.</p>
+        <div class="burger-variant">
+          <span class="variant-name">S/22.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'kaisen-tallarin-taypa',restaurant:'Kay Sen',name:'Tallarín taypa',price:22})">+</button>
+            <span class="qty-number" id="qty-kaisen-tallarin-taypa">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('kaisen-tallarin-taypa')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Combos -->
+    <h3 class="menu-category">🍱 Combos</h3>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/kaisenlogofinal.png">
+      <div>
+        <strong>Chaufa + alitas bbq</strong>
+        <p>Arroz chaufa acompañado de alitas bbq.</p>
+        <div class="burger-variant">
+          <span class="variant-name">S/17.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'kaisen-combo-chaufa-alitas-bbq',restaurant:'Kay Sen',name:'Chaufa + alitas bbq',price:17})">+</button>
+            <span class="qty-number" id="qty-kaisen-combo-chaufa-alitas-bbq">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('kaisen-combo-chaufa-alitas-bbq')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/kaisenlogofinal.png">
+      <div>
+        <strong>Chaufa + alitas acevichadas</strong>
+        <p>Arroz chaufa acompañado de alitas acevichadas.</p>
+        <div class="burger-variant">
+          <span class="variant-name">S/17.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'kaisen-combo-chaufa-alitas-acevichadas',restaurant:'Kay Sen',name:'Chaufa + alitas acevichadas',price:17})">+</button>
+            <span class="qty-number" id="qty-kaisen-combo-chaufa-alitas-acevichadas">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('kaisen-combo-chaufa-alitas-acevichadas')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/kaisenlogofinal.png">
+      <div>
+        <strong>Chaufa + tallarín</strong>
+        <p>Arroz chaufa acompañado de tallarín saltado.</p>
+        <div class="burger-variant">
+          <span class="variant-name">S/18.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'kaisen-combo-chaufa-tallarin',restaurant:'Kay Sen',name:'Chaufa + tallarín',price:18})">+</button>
+            <span class="qty-number" id="qty-kaisen-combo-chaufa-tallarin">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('kaisen-combo-chaufa-tallarin')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/kaisenlogofinal.png">
+      <div>
+        <strong>Chaufa + tipacay</strong>
+        <p>Arroz chaufa acompañado de tipacay.</p>
+        <div class="burger-variant">
+          <span class="variant-name">S/17.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'kaisen-combo-chaufa-tipacay',restaurant:'Kay Sen',name:'Chaufa + tipacay',price:17})">+</button>
+            <span class="qty-number" id="qty-kaisen-combo-chaufa-tipacay">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('kaisen-combo-chaufa-tipacay')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img onclick="openLightbox(this.src)" src="images/kaisenlogofinal.png">
+      <div>
+        <strong>Chaufa + chijaukay</strong>
+        <p>Arroz chaufa acompañado de chijaukay.</p>
+        <div class="burger-variant">
+          <span class="variant-name">S/17.</span>
+          <div class="qty-controls">
+            <button class="qty-btn plus" onclick="addToCart({id:'kaisen-combo-chaufa-chijaukay',restaurant:'Kay Sen',name:'Chaufa + chijaukay',price:17})">+</button>
+            <span class="qty-number" id="qty-kaisen-combo-chaufa-chijaukay">0</span>
+            <button class="qty-btn minus" onclick="removeFromCart('kaisen-combo-chaufa-chijaukay')">−</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a href="javascript:void(0)" onclick="closeMenus()" style="display:inline-block;margin-bottom:10px;color:#0ea5e9;font-weight:600;text-decoration:none;">
+      ← Volver a restaurantes
+    </a>
+
+  </div>
+</div>
+
 <div style="display:none;">
   Delivery en Máncora, comida a domicilio en Máncora, restaurantes en Máncora con delivery,
   pedir comida por WhatsApp en Máncora, hamburguesas en Máncora delivery,
@@ -3329,6 +3557,29 @@ function isMasaStatus() {
     schedule: "🕒 5:00 p.m. – 10:00 p.m."
   };
 }
+
+function isKaySenStatus() {
+  const now = getPeruTime();
+  const day = now.getDay();
+  const minutes = now.getHours() * 60 + now.getMinutes();
+
+  if (day === 2) {
+    return {
+      status: "closed-today",
+      schedule: "🚫 Cerrado hoy",
+      message: "🚫 Cerrado por descanso (martes)"
+    };
+  }
+
+  const open = 19.5 * 60;
+  const close = 23.5 * 60;
+  const isOpen = minutes >= open && minutes < close;
+
+  return {
+    status: isOpen ? "open" : "closed-now",
+    schedule: "🕒 7:30 p.m. – 11:30 p.m."
+  };
+}
 </script>
 
 <script>
@@ -3399,6 +3650,22 @@ function checkRestaurantHours() {
     // 🍰 CAFÉ CORAL
     else if (card.dataset.special === "cafe-coral") {
       const status = isCafeCoralStatus();
+      isOpen = status.status === "open";
+
+      if (scheduleLabel) scheduleLabel.textContent = status.schedule;
+      if (closedLabel) {
+        if (!isOpen) {
+          closedLabel.textContent = status.message || "⛔ Cerrado ahora";
+          closedLabel.classList.remove('hidden');
+        } else {
+          closedLabel.classList.add('hidden');
+        }
+      }
+    }
+
+    // 🍜 KAY SEN
+    else if (card.dataset.special === "kaisen") {
+      const status = isKaySenStatus();
       isOpen = status.status === "open";
 
       if (scheduleLabel) scheduleLabel.textContent = status.schedule;
@@ -3781,7 +4048,8 @@ function checkDeliveryPrice() {
       'Café Coral': { lat: -4.107268, lng: -81.057695 },
       'Café de Barrio': { lat: -4.107453, lng: -81.056745 },
       '3 Empanadas': { lat: -4.109579, lng: -81.058479 },
-      'Masa': { lat: -4.110306, lng: -81.057541 }
+      'Masa': { lat: -4.110306, lng: -81.057541 },
+      'Kay Sen': { lat: -4.107300, lng: -81.057800 }
     };
     
     const restaurantName = cart[0]?.restaurant || 'Barrio Burger';
