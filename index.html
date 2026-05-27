@@ -3559,24 +3559,9 @@ function isMasaStatus() {
 }
 
 function isKaySenStatus() {
-  const now = getPeruTime();
-  const day = now.getDay();
-  const minutes = now.getHours() * 60 + now.getMinutes();
-
-  if (day === 2) {
-    return {
-      status: "closed-today",
-      schedule: "🚫 Cerrado hoy",
-      message: "🚫 Cerrado por descanso (martes)"
-    };
-  }
-
-  const open = 19.5 * 60;
-  const close = 23.5 * 60;
-  const isOpen = minutes >= open && minutes < close;
-
+  // ABIERTO PARA PRUEBAS
   return {
-    status: isOpen ? "open" : "closed-now",
+    status: "open",
     schedule: "🕒 7:30 p.m. – 11:30 p.m."
   };
 }
