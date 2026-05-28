@@ -34,6 +34,21 @@
         document.write('<style>#masa-new-badge { display: none !important; }</style>');
       }
       
+      // Kay Sen NUEVO badge - expires after 10 days from first load
+      const kaisenNewBadgeKey = 'kaisen-new-badge-date';
+      if (!localStorage.getItem(kaisenNewBadgeKey)) {
+        localStorage.setItem(kaisenNewBadgeKey, new Date().toISOString());
+      }
+      
+      const kaisenStartDate = new Date(localStorage.getItem(kaisenNewBadgeKey));
+      const kaisenEndDate = new Date(kaisenStartDate.getTime() + (10 * 24 * 60 * 60 * 1000)); // 10 days
+      const kaisenBadgeExpired = now > kaisenEndDate;
+      
+      // Show/hide Kay Sen NUEVO badge
+      if (kaisenBadgeExpired) {
+        document.write('<style>#kaisen-new-badge { display: none !important; }</style>');
+      }
+      
       const savedVersion = localStorage.getItem('appVersion');
       
       if (savedVersion !== currentVersion) {
@@ -1313,6 +1328,10 @@ const appVersion = '2026.05.27-KAYSEN';
       >
         <img onclick="openLightbox(this.src)" src="images/kaisenlogofinal.png">
         <div class="card-content">
+          <span id="kaisen-new-badge" class="badge-new" style="background:#fef3c7;color:#92400e;border:1px solid #f59e0b;">
+            🆕 NUEVO EN MANCORA GO!
+          </span>
+          <div class="badge-separator"></div>
           <div class="restaurant-name">🍜 Kay Sen</div>
           <p>Chifa & Broaster</p>
           <p class="schedule-label" style="font-size:14px;color:#16a34a;">🕒 7:30 p.m. – 11:30 p.m.</p>
@@ -3708,6 +3727,22 @@ function checkRestaurantHours() {
 
   // 🔁 Reordenar
   container.innerHTML = "";
+  
+  // Si Kay Sen está dentro de los 10 días como nuevo restaurante, ponerlo primero
+  (function() {
+    const start = localStorage.getItem('kaisen-new-badge-date');
+    if (start) {
+      const end = new Date(new Date(start).getTime() + (10 * 24 * 60 * 60 * 1000));
+      if (getPeruTime() < end) {
+        const kaisenIndex = openRestaurants.findIndex(c => c.querySelector('#rest-kaisen'));
+        if (kaisenIndex > 0) {
+          const kaisenCard = openRestaurants.splice(kaisenIndex, 1)[0];
+          openRestaurants.unshift(kaisenCard);
+        }
+      }
+    }
+  })();
+  
   openRestaurants.forEach(card => container.appendChild(card));
   closedRestaurants.forEach(card => container.appendChild(card));
 }
