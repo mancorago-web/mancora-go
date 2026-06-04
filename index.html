@@ -4095,10 +4095,15 @@ function checkDeliveryPrice() {
     // Calcular precio: S/5 base + S/3.5 por km
     // Extra S/3 para Masa (zona difícil de acceso)
     const masaExtraFee = restaurantName === 'Masa' ? 3 : 0;
-    clientDeliveryPrice = Math.round((5 + (distance * 3.5) + masaExtraFee) * 10) / 10;
+    // Recargo nocturno S/3 desde las 10:00 p.m.
+    const peruNow = getPeruTime();
+    const nightSurcharge = peruNow.getHours() >= 22 ? 3 : 0;
+    clientDeliveryPrice = Math.round((5 + (distance * 3.5) + masaExtraFee + nightSurcharge) * 10) / 10;
     
     distanceText.textContent = `📍 Distancia aproximada: ${distance.toFixed(1)} km`;
-    deliveryPriceText.textContent = `🚚 Costo delivery: S/ ${clientDeliveryPrice}`;
+    let deliveryMsg = `🚚 Costo delivery: S/ ${clientDeliveryPrice}`;
+    if (nightSurcharge > 0) deliveryMsg += ` (incl. S/${nightSurcharge} recargo nocturno)`;
+    deliveryPriceText.textContent = deliveryMsg;
     distanceInfo.classList.remove("hidden");
     
     // Actualizar total
