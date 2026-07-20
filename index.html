@@ -1309,10 +1309,11 @@ const appVersion = '2026.05.27-KAYSEN';
           <div class="badge-separator"></div>
           <div class="restaurant-name">🥟 3 Empanadas</div>
           <p>Empanadas Argentinas Artesanales</p>
-          <p style="font-size:14px;color:#ca8a04;font-weight:700;">
-            🕒 Solo por pedido <br> ⏳ 24 horas antes
+          <p class="schedule-label" style="font-size:14px;color:#ca8a04;font-weight:700;">
+            🚫 Cerrado hasta nuevo aviso
           </p>
-          <p style="color:#0ea5e9;font-weight:600;">Ver menú →</p>
+          <p class="closed-label hidden" style="color:#dc2626;font-weight:700;margin-top:6px;">🚫 Cerrado hasta nuevo aviso</p>
+          <p style="color:#9ca3af;font-weight:600;">No disponible</p>
         </div>
       </div>
     </div>
@@ -3695,6 +3696,16 @@ function checkRestaurantHours() {
         } else {
           closedLabel.classList.add('hidden');
         }
+      }
+    }
+
+    // 🥟 3 EMPANADAS - cerrado hasta nuevo aviso
+    else if (card.dataset.special === "preorder-only") {
+      isOpen = false;
+      if (scheduleLabel) scheduleLabel.textContent = "🚫 Cerrado hasta nuevo aviso";
+      if (closedLabel) {
+        closedLabel.textContent = "🚫 Cerrado hasta nuevo aviso";
+        closedLabel.classList.remove('hidden');
       }
     }
 
