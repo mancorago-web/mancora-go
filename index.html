@@ -3716,14 +3716,6 @@ function checkRestaurantHours() {
       isOpen = !(currentHour < open || currentHour >= close);
     }
 
-    // ⛔ CERRADO POR DESCANSO - todos los restaurantes cerrados hasta nuevo aviso
-    isOpen = false;
-    if (closedLabel) {
-      closedLabel.textContent = "⛔ CERRADO POR DESCANSO";
-      closedLabel.classList.remove("hidden");
-    }
-    if (scheduleLabel) scheduleLabel.style.display = "none";
-
     // 🎯 ESTADO VISUAL
     const cardWrapper = card.closest(".card");
     const isFeatured = card.dataset.featured === "true";
